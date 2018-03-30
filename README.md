@@ -1,5 +1,12 @@
 # GooseBib
 
+<!-- MarkdownTOC -->
+
+- Overview
+- Installation
+
+<!-- /MarkdownTOC -->
+
 # Overview
 
 Some simple command-line tools to clean-up BibTeX files. The following tools are available:
