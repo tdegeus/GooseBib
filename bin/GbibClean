@@ -16,6 +16,8 @@ Options:
       --ignore-math       Do not apply math-mode fix.
       --ignore-unicode    Do not apply unicode fix.
       --dot-space=<str>   Character separating abbreviation dots. [default: ]
+      --verbose-doi       Print entries from which the doi was automatically extracted.
+      --verbose-arxivid   Print entries from which the arxivid was automatically extracted.
       --version           Show version.
   -h, --help              Show help.
 
@@ -227,12 +229,14 @@ for entry in bib.entries:
     doi = getDoi(*[val for key,val in entry.items() if key not in ['arxivid', 'eprint']])
     if doi:
       entry['doi'] = doi
+      if args['verbose_doi']: print(entry['ID'])
 
   # find arXiv-id
   if 'arxivid' not in entry:
     arxivid = getArxiv(*[val for key,val in entry.items() if key not in ['doi']])
     if arxivid:
       entry['arxivid'] = arxivid
+      if args['verbose_arxivid']: print(entry['ID'])
 
   # get author separations
   sep = args['author_sep']

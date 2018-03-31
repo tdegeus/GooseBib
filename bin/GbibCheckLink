@@ -7,9 +7,9 @@ Usage:
   GbibLink [options] <bibfile>
 
 Options:
-  -n, --no-link           Print entries that do not have any of the listed links.
-      --version           Show version.
-  -h, --help              Show help.
+  -n, --no-link   Print entries that do not have any of the listed links.
+      --version   Show version.
+  -h, --help      Show help.
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
