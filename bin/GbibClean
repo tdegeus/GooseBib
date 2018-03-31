@@ -29,7 +29,9 @@ import os, re, sys, bibtexparser, docopt
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
 def Error(msg,exit_code=1):
+
   print(msg)
+
   sys.exit(exit_code)
 
 # ===================================== RECURSIVE REPLACEMENT ======================================
@@ -193,11 +195,11 @@ args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
 # ---------------------------------------- check arguments -----------------------------------------
 
-# check that the input-file exists
+# check that the BibTeX file exists
 if not os.path.isfile(args['input']):
   Error('"{input:s}" does not exist'.format(**args))
 
-# if the file is an existing directory -> convert to file with same name as the input file
+# if "output" is an existing directory; convert to file with same name as the input file
 if os.path.isdir(args['output']):
   args['output'] = os.path.join(args['output'], os.path.split(args['input'])[-1])
 
