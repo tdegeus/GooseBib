@@ -63,7 +63,8 @@ def getDoi(*args):
   for regex, sub in match:
     for arg in args:
       if re.match(regex, arg):
-        return re.sub(regex, sub, arg)
+        num = re.sub(regex, sub, arg)
+        if not re.match(r'(.*)([\s])(.*)',num): return num
 
   # quit function without a positive match
   return None
@@ -84,7 +85,8 @@ def getArxiv(*args):
   for regex, sub in match:
     for arg in args:
       if re.match(regex, arg):
-        return re.sub(regex, sub, arg)
+        num = re.sub(regex, sub, arg)
+        if not re.match(r'(.*)([\s])(.*)',num): return num
 
   # quit function without a positive match
   return None
@@ -214,6 +216,11 @@ bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.Bib
 # -----------
 
 for entry in bib.entries:
+
+  # fix known Mendeley bugs
+  if 'journal' in entry:
+    if entry['journal'] == 'EPL (Europhysics Lett.': entry['journal'] = 'EPL (Europhys. Lett.)'
+    if entry['journal'] == 'Science (80-. ).'      : entry['journal'] = 'Science'
 
   # find doi
   if 'doi' not in entry:

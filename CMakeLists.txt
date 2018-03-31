@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.0)
 project(GooseBib)
 
 # initialize list with binaries
-set(PROJECT_BINARIES "bin/GbibClean" "bin/GbibParse" "bin/GbibSelect")
+set(PROJECT_BINARIES "bin/GbibClean" "bin/GbibParse" "bin/GbibSelect" "bin/GbibCheckLink")
 
 # install binaries
 INSTALL(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_BINARIES} DESTINATION bin)

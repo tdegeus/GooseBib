@@ -23,6 +23,10 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
     Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes.
 
+*   [GbibCheckLink](bin/GbibCheckLink)
+
+    Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!).
+
 # Installation
 
 To get these scripts to work you can:
