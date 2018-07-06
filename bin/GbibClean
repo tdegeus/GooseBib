@@ -16,6 +16,7 @@ Options:
       --ignore-math       Do not apply math-mode fix.
       --ignore-unicode    Do not apply unicode fix.
       --dot-space=<str>   Character separating abbreviation dots. [default: ]
+      --no-title          Remove title from BibTeX file.
       --verbose-doi       Print entries from which the doi was automatically extracted.
       --verbose-arxivid   Print entries from which the arxivid was automatically extracted.
       --version           Show version.
@@ -245,6 +246,10 @@ for entry in bib.entries:
   for key in ['author','editor']:
     if key in entry:
       entry[key] = ' and '.join([reformatAuthor(i,sep) for i in entry[key].split(' and ')])
+
+  # remove title
+  if args['no_title']:
+    entry.pop('title',None)
 
   # protect math-mode
   if not args['ignore_math']:
