@@ -2,8 +2,8 @@
 
 <!-- MarkdownTOC -->
 
-- Overview
-- Installation
+- [Overview](#overview)
+- [Installation](#installation)
 
 <!-- /MarkdownTOC -->
 
@@ -26,6 +26,10 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 *   [GbibCheckLink](bin/GbibCheckLink)
 
     Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!).
+
+*   [GbibCheckAuthors](bin/GbibCheckAuthors)
+
+    Check for authors that are possibly stored in more than one way.
 
 # Installation
 
