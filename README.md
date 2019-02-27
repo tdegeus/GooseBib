@@ -13,7 +13,7 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
 *   [GbibSelect](bin/GbibSelect)
 
-    Select only those entries present in one or several TeX files.
+    Select only those entries present in a TeX file (or in a project composed of several TeX files).
 
 *   [GbibParse](bin/GbibParse)
 
@@ -23,13 +23,13 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
     Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes.
 
-*   [GbibCheckLink](bin/GbibCheckLink)
-
-    Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!).
-
 *   [GbibCheckAuthors](bin/GbibCheckAuthors)
 
     Check for authors that are possibly stored in more than one way.
+
+*   [GbibCheckLink](bin/GbibCheckLink)
+
+    Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!). Note that this function only checks the links to be valid. It does not check if they refer to the correct reference.
 
 # Installation
 
