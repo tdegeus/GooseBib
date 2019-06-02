@@ -56,10 +56,10 @@ def getDoi(*args):
 
   # define find/replace criteria
   match = [
-    ( re.compile(r'(.*)(https://doi.org/)([^\s]*)(.*)', re.IGNORECASE), r'\3'),
-    ( re.compile(r'(.*)(http://doi.org/)([^\s]*)(.*)' , re.IGNORECASE), r'\3'),
-    ( re.compile(r'(.*)(doi/abs/)([^\s]*)(.*)'        , re.IGNORECASE), r'\3'),
-    ( re.compile(r'(.*)(doi)([^\s]*)(.*)'             , re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(https://doi.org/)([^\s]*)(.*)', re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(http://doi.org/)([^\s]*)(.*)' , re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(doi/abs/)([^\s]*)(.*)'        , re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(doi)([^\s]*)(.*)'             , re.IGNORECASE), r'\3'),
   ]
 
   # try to find matching entries (and strip them)
@@ -78,10 +78,10 @@ def getArxiv(*args):
 
   # define find/replace criteria
   match = [
-    ( re.compile(r'(.*)(https://arxiv.org/abs/)([^\s]*)(.*)', re.IGNORECASE), r'\3'),
-    ( re.compile(r'(.*)(http://arxiv.org/abs/)([^\s]*)(.*)' , re.IGNORECASE), r'\3'),
-    ( re.compile(r'(.*)(arxiv)([^:]*)([:]?)(.*)'            , re.IGNORECASE), r'\5'),
-    ( re.compile(r'([0-9]*\.[0-9]*[v]?[0-9]*)'              , re.IGNORECASE), r'\1'),
+    (re.compile(r'(.*)(https://arxiv.org/abs/)([^\s]*)(.*)', re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(http://arxiv.org/abs/)([^\s]*)(.*)' , re.IGNORECASE), r'\3'),
+    (re.compile(r'(.*)(arxiv)([^:]*)([:]?)(.*)'            , re.IGNORECASE), r'\5'),
+    (re.compile(r'([0-9]*\.[0-9]*[v]?[0-9]*)'              , re.IGNORECASE), r'\1'),
   ]
 
   # try to find matching entries (and strip them)
@@ -104,17 +104,17 @@ def reformatAuthor(text,sep=' '):
 
   # define find/replace criteria
   match = [
-    ( re.compile(r'(.*)(\(.*\))'                             , re.UNICODE) ,r'\1'          ),
-    ( re.compile(r'([A-Za-z][\}]?)([\w0-9\{\}\'\"\\\.\^\{]*)', re.UNICODE) ,r'\1.'         ),
-    ( re.compile(r'([A-Za-z\.][\-]?)([\ ]*)'                 , re.UNICODE) ,r'\1'          ),
-    ( re.compile(r'([A-Za-z\.][\-]?)([A-Za-z])'              , re.UNICODE) ,r'\1'+sep+r'\2'),
+    (re.compile(r'(.*)(\(.*\))'                             , re.UNICODE) ,r'\1'          ),
+    (re.compile(r'([A-Za-z][\}]*)([\w0-9\{\}\'\"\\\.\^\{]*)', re.UNICODE) ,r'\1.'         ),
+    (re.compile(r'([A-Za-z\.][\-]?)([\ ]*)'                 , re.UNICODE) ,r'\1'          ),
+    (re.compile(r'([A-Za-z\.][\-]?)([A-Za-z])'              , re.UNICODE) ,r'\1'+sep+r'\2'),
   ]
 
   # extract first and last name
-  last,first = text.split(',')
+  last, first = text.split(',')
 
   # update extend all "." with a space, to distinguish initials
-  first = first.replace('.','. ')
+  first = first.replace('.', '. ')
 
   # loop over over find/replace criteria
   for regex, sub in match:
@@ -124,7 +124,7 @@ def reformatAuthor(text,sep=' '):
   first = first.strip()
 
   # rejoin first and last name
-  return last+', '+first.upper()
+  return last + ', ' + first.upper()
 
 # ========================================== PROTECT MATH ==========================================
 
@@ -136,13 +136,13 @@ def protectMath(text):
 
   # define find/replace criteria
   match = [
-    ( re.compile(r'(\{\\\$\})(.*)(\{\\\$\})'     ,re.UNICODE), r'$\2$'       ),
-    ( re.compile(r'(\$\$)(.*)(\$\$)'             ,re.UNICODE), r'$\2$'       ),
-    ( re.compile(r'(\$)(.*)(\{\\{\})(.*)(\$)'    ,re.UNICODE), r'\1\2{\4\5'  ),
-    ( re.compile(r'(\$)(.*)(\{\\}\})(.*)(\$)'    ,re.UNICODE), r'\1\2}\4\5'  ),
-    ( re.compile(r'(\$)(.*)(\{\\_\})(.*)(\$)'    ,re.UNICODE), r'\1\2_\4\5'  ),
-    ( re.compile(r'(\$)(.*)(\{\\^\})(.*)(\$)'    ,re.UNICODE), r'\1\2^\4\5'  ),
-    ( re.compile(r'(\$)(.*)(\\backslash)(.*)(\$)',re.UNICODE), r'\1\2\\\4\5' ),
+    (re.compile(r'(\{\\\$\})(.*)(\{\\\$\})'     ,re.UNICODE), r'$\2$'       ),
+    (re.compile(r'(\$\$)(.*)(\$\$)'             ,re.UNICODE), r'$\2$'       ),
+    (re.compile(r'(\$)(.*)(\{\\{\})(.*)(\$)'    ,re.UNICODE), r'\1\2{\4\5'  ),
+    (re.compile(r'(\$)(.*)(\{\\}\})(.*)(\$)'    ,re.UNICODE), r'\1\2}\4\5'  ),
+    (re.compile(r'(\$)(.*)(\{\\_\})(.*)(\$)'    ,re.UNICODE), r'\1\2_\4\5'  ),
+    (re.compile(r'(\$)(.*)(\{\\^\})(.*)(\$)'    ,re.UNICODE), r'\1\2^\4\5'  ),
+    (re.compile(r'(\$)(.*)(\\backslash)(.*)(\$)',re.UNICODE), r'\1\2\\\4\5' ),
   ]
 
   # loop over over find/replace criteria
