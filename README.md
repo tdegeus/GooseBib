@@ -11,17 +11,21 @@
 
 Some simple command-line tools to clean-up BibTeX files. The following tools are available:
 
-*   [GbibSelect](bin/GbibSelect)
+*   [GbibClean](bin/GbibClean)
 
-    Select only those entries present in a TeX file (or in a project composed of several TeX files).
+    Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes, including abbreviating authors.
 
 *   [GbibParse](bin/GbibParse)
 
     Basic parse of a BibTeX file, to increase compliance with the standard.
 
-*   [GbibClean](bin/GbibClean)
+*   [GbibSelect](bin/GbibSelect)
 
-    Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes, including abbreviating authors.
+    Select only those entries present in a TeX file (or in a project composed of several TeX files).
+
+*   [GbibSelectAlias](bin/GbibSelectAlias)
+
+    Select specific BibTeX fields and (optionally) choose the citation key. The selection is provided to the program using a json-file.
 
 *   [GbibList](bin/GbibList)
 

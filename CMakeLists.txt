@@ -10,6 +10,7 @@ set(PROJECT_BINARIES
   "bin/GbibList"
   "bin/GbibParse"
   "bin/GbibSelect"
+  "bin/GbibSelectAlias"
   "bin/GbibCheckLink"
   "bin/GbibCheckAuthors")
 
