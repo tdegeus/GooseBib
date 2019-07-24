@@ -21,7 +21,11 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
 *   [GbibClean](bin/GbibClean)
 
-    Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes.
+    Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes, including abbreviating authors.
+
+*   [GbibList](bin/GbibList)
+
+    List a specific field for all BibTeX entries.
 
 *   [GbibCheckAuthors](bin/GbibCheckAuthors)
 
