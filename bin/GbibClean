@@ -104,10 +104,10 @@ def reformatAuthor(text,sep=' '):
 
   # define find/replace criteria
   match = [
-    (re.compile(r'(.*)(\(.*\))'                             , re.UNICODE) ,r'\1'          ),
-    (re.compile(r'([A-Za-z][\}]*)([\w0-9\{\}\'\"\\\.\^\{]*)', re.UNICODE) ,r'\1.'         ),
-    (re.compile(r'([A-Za-z\.][\-]?)([\ ]*)'                 , re.UNICODE) ,r'\1'          ),
-    (re.compile(r'([A-Za-z\.][\-]?)([A-Za-z])'              , re.UNICODE) ,r'\1'+sep+r'\2'),
+    (re.compile(r'(.*)(\(.*\))'                               , re.UNICODE) ,r'\1'          ),
+    (re.compile(r'([A-Za-z][\}]*)([\w0-9\{\}\`\'\"\\\.\^\{]*)', re.UNICODE) ,r'\1.'         ),
+    (re.compile(r'([A-Za-z\.][\-]?)([\ ]*)'                   , re.UNICODE) ,r'\1'          ),
+    (re.compile(r'([A-Za-z\.][\-]?)([A-Za-z])'                , re.UNICODE) ,r'\1'+sep+r'\2'),
   ]
 
   # extract first and last name

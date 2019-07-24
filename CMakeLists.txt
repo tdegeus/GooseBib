@@ -7,6 +7,7 @@ project(GooseBib)
 # initialize list with binaries
 set(PROJECT_BINARIES
   "bin/GbibClean"
+  "bin/GbibList"
   "bin/GbibParse"
   "bin/GbibSelect"
   "bin/GbibCheckLink"
