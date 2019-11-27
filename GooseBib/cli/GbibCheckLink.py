@@ -16,7 +16,15 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt, requests
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import requests
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
@@ -37,82 +45,84 @@ def urlExists(url):
 
 # ========================================== MAIN PROGRAM ==========================================
 
-# ---------------------------------- parse command line arguments ----------------------------------
+def main():
 
-# parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+  # --------------------------------- parse command line arguments ---------------------------------
 
-# change keys to simplify implementation:
-# - remove leading "-" and "--" from options
-args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-# - change "-" to "_" to facilitate direct use in print format
-args = {key.replace('-','_'): args[key] for key in args}
-# - remove "<...>"
-args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+  # parse command-line options/arguments
+  args = docopt.docopt(__doc__, version=__version__)
 
-# ---------------------------------------- check arguments -----------------------------------------
+  # change keys to simplify implementation:
+  # - remove leading "-" and "--" from options
+  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
+  # - change "-" to "_" to facilitate direct use in print format
+  args = {key.replace('-','_'): args[key] for key in args}
+  # - remove "<...>"
+  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
-# check that the BibTeX file exists
-if args['bibfile']:
-  if not os.path.isfile(args['bibfile']):
-    Error('"{0:s}" does not exist'.format(args['bibfile']))
+  # --------------------------------------- check arguments ----------------------------------------
 
-# ------------------------------------------- check file -------------------------------------------
+  # check that the BibTeX file exists
+  if args['bibfile']:
+    if not os.path.isfile(args['bibfile']):
+      Error('"{0:s}" does not exist'.format(args['bibfile']))
 
-# read BibTeX file
-bib = bibtexparser.load(open(args['bibfile'],'r'), parser=bibtexparser.bparser.BibTexParser())
+  # ------------------------------------------ check file ------------------------------------------
 
-# list with incorrect refs
-# - allocate
-doi = []
-# - check
-for entry in bib.entries:
-  if 'doi' in entry:
-    if not urlExists('http://dx.doi.org/'+entry['doi']):
-      doi += [entry['ID']]
+  # read BibTeX file
+  bib = bibtexparser.load(open(args['bibfile'],'r'), parser=bibtexparser.bparser.BibTexParser())
 
-# list with incorrect refs
-# - allocate
-arxivid = []
-# - check
-for entry in bib.entries:
-  if 'arxivid' in entry:
-    if not urlExists('http://arxiv.org/abs/'+entry['arxivid']):
-      arxivid += [entry['ID']]
-
-# list with incorrect refs
-# - allocate
-url = []
-# - check
-for entry in bib.entries:
-  if 'url' in entry:
-    if not urlExists(entry['url']):
-      url += [entry['ID']]
-
-# list entries without any link
-# - allocate
-nolink = []
-# - check
-if args['no_link']:
+  # list with incorrect refs
+  # - allocate
+  doi = []
+  # - check
   for entry in bib.entries:
-    if 'doi' not in entry and 'arxivid' not in entry and 'url' not in entry:
-      nolink += [entry['ID']]
+    if 'doi' in entry:
+      if not urlExists('http://dx.doi.org/'+entry['doi']):
+        doi += [entry['ID']]
 
-# ---------------------------------------- print diagnosis -----------------------------------------
+  # list with incorrect refs
+  # - allocate
+  arxivid = []
+  # - check
+  for entry in bib.entries:
+    if 'arxivid' in entry:
+      if not urlExists('http://arxiv.org/abs/'+entry['arxivid']):
+        arxivid += [entry['ID']]
 
-diag = {}
+  # list with incorrect refs
+  # - allocate
+  url = []
+  # - check
+  for entry in bib.entries:
+    if 'url' in entry:
+      if not urlExists(entry['url']):
+        url += [entry['ID']]
 
-for key in doi    : diag[key] = diag.get(key,[]) + ['doi'    ]
-for key in arxivid: diag[key] = diag.get(key,[]) + ['arxivid']
-for key in url    : diag[key] = diag.get(key,[]) + ['url'    ]
-for key in nolink : diag[key] = diag.get(key,[]) + ['no-link']
+  # list entries without any link
+  # - allocate
+  nolink = []
+  # - check
+  if args['no_link']:
+    for entry in bib.entries:
+      if 'doi' not in entry and 'arxivid' not in entry and 'url' not in entry:
+        nolink += [entry['ID']]
 
-if len(diag) == 0:
-  print('No errors')
-  sys.exit(0)
+  # ---------------------------------------- print diagnosis -----------------------------------------
 
-fmt = r'{key:%ds} : {value:s}' % max([len(key) for key in diag])
+  diag = {}
 
-for key in sorted(diag):
-  print(fmt.format(key=key, value=', '.join(diag[key])))
+  for key in doi    : diag[key] = diag.get(key,[]) + ['doi'    ]
+  for key in arxivid: diag[key] = diag.get(key,[]) + ['arxivid']
+  for key in url    : diag[key] = diag.get(key,[]) + ['url'    ]
+  for key in nolink : diag[key] = diag.get(key,[]) + ['no-link']
+
+  if len(diag) == 0:
+    print('No errors')
+    sys.exit(0)
+
+  fmt = r'{key:%ds} : {value:s}' % max([len(key) for key in diag])
+
+  for key in sorted(diag):
+    print(fmt.format(key=key, value=', '.join(diag[key])))
 

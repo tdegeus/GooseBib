@@ -19,7 +19,14 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
@@ -31,33 +38,35 @@ def Error(msg,exit_code=1):
 
 # ========================================== MAIN PROGRAM ==========================================
 
-# ---------------------------------- parse command line arguments ----------------------------------
+def main():
 
-# parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+  # --------------------------------- parse command line arguments ---------------------------------
 
-# change keys to simplify implementation:
-# - remove leading "-" and "--" from options
-args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-# - change "-" to "_" to facilitate direct use in print format
-args = {key.replace('-','_'): args[key] for key in args}
-# - remove "<...>"
-args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+  # parse command-line options/arguments
+  args = docopt.docopt(__doc__, version=__version__)
 
-# ---------------------------------------- check arguments -----------------------------------------
+  # change keys to simplify implementation:
+  # - remove leading "-" and "--" from options
+  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
+  # - change "-" to "_" to facilitate direct use in print format
+  args = {key.replace('-','_'): args[key] for key in args}
+  # - remove "<...>"
+  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
-# check that the BibTeX file exists
-if not os.path.isfile(args['input']):
-  Error('"{input:s}" does not exist'.format(**args))
+  # --------------------------------------- check arguments ----------------------------------------
 
-# if "output" is an existing directory; convert to file with same name as the input file
-if os.path.isdir(args['output']):
-  args['output'] = os.path.join(args['output'], os.path.split(args['input'])[-1])
+  # check that the BibTeX file exists
+  if not os.path.isfile(args['input']):
+    Error('"{input:s}" does not exist'.format(**args))
 
-# ----------------------------------------- parse bib-file -----------------------------------------
+  # if "output" is an existing directory; convert to file with same name as the input file
+  if os.path.isdir(args['output']):
+    args['output'] = os.path.join(args['output'], os.path.split(args['input'])[-1])
 
-# read
-bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+  # ---------------------------------------- parse bib-file ----------------------------------------
 
-# write
-open(args['output'],'w').write(bibtexparser.dumps(bib))
+  # read
+  bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+
+  # write
+  open(args['output'],'w').write(bibtexparser.dumps(bib))

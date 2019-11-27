@@ -17,7 +17,14 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ======================================== REFORMAT AUTHORS ========================================
 
@@ -85,58 +92,60 @@ def replaceUnicode(text):
 
 # ========================================== MAIN PROGRAM ==========================================
 
-# ---------------------------------- parse command line arguments ----------------------------------
+def main():
 
-# parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+  # --------------------------------- parse command line arguments ---------------------------------
 
-# change keys to simplify implementation:
-# - remove leading "-" and "--" from options
-args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-# - change "-" to "_" to facilitate direct use in print format
-args = {key.replace('-','_'): args[key] for key in args}
-# - remove "<...>"
-args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+  # parse command-line options/arguments
+  args = docopt.docopt(__doc__, version=__version__)
 
-# ---------------------------------------- check arguments -----------------------------------------
+  # change keys to simplify implementation:
+  # - remove leading "-" and "--" from options
+  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
+  # - change "-" to "_" to facilitate direct use in print format
+  args = {key.replace('-','_'): args[key] for key in args}
+  # - remove "<...>"
+  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
-# check that the BibTeX file exists
-if not os.path.isfile(args['input']):
-  Error('"{input:s}" does not exist'.format(**args))
+  # --------------------------------------- check arguments ----------------------------------------
 
-# ----------------------------------------- parse bib-file -----------------------------------------
+  # check that the BibTeX file exists
+  if not os.path.isfile(args['input']):
+    Error('"{input:s}" does not exist'.format(**args))
 
-# read
-# ----
+  # ---------------------------------------- parse bib-file ----------------------------------------
 
-bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+  # read
+  # ----
 
-# check entries
-# -------------
+  bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
 
-names = {}
+  # check entries
+  # -------------
 
-for entry in bib.entries:
+  names = {}
 
-  # set author separation
-  sep = ''
+  for entry in bib.entries:
 
-  # fix author abbreviations
-  for key in ['author','editor']:
-    if key in entry:
-      for name in entry[key].split(' and '):
-        fmtName = replaceUnicode(reformatAuthor(name,sep))
-        if fmtName not in names:
-          names[fmtName]  = [name]
-        if name not in names[fmtName]:
-          names[fmtName] += [name]
+    # set author separation
+    sep = ''
 
-# filter unique
-names = {name:names[name] for name in names if len(names[name]) > 1}
+    # fix author abbreviations
+    for key in ['author','editor']:
+      if key in entry:
+        for name in entry[key].split(' and '):
+          fmtName = replaceUnicode(reformatAuthor(name,sep))
+          if fmtName not in names:
+            names[fmtName]  = [name]
+          if name not in names[fmtName]:
+            names[fmtName] += [name]
 
-# output format
-n = max([len(name) for name in names])
+  # filter unique
+  names = {name:names[name] for name in names if len(names[name]) > 1}
 
-# print
-for name in sorted(names):
-  print(('{0:%ds} : {1:s}'%(n)).format(name, '; '.join(names[name])))
+  # output format
+  n = max([len(name) for name in names])
+
+  # print
+  for name in sorted(names):
+    print(('{0:%ds} : {1:s}'%(n)).format(name, '; '.join(names[name])))

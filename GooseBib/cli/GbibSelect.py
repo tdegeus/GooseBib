@@ -16,7 +16,14 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
@@ -46,73 +53,75 @@ def tex2cite(tex):
 
 # ========================================== MAIN PROGRAM ==========================================
 
-# ---------------------------------- parse command line arguments ----------------------------------
+def main():
 
-# parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+  # --------------------------------- parse command line arguments ---------------------------------
 
-# change keys to simplify implementation:
-# - remove leading "-" and "--" from options
-args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-# - change "-" to "_" to facilitate direct use in print format
-args = {key.replace('-','_'): args[key] for key in args}
-# - remove "<...>"
-args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+  # parse command-line options/arguments
+  args = docopt.docopt(__doc__, version=__version__)
 
-# ---------------------------------------- check arguments -----------------------------------------
+  # change keys to simplify implementation:
+  # - remove leading "-" and "--" from options
+  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
+  # - change "-" to "_" to facilitate direct use in print format
+  args = {key.replace('-','_'): args[key] for key in args}
+  # - remove "<...>"
+  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
-# check that the TeX files exist
-for fname in args['tex']:
-  if not os.path.isfile(fname):
-    Error('"{0:s}" does not exist'.format(fname))
+  # --------------------------------------- check arguments ----------------------------------------
 
-# check that the BibTeX file exists
-if args['bib']:
-  if not os.path.isfile(args['bib']):
-    Error('"{0:s}" does not exist'.format(args['bib']))
+  # check that the TeX files exist
+  for fname in args['tex']:
+    if not os.path.isfile(fname):
+      Error('"{0:s}" does not exist'.format(fname))
 
-# if the file is an existing directory -> convert to file with same name as the input file
-if args['output']:
-  if os.path.isdir(args['output']):
-    args['output'] = os.path.join(args['output'], os.path.split(args['bib'])[-1])
+  # check that the BibTeX file exists
+  if args['bib']:
+    if not os.path.isfile(args['bib']):
+      Error('"{0:s}" does not exist'.format(args['bib']))
 
-# --------------------------------------- get citation keys ----------------------------------------
+  # if the file is an existing directory -> convert to file with same name as the input file
+  if args['output']:
+    if os.path.isdir(args['output']):
+      args['output'] = os.path.join(args['output'], os.path.split(args['bib'])[-1])
 
-# initialize
-keys = []
+  # -------------------------------------- get citation keys ---------------------------------------
 
-# read from TeX files
-for fname in args['tex']:
-  keys += tex2cite(open(fname,'r').read())
+  # initialize
+  keys = []
 
-# sort citation keys
-keys = sorted(list(set(keys)))
+  # read from TeX files
+  for fname in args['tex']:
+    keys += tex2cite(open(fname,'r').read())
 
-# optionally: print and quit
-if not args['bib'] and not args['output']:
-  print('\n'.join(keys))
+  # sort citation keys
+  keys = sorted(list(set(keys)))
 
-# -------------------------------------- select from bib-file --------------------------------------
+  # optionally: print and quit
+  if not args['bib'] and not args['output']:
+    print('\n'.join(keys))
 
-# read BibTeX file
-bib = bibtexparser.load(open(args['bib'],'r'), parser=bibtexparser.bparser.BibTexParser())
+  # ------------------------------------- select from bib-file -------------------------------------
 
-# get citation keys in the BibTeX files
-bibkeys = [entry['ID'] for entry in bib.entries]
+  # read BibTeX file
+  bib = bibtexparser.load(open(args['bib'],'r'), parser=bibtexparser.bparser.BibTexParser())
 
-# find entries that are present in the TeX files, but missing in the BibTeX files
-missing = [key for key in keys if key not in bibkeys]
+  # get citation keys in the BibTeX files
+  bibkeys = [entry['ID'] for entry in bib.entries]
 
-# print missing entries
-if len(missing) > 0:
-  Error('Not found: '+', '.join(missing))
+  # find entries that are present in the TeX files, but missing in the BibTeX files
+  missing = [key for key in keys if key not in bibkeys]
 
-# select entries based on the keys found in the TeX file
-bib.entries = [entry for entry in bib.entries if entry['ID'] in keys]
+  # print missing entries
+  if len(missing) > 0:
+    Error('Not found: '+', '.join(missing))
 
-# convert to text
-bib = bibtexparser.dumps(bib)
+  # select entries based on the keys found in the TeX file
+  bib.entries = [entry for entry in bib.entries if entry['ID'] in keys]
 
-# write bib-file, or print to screen
-if args['output']: open(args['output'],'w').write(bib)
-else             : print(bib)
+  # convert to text
+  bib = bibtexparser.dumps(bib)
+
+  # write bib-file, or print to screen
+  if args['output']: open(args['output'],'w').write(bib)
+  else             : print(bib)

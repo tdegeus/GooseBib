@@ -18,47 +18,56 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ========================================== MAIN PROGRAM ==========================================
 
-# ---------------------------------- parse command line arguments ----------------------------------
+def main():
 
-# parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+  # --------------------------------- parse command line arguments ---------------------------------
 
-# change keys to simplify implementation:
-# - remove leading "-" and "--" from options
-args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-# - change "-" to "_" to facilitate direct use in print format
-args = {key.replace('-','_'): args[key] for key in args}
-# - remove "<...>"
-args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+  # parse command-line options/arguments
+  args = docopt.docopt(__doc__, version=__version__)
 
-# ---------------------------------------- check arguments -----------------------------------------
+  # change keys to simplify implementation:
+  # - remove leading "-" and "--" from options
+  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
+  # - change "-" to "_" to facilitate direct use in print format
+  args = {key.replace('-','_'): args[key] for key in args}
+  # - remove "<...>"
+  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
 
-# check that the BibTeX file exists
-if not os.path.isfile(args['input']):
-  Error('"{input:s}" does not exist'.format(**args))
+  # --------------------------------------- check arguments ----------------------------------------
 
-# ----------------------------------------- parse bib-file -----------------------------------------
+  # check that the BibTeX file exists
+  if not os.path.isfile(args['input']):
+    Error('"{input:s}" does not exist'.format(**args))
 
-# read
-# ----
+  # ---------------------------------------- parse bib-file ----------------------------------------
 
-bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+  # read
+  # ----
 
-# list journals
-# -------------
+  bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
 
-if args['journal']:
+  # list journals
+  # -------------
 
-  out = []
+  if args['journal']:
 
-  for entry in bib.entries:
-    if 'journal' in entry:
-      out += [entry['journal']]
+    out = []
 
-  out = sorted(list(set(out)))
+    for entry in bib.entries:
+      if 'journal' in entry:
+        out += [entry['journal']]
 
-  print('\n'.join(out))
+    out = sorted(list(set(out)))
+
+    print('\n'.join(out))
