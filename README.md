@@ -2,10 +2,38 @@
 
 <!-- MarkdownTOC -->
 
+- [Getting GooseBib](#getting-goosebib)
+    - [Using conda](#using-conda)
+    - [Using PyPi](#using-pypi)
+    - [From source](#from-source)
 - [Overview](#overview)
-- [Installation](#installation)
 
 <!-- /MarkdownTOC -->
+
+# Getting GooseBib
+
+## Using conda
+
+```bash
+conda install -c conda-forge GooseBib
+```
+
+## Using PyPi
+
+```bash
+pip install GooseBib
+```
+
+## From source
+
+```bash
+# Download GooseBib
+git checkout https://github.com/tdegeus/GooseBib.git
+cd GooseBib
+
+# Install
+python -m pip install .
+```
 
 # Overview
 
@@ -38,65 +66,4 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 *   [GbibCheckLink](bin/GbibCheckLink)
 
     Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!). Note that this function only checks the links to be valid. It does not check if they refer to the correct reference.
-
-# Installation
-
-To get these scripts to work you can:
-
--   Point the `$PATH` to the `bin/` folder of this directory, for example by adding the following line to the `~/.bashrc`:
-  
-    ```bash
-    export PATH=/path/to/GooseBib/bin:$PATH
-    ```
-
--   'Install' GooseBib's scripts in a default location:
-
-    ```bash
-    cd /path/to/GooseBib
-    mkdir build
-    cd build
-    cmake .. 
-    make install
-    ```
-
--   'Install' the scripts in your home folder:
-  
-    1.  Create a directory to store libraries in the home folder. For example:
-  
-        ```bash
-        mkdir ~/opt
-        ```
-
-    2.  'Install' GooseBib's scripts. For example
-  
-        ```bash
-        cd /path/to/GooseBib
-        mkdir build
-        cd build
-        cmake .. -DCMAKE_INSTALL_PREFIX:PATH=$HOME/opt
-        make install
-        ```
-     
-    3.  Make the `bin/` folder of this 'installation' directory locatable, by adding to the `~/.bashrc`:
- 
-        ```bash
-        export PATH=$HOME/opt/bin:$PATH
-        ```
-
-> Note that one has to have Python3 is needed. Additionally:
->      
-> *    [Install "docopt"](https://pypi.python.org/pypi/docopt/) using
-> 
->      ```bash
->      pip3 install docopt
->      ```
->      
-> *    [Install "bibtexparser"](https://github.com/sciunto-org/python-bibtexparser) using
-> 
->      ```bash
->      pip3 install bibtexparser
->      ```
->      
-> The `--user` option can be used to install the library to your own home-folder. 
-
 
