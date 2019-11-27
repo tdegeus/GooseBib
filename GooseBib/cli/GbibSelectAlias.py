@@ -24,7 +24,15 @@ Options:
 
 # ==================================================================================================
 
-import os, re, sys, bibtexparser, docopt, json
+import os
+import re
+import sys
+import bibtexparser
+import docopt
+import json
+import pkg_resources
+
+__version__ = pkg_resources.require("GooseBib")[0].version
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
@@ -39,7 +47,7 @@ def Error(msg,exit_code=1):
 # ---------------------------------- parse command line arguments ----------------------------------
 
 # parse command-line options/arguments
-args = docopt.docopt(__doc__,version='0.1.0')
+args = docopt.docopt(__doc__, version=__version__)
 
 # change keys to simplify implementation:
 # - remove leading "-" and "--" from options
