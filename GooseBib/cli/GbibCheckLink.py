@@ -22,9 +22,8 @@ import sys
 import bibtexparser
 import docopt
 import requests
-import pkg_resources
 
-__version__ = pkg_resources.require("GooseBib")[0].version
+from .. import __version__
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
