@@ -61,7 +61,7 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
 *   [GbibCheckAuthors](GooseBib/cli/GbibCheckAuthors.py)
 
-    List authors that are possibly stored in more than one way. Specifically the algorithm finds those authors that are written in exactly the way after parsing such that first names are abbreviated.
+    List authors that are possibly stored in more than one way. Specifically, the algorithm finds those authors that are written in exactly the way after parsing such that first names are abbreviated.
 
 *   [GbibCheckKeys](GooseBib/cli/GbibCheckKeys.py)
 
