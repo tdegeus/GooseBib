@@ -1,6 +1,6 @@
-"""GbibSelect
-  Select specific BibTeX fields and (optionally) choose the citation key. The selection is provided
-  to the program using a json-file of the following format:
+"""GbibSelectAlias
+  Select specific BibTeX fields and (optionally) choose the citation key.
+  The selection is provided to the program using a json-file.
 
   ```json
   {
@@ -10,7 +10,7 @@
   ```
 
 Usage:
-  GbibSelect [options] <json>
+  GbibSelectAlias [options] <json>
 
 Options:
   -o, --output=<FILE>   Name of the output BibTeX file.

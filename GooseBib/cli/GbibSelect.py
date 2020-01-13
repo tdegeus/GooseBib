@@ -1,5 +1,5 @@
 """GbibSelect
-  Select BibTeX fields that are part of (a) TeX file(s).
+  Select only those entries present in a TeX-file.
 
 Usage:
   GbibSelect [options] <tex>...

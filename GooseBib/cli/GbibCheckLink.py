@@ -1,9 +1,9 @@
-"""GbibLink
+"""GbibCheckLink
   Check if the "doi", "arxivid", and "url" in a BibTeX file exists. Note: this function has to
   actually browse to the sites, it is thus quite slow!
 
 Usage:
-  GbibLink [options] <bibfile>
+  GbibCheckLink [options] <bibfile>
 
 Options:
   -n, --no-link   Print entries that do not have any of the listed links.

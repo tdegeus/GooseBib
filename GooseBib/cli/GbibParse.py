@@ -1,6 +1,6 @@
 """GbibParse
-  Parse a BibTeX file once, to increase standard compliance. Use "GbibClean" for a more rigorous
-  clean-up.
+  Basic parse of a BibTeX file to increase compliance with the standard.
+  Use "GbibClean" for a more rigorous clean-up.
 
 Usage:
   GbibParse <input> <output>

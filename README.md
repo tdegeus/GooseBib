@@ -45,11 +45,11 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
 *   [GbibParse](GooseBib/cli/GbibParse.py)
 
-    Basic parse of a BibTeX file, to increase compliance with the standard.
+    Basic parse of a BibTeX file to increase compliance with the standard. Use "GbibClean" for a more rigorous clean-up.
 
 *   [GbibSelect](GooseBib/cli/GbibSelect.py)
 
-    Select only those entries present in a TeX file (or in a project composed of several TeX files).
+    Select only those entries present in a TeX-file.
 
 *   [GbibSelectAlias](GooseBib/cli/GbibSelectAlias.py)
 
@@ -57,16 +57,16 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
 *   [GbibList](GooseBib/cli/GbibList.py)
 
-    List a specific field for all BibTeX entries.
+    List a specific field (e.g. the journal) for all BibTeX entries.
 
 *   [GbibCheckAuthors](GooseBib/cli/GbibCheckAuthors.py)
 
-    Check for authors that are possibly stored in more than one way.
+    List authors that are possibly stored in more than one way. Specifically the algorithm finds those authors that are written in exactly the way after parsing such that first names are abbreviated.
+
+*   [GbibCheckKeys](GooseBib/cli/GbibCheckKeys.py)
+
+    List entries that do not have a citation key composed of "LastName + Year".
 
 *   [GbibCheckLink](GooseBib/cli/GbibCheckLink.py)
 
     Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!). Note that this function only checks the links to be valid. It does not check if they refer to the correct reference.
-
-*   [GbibCheckKeys](GooseBib/cli/GbibCheckKeys.py)
-
-    Check which entries do not have a citation key composed of "LastName + Year".

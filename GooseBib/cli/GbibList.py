@@ -1,5 +1,5 @@
 """GbibList
-  List a certain field for all entries.
+  List a specific field (e.g. the journal) for all BibTeX entries.
 
 Usage:
   GbibList [options] <input>

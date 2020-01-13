@@ -1,5 +1,5 @@
 """GbibCheckKeys
-  Check which entries do not have a citation key composed of "LastName + Year".
+  List entries that do not have a citation key composed of "LastName + Year".
 
 Usage:
   GbibCheckKeys [options] <input>

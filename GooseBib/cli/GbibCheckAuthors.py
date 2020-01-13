@@ -1,5 +1,7 @@
 """GbibCheckAuthors
-  Check for authors that are possibly stored in more than one way.
+  List authors that are possibly stored in more than one way.
+  Specifically, the algorithm finds those authors that are written in exactly
+  the way after parsing such that first names are abbreviated.
 
 Usage:
   GbibCheckAuthors [options] <input>
