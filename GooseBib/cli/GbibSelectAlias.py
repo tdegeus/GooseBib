@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibSelect
   Select specific BibTeX fields and (optionally) choose the citation key. The selection is provided
   to the program using a json-file of the following format:

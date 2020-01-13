@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibList
   List a certain field for all entries.
 

@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'GbibCheckAuthors = GooseBib.cli.GbibCheckAuthors:main',
             'GbibCheckLink = GooseBib.cli.GbibCheckLink:main',
+            'GbibCheckKeys = GooseBib.cli.GbibCheckKeys:main',
             'GbibClean = GooseBib.cli.GbibClean:main',
             'GbibList = GooseBib.cli.GbibList:main',
             'GbibParse = GooseBib.cli.GbibParse:main',
