@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 """GbibParse
-  Parse a BibTeX file once, to increase standard compliance. Use "GbinClean" for a more rigorous
+  Parse a BibTeX file once, to increase standard compliance. Use "GbibClean" for a more rigorous
   clean-up.
 
 Usage:

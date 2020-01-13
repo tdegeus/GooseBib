@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibCheckAuthors
   Check for authors that are possibly stored in more than one way.
 
@@ -110,7 +109,8 @@ def main():
 
   # check that the BibTeX file exists
   if not os.path.isfile(args['input']):
-    Error('"{input:s}" does not exist'.format(**args))
+    print('"{input:s}" does not exist'.format(**args))
+    sys.exit(1)
 
   # ---------------------------------------- parse bib-file ----------------------------------------
 

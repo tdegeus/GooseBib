@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibLink
   Check if the "doi", "arxivid", and "url" in a BibTeX file exists. Note: this function has to
   actually browse to the sites, it is thus quite slow!

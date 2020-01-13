@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibSelect
   Select BibTeX fields that are part of (a) TeX file(s).
 

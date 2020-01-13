@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """GbibClean
   Clean a BibTeX database, stripping it from unnecessary fields, unifying the formatting of authors,
   and ensuring the proper special characters and math mode settings.
