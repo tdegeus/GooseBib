@@ -14,12 +14,10 @@ Options:
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
-
 # ==================================================================================================
-
 import os
 import re
-import sys
+
 import bibtexparser
 import docopt
 
@@ -27,45 +25,47 @@ from .. import __version__
 
 # ========================================== MAIN PROGRAM ==========================================
 
+
 def main():
 
-  # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments ---------------------------------
 
-  # parse command-line options/arguments
-  args = docopt.docopt(__doc__, version=__version__)
+    # parse command-line options/arguments
+    args = docopt.docopt(__doc__, version=__version__)
 
-  # change keys to simplify implementation:
-  # - remove leading "-" and "--" from options
-  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-  # - change "-" to "_" to facilitate direct use in print format
-  args = {key.replace('-','_'): args[key] for key in args}
-  # - remove "<...>"
-  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+    # change keys to simplify implementation:
+    # - remove leading "-" and "--" from options
+    args = {re.sub(r"([\-]{1,2})(.*)", r"\2", key): args[key] for key in args}
+    # - change "-" to "_" to facilitate direct use in print format
+    args = {key.replace("-", "_"): args[key] for key in args}
+    # - remove "<...>"
+    args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-  # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments ----------------------------------------
 
-  # check that the BibTeX file exists
-  if not os.path.isfile(args['input']):
-    Error('"{input:s}" does not exist'.format(**args))
+    # check that the BibTeX file exists
+    if not os.path.isfile(args["input"]):
+        raise OSError('"{input:s}" does not exist'.format(**args))
 
-  # ---------------------------------------- parse bib-file ----------------------------------------
+    # ---------------------------------------- parse bib-file ----------------------------------------
 
-  # read
-  # ----
+    # read
+    # ----
 
-  bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+    with open(args["input"]) as file:
+        bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
 
-  # list journals
-  # -------------
+    # list journals
+    # -------------
 
-  if args['journal']:
+    if args["journal"]:
 
-    out = []
+        out = []
 
-    for entry in bib.entries:
-      if 'journal' in entry:
-        out += [entry['journal']]
+        for entry in bib.entries:
+            if "journal" in entry:
+                out += [entry["journal"]]
 
-    out = sorted(list(set(out)))
+        out = sorted(list(set(out)))
 
-    print('\n'.join(out))
+        print("\n".join(out))
