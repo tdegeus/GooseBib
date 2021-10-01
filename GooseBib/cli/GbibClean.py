@@ -252,7 +252,11 @@ def main():
     # fix author abbreviations
     for key in ['author','editor']:
       if key in entry:
-        entry[key] = ' and '.join([reformatAuthor(i,sep) for i in entry[key].split(' and ')])
+        try:
+          entry[key] = ' and '.join([reformatAuthor(i,sep) for i in entry[key].split(' and ')])
+        except:
+          print(entry[key])
+          raise OSError("Error while processing authors")
 
     # remove title
     if args['no_title']:
