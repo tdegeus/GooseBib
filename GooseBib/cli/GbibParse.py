@@ -15,12 +15,11 @@ Options:
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
-
 # ==================================================================================================
-
 import os
 import re
 import sys
+
 import bibtexparser
 import docopt
 
@@ -28,43 +27,47 @@ from .. import __version__
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
 
-def Error(msg,exit_code=1):
 
-  print(msg)
+def Error(msg, exit_code=1):
 
-  sys.exit(exit_code)
+    print(msg)
+
+    sys.exit(exit_code)
+
 
 # ========================================== MAIN PROGRAM ==========================================
 
+
 def main():
 
-  # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments ---------------------------------
 
-  # parse command-line options/arguments
-  args = docopt.docopt(__doc__, version=__version__)
+    # parse command-line options/arguments
+    args = docopt.docopt(__doc__, version=__version__)
 
-  # change keys to simplify implementation:
-  # - remove leading "-" and "--" from options
-  args = {re.sub(r'([\-]{1,2})(.*)',r'\2',key): args[key] for key in args}
-  # - change "-" to "_" to facilitate direct use in print format
-  args = {key.replace('-','_'): args[key] for key in args}
-  # - remove "<...>"
-  args = {re.sub(r'(<)(.*)(>)',r'\2',key): args[key] for key in args}
+    # change keys to simplify implementation:
+    # - remove leading "-" and "--" from options
+    args = {re.sub(r"([\-]{1,2})(.*)", r"\2", key): args[key] for key in args}
+    # - change "-" to "_" to facilitate direct use in print format
+    args = {key.replace("-", "_"): args[key] for key in args}
+    # - remove "<...>"
+    args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-  # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments ----------------------------------------
 
-  # check that the BibTeX file exists
-  if not os.path.isfile(args['input']):
-    Error('"{input:s}" does not exist'.format(**args))
+    # check that the BibTeX file exists
+    if not os.path.isfile(args["input"]):
+        Error('"{input:s}" does not exist'.format(**args))
 
-  # if "output" is an existing directory; convert to file with same name as the input file
-  if os.path.isdir(args['output']):
-    args['output'] = os.path.join(args['output'], os.path.split(args['input'])[-1])
+    # if "output" is an existing directory; convert to file with same name as the input file
+    if os.path.isdir(args["output"]):
+        args["output"] = os.path.join(args["output"], os.path.split(args["input"])[-1])
 
-  # ---------------------------------------- parse bib-file ----------------------------------------
+    # ---------------------------------------- parse bib-file ----------------------------------------
 
-  # read
-  bib = bibtexparser.load(open(args['input'],'r'), parser=bibtexparser.bparser.BibTexParser())
+    # read
+    with open(args["input"]) as file:
+        bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
 
-  # write
-  open(args['output'],'w').write(bibtexparser.dumps(bib))
+    # write
+    open(args["output"], "w").write(bibtexparser.dumps(bib))
