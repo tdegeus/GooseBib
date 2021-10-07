@@ -56,9 +56,30 @@ def abbreviate_firstname(name: str, sep: str = " "):
     return last + ", " + first.upper()
 
 
-def protect_math(text):
+def name2key(name: str):
+    """
+    Extract last name:
+    - Without accents.
+    - Without spaces.
+    - Starting with a capital letter.
+    """
+
+    assert len(name.split(",")) > 1
+
+    last = name.split(",")[0]
+    last = rm_accents(last)
+    last = last.replace("{", "")
+    last = last.replace("}", "")
+    last = last[0].upper() + last[1:]
+
+    return last
+
+
+def protect_math(text: str):
     """
     Protect math mode.
+
+    :param name: The name formatted as "Lastname, firstname otherfirstname"
     """
 
     # skip text without any math
@@ -77,6 +98,81 @@ def protect_math(text):
 
     for regex, sub in match:
         text = _subr(regex, sub, text)
+
+    return text
+
+
+def rm_unicode(text: str):
+    """
+    Remove unicode.
+    """
+
+    # NB list not exhaustive, please extend!
+    match = [
+        ("ç", r"\c{c}"),
+        ("è", r"\`{e}"),
+        ("é", r"\'{e}"),
+        ("É", r"\'{E}"),
+        ("ë", r"\"{e}"),
+        ("ô", r"\^{o}"),
+        ("ö", r"\"{o}"),
+        ("ü", r"\"{y}"),
+        ("g̃", r"\~{g}"),
+        ("ñ", r"\~{n}"),
+        ("İ", r"\.{I}"),
+        ("à", r"\'{a}"),
+        ("ă", r"\v{a}"),
+        ("ř", r"\v{r}"),
+        ("–", "--"),
+        ("—", "--"),
+        ("“", "``"),
+        ("”", "''"),
+        ("×", r"$\times$"),
+    ]
+
+    for ex, sub in match:
+        text = text.replace(ex, sub)
+
+    return text
+
+
+def rm_accents(text: str):
+    """
+    Remove accents.
+    """
+
+    text = rm_unicode(text)
+
+    match = [
+        (r"\c{c}", "c"),
+        (r"\`{e}", "e"),
+        (r"\'{e}", "e"),
+        (r"\'{E}", "E"),
+        (r"\"{e}", "e"),
+        (r"\^{o}", "o"),
+        (r"\"{o}", "o"),
+        (r"\"{y}", "y"),
+        (r"\~{g}", "g"),
+        (r"\~{n}", "n"),
+        (r"\.{I}", "I"),
+        (r"\'{a}", "a"),
+        (r"\v{a}", "a"),
+        (r"\v{r}", "r"),
+        (r"{\"{a}}", "a"),
+        (r"{\"{u}}", "u"),
+        (r"{\'{c}}", "c"),
+        (r"{\'{s}}", "s"),
+        (r"{\^{i}}", "i"),
+        (r"{\v{s}}", "s"),
+        (r"{\v{z}}", "z"),
+        (r"\aa", "a"),
+        (r"{\o}", "o"),
+        (r"'", ""),
+        (r" ", ""),
+    ]
+
+    for ex, sub in match:
+        text = text.replace(ex, sub)
 
     return text
 
