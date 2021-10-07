@@ -19,6 +19,11 @@ class Test_reformat(unittest.TestCase):
             "de Geus, T.W.J.",
         )
 
+    def test_protect_math(self):
+
+        simple = r"$\tau$"
+        self.assertEqual(bib.reformat.protect_math(simple), simple)
+
 
 if __name__ == "__main__":
 
