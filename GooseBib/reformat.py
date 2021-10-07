@@ -16,7 +16,7 @@ def _subr(regex, sub, text):
     return text
 
 
-def initials(name: str, sep: str = " "):
+def abbreviate_firstname(name: str, sep: str = " "):
     """
     Reformat a name such that first names are abbreviated to initials, for example::
 
