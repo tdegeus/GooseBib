@@ -1,14 +1,8 @@
-import re
-
 from setuptools import find_packages
 from setuptools import setup
 
-filepath = "GooseBib/__init__.py"
-__version__ = re.findall(r"__version__ = \'(.*)\'", open(filepath).read())[0]
-
 setup(
     name="GooseBib",
-    version=__version__,
     license="MIT",
     author="Tom de Geus",
     author_email="tom@geus.me",
@@ -17,11 +11,13 @@ setup(
     keywords="LaTeX; BibTeX",
     url="https://github.com/tdegeus/GooseBib",
     packages=find_packages(),
+    use_scm_version={"write_to": "GooseBib/_version.py"},
+    setup_requires=["setuptools_scm"],
     install_requires=[
-        "docopt>=0.6.2",
-        "click>=4.0",
-        "bibtexparser>=1.0.0",
-        "requests>=2.0.0",
+        "docopt",
+        "click",
+        "bibtexparser",
+        "requests",
     ],
     entry_points={
         "console_scripts": [
