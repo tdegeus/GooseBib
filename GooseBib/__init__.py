@@ -1,1 +1,2 @@
-__version__ = "0.2.0"
+from ._version import version
+from ._version import version_tuple

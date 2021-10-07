@@ -22,7 +22,7 @@ import sys
 import bibtexparser
 import docopt
 
-from .. import __version__
+from .. import version
 
 # ==================================================================================================
 
@@ -100,7 +100,7 @@ def main():
     # - remove leading "-" and "--" from options
     # - change "-" to "_" to facilitate direct use in print format
     # - remove "<...>"
-    args = docopt.docopt(__doc__, version=__version__)
+    args = docopt.docopt(__doc__, version=version)
     args = {re.sub(r"([\-]{1,2})(.*)", r"\2", key): args[key] for key in args}
     args = {key.replace("-", "_"): args[key] for key in args}
     args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
