@@ -8,14 +8,14 @@ class Test_reformat(unittest.TestCase):
     GooseBib.reformat
     """
 
-    def test_intials(self):
+    def test_abbreviate_firstname(self):
 
         self.assertEqual(
-            bib.reformat.initials("de Geus, Thomas Willem Jan"), "de Geus, T. W. J."
+            bib.reformat.abbreviate_firstname("de Geus, Thomas Willem Jan"), "de Geus, T. W. J."
         )
 
         self.assertEqual(
-            bib.reformat.initials("de Geus, Thomas Willem Jan", sep=""),
+            bib.reformat.abbreviate_firstname("de Geus, Thomas Willem Jan", sep=""),
             "de Geus, T.W.J.",
         )
 
