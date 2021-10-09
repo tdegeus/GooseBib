@@ -1,10 +1,10 @@
 channels:
-  - conda-forge
+- conda-forge
 dependencies:
-  - bibtexparser
-  - click
-  - docopt
-  - gitpython
-  - python
-  - pyyaml
-  - requests
+- bibtexparser
+- click
+- docopt
+- gitpython
+- python
+- pyyaml
+- requests

@@ -1,0 +1,2784 @@
+- abbreviation: Int. J. Fract.
+  name: International Journal of Fracture
+- abbreviation: J. Math. Fluid Mech.
+  name: Journal of Mathematical Fluid Mechanics
+- abbreviation: Int. J. Veh. Noise Vib.
+  name: International Journal of Vehicle Noise and Vibration
+- abbreviation: Ion Exch. Solvent Extr.
+  name: Ion Exchange and Solvent Extraction
+- abbreviation: Biomicrofluidics
+  name: Biomicrofluidics
+- abbreviation: Solid State Commun.
+  name: Solid State Communications
+- abbreviation: Geochem. J.
+  name: Geochemical Journal
+- abbreviation: J. Electroceramics
+  name: Journal of Electroceramics
+- abbreviation: 'Phys. E: Low-Dimens. Syst. Nanostructures'
+  name: 'Physica E: Low-dimensional Systems and Nanostructures'
+- abbreviation: Neth. J. Sea Res.
+  name: Netherlands Journal of Sea Research
+- abbreviation: Adv. Eng. Mater.
+  name: Advanced Engineering Materials
+- abbreviation: J. Instrum.
+  name: Journal of Instrumentation
+- abbreviation: Comptes Rendus Académie Sci. - Ser. IV
+  name: Comptes Rendus de l'Académie des Sciences - Series IV - Physique et Astrophysique
+- abbreviation: 'Z. Phys. C: Part. Fields'
+  name: 'Zeitschrift für Physik C: Particles and Fields'
+- abbreviation: Eur. Phys. J. C
+  name: 'The European Physical Journal C: Particles and Fields'
+- abbreviation: 'J. Geophys. Res. A: Space Phys.'
+  name: 'Journal of Geophysical Research, A: Space Physics'
+- abbreviation: Supercond. Sci. Technol.
+  name: Superconductor Science and Technology
+- abbreviation: Lond. Edinb. Dublin Philos. Mag. J. Sci.
+  name: The London, Edinburgh and Dublin philosophical magazine and journal of science
+- abbreviation: MRS Bull.
+  name: MRS Bulletin
+- abbreviation: Z. für Phys.
+  name: Zeitschrift für Physik
+  variations:
+  - Z. Für Phys.
+  - Z. Phys.
+- abbreviation: J. Phys. Radium
+  name: Journal de Physique et le Radium
+- abbreviation: Phys. Rev. Spec. Top. Accel. Beams
+  name: Physical Review Special Topics - Accelerators and Beams
+- abbreviation: Anticancer Res.
+  name: Anticancer Research
+- abbreviation: Geostand. Geoanal. Res.
+  name: Geostandards and Geoanalytical Research
+- abbreviation: J. Phys. E
+  name: Journal of Physics E
+- abbreviation: J. Phys. IV Fr.
+  name: Journal de Physique IV
+  variations:
+  - J. Phys. IV
+- abbreviation: Comput. Phys.
+  name: Computers in Physics
+- abbreviation: Planet. Space Sci.
+  name: Planetary and Space Science
+- abbreviation: Jpn. J. Appl. Phys.
+  name: Japanese Journal of Applied Physics
+- abbreviation: Front Earth Sci. Chin.
+  name: Frontiers of Earth Science in China
+- abbreviation: Int. J. Multiphys.
+  name: International Journal of Multiphysics
+- abbreviation: Nucl. Data, Sec. A
+  name: Nuclear Data, Section A
+- abbreviation: J. Disp. Technol.
+  name: Journal of Display Technology
+- abbreviation: Scanning Microsc. Nanotechnol.
+  name: Scanning Microscopy for Nanotechnology
+- abbreviation: Adv. Quantum Chem.
+  name: Advances in Quantum Chemistry
+- abbreviation: Ground Water
+  name: Ground Water
+- abbreviation: Phys. Z.
+  name: Physikalische Zeitschrift
+- abbreviation: Sci. China, Ser. A Math.
+  name: 'Science in China, Series A: Mathematics'
+  variations:
+  - 'Sci. China A: Math.'
+  - 'Sci. China, Ser. A: Math.'
+- abbreviation: Helv. Phys. Acta
+  name: Helvetica Physica Acta
+  variations:
+  - Helvetica Phys. Acta
+- abbreviation: J. Electronic Mater.
+  name: Journal of Electronic Materials
+  variations:
+  - J. Electron. Mater.
+- abbreviation: Eur. J. Phycol.
+  name: European Journal of Phycology
+- abbreviation: Gen. Relativ. Gravitation
+  name: General Relativity and Gravitation
+  variations:
+  - Gen. Relativ. Gravit.
+- abbreviation: Astron. Lett.
+  name: Astronomy Letters
+- abbreviation: Rev. Mex. Astron. Astrofis.
+  name: Revista Mexicana de Astronomica y Astrofisica
+- abbreviation: Bull. Seismol. Soc. Am.
+  name: Bulletin of the Seismological Society of America
+- abbreviation: Nat. Energy
+  name: Nature Energy
+- abbreviation: ECS J. Solid State Sci. Technol.
+  name: ECS Journal of Solid State Science and Technology
+- abbreviation: Mar. Geophys. Res.
+  name: Marine Geophysical Researches
+- abbreviation: Spectrochim. Acta, Part A
+  name: 'Spectrochimica Acta, Part A: Molecular Spectroscopy'
+- abbreviation: Optik
+  name: Optik
+- abbreviation: MRS Adv.
+  name: MRS Advances
+- abbreviation: Int. Geol. Rev.
+  name: International Geology Review
+- abbreviation: C. R. Chim.
+  name: Comptes Rendus Chimie
+- abbreviation: Z. Phys. Chem. Abt. A
+  name: 'Zeitschrift für Physikalische Chemie, Abteilung A: Chemische Thermodynamik, Kinetik, Elektrochemie, Eigenschaftslehre'
+- abbreviation: Sov. Phys. Solid State
+  name: Soviet Physics-Solid State [translation of Fizika Tverdogo Tela (Leningrad)]
+- abbreviation: Prog. Histochem. Cytochem.
+  name: Progress in Histochemistry and Cytochemistry
+- abbreviation: Int. J. Water Resour. Dev.
+  name: International Journal of Water Resources Development
+- abbreviation: Kvant. Elektron. (Moscow) [Sov. J. Quantum Electron.]
+  name: Kvantovaya Elektronika (Moscow) [Soviet Journal of Quantum Electronics]
+- abbreviation: New J. Phys.
+  name: New Journal of Physics
+- abbreviation: Astrophys. Space Sci.
+  name: Astrophysics and Space Science
+  variations:
+  - Astrophy. Space Sci.
+- abbreviation: Bull. Am. Phys. Soc.
+  name: Bulletin of The American Physical Society
+- abbreviation: Mar. Obs.
+  name: Marine Observer
+- abbreviation: J. Neural Eng.
+  name: Journal of Neural Engineering
+- abbreviation: Phys. Biol.
+  name: Physical Biology
+- abbreviation: Astron. J.
+  name: The Astronomical Journal
+- abbreviation: Natl. Bur. Stand. Circ. (U.S.)
+  name: National Bureau of Standards (U.S.), Circular
+- abbreviation: Expert Syst. Appl.
+  name: Expert Systems with Applications
+- abbreviation: Struct. Dyn.
+  name: Structural Dynamics
+- abbreviation: Global J. Pure Appl. Sci.
+  name: Global Journal of Pure and Applied Sciences
+- abbreviation: J. Vac. Sci. Technol. A
+  name: Journal of Vacuum Science & Technology A
+- abbreviation: J. Asian Earth Sci.
+  name: Journal of Asian Earth Sciences
+- abbreviation: Int. J. Mod. Phys. B
+  name: International Journal of Modern Physics B
+- abbreviation: Struct. Saf.
+  name: Structural Safety
+- abbreviation: J. Opt. Soc. Am. A
+  name: 'Journal of the Optical Society of America A: Optics, Image Science & Vision'
+- abbreviation: Appl. Opt.
+  name: Applied Optics
+- abbreviation: J. High Energy Phys.
+  name: Journal of High Energy Physics
+- abbreviation: Kristallografiya [Sov. Phys. Crystallogr.]
+  name: Kristallografiya [Soviet Physics-Crystallography]
+- abbreviation: J. Appl. Math. Mech.
+  name: Journal of Applied Mathematics and Mechanics
+- abbreviation: Sol. Energ. Mat. Sol.
+  name: Solar Energy Materials and Solar Cells
+- abbreviation: Quantum Electron.
+  name: Quantum Electronics
+  variations:
+  - Quantum Electron. (UK) or Quantum Electron. (USA)
+- abbreviation: J. Pet. Geol
+  name: Journal of Petroleum Geology
+- abbreviation: Rep. Prog. Phys.
+  name: Reports on Progress in Physics
+- abbreviation: Sov. Phys. JETP
+  name: Soviet Physics-JETP [translation of Zhurnal Eksperimentalnoi i Teoreticheskoi Fiziki]
+- abbreviation: J. Phys. IV Proc.
+  name: Journal de Physique IV (Proceedings)
+- abbreviation: Br. J. Appl. Phys.
+  name: British Journal of Applied Physics
+- abbreviation: Appl. Math. Comput.
+  name: Applied Mathematics and Computation
+- abbreviation: Bull. Acad. Sci. USSR, Phys. Ser.
+  name: Bulletin of the Academy of Sciences of the USSR, Physical Series [translation of Izvestiya Akademii Nauk SSSR, Seriya Fizicheskaya]
+- abbreviation: Regul. Pept.
+  name: Regulatory Peptides
+- abbreviation: Ukr. Phys. J.
+  name: Ukrainian Physics Journal [translation of Ukrainskii Fizicheskii Zhurnal (Russian Edition)]
+- abbreviation: Int. J. Veh. Syst. Model. Test.
+  name: International Journal of Vehicle Systems Modelling and Testing
+- abbreviation: Nature
+  name: Nature
+- abbreviation: Izv. Acad. Nauk SSSR, Ser. Fiz. [Bull. Acad. Sci. USSR, Phys. Ser.]
+  name: Izvestiya Akademii Nauk SSSR, Seriya Fizicheskaya [Bulletin of the Academy of Sciences of the USSR, Physical Series]
+- abbreviation: Jpn. J. Phycol.
+  name: Japanese Journal of Phycology
+- abbreviation: Tech. Phys. Lett.
+  name: Technical Physics Letters
+- abbreviation: Optica
+  name: Optica
+- abbreviation: Sov. J. Opt. Technol.
+  name: Soviet Journal of Optical Technology [translation of Optiko-Mekhanicheskaya Promyshlennost]
+- abbreviation: Phys. Scr. T.
+  name: Physica Scripta, T.
+- abbreviation: IEEE Trans. Instrum. Meas.
+  name: IEEE Transactions on Instrumentation and Measurement
+- abbreviation: J. Sound Vib.
+  name: Journal of Sound and Vibration
+- abbreviation: Angew. Chem. - Int. Ed.
+  name: Angewandte Chemie International Edition
+- abbreviation: Sov. J. Low Temp. Phys.
+  name: Soviet Journal of Low Temperature Physics [translation of Fizika Nizkikh Temperatur]
+- abbreviation: Nonlinearity
+  name: Nonlinearity
+- abbreviation: J. Geophys. Res. Oceans
+  name: Journal of Geophysical Research, Oceans
+- abbreviation: J. Sediment. Res.
+  name: Journal of Sedimentary Research
+- abbreviation: Front. Sci. Ser.
+  name: Frontier Science Series
+- abbreviation: 'J. Phys. A: Math. Theor.'
+  name: 'Journal of Physics A: Mathematical and Theoretical'
+  variations:
+  - J. Phys. Math. Theor.
+- abbreviation: Lect. Notes Phys. Monogr.
+  name: Lecture Notes in Physics Monographs
+- abbreviation: Eur. Phys. J. B
+  name: The European Physical Journal B
+- abbreviation: Nat. Nano
+  name: Nature Nano
+- abbreviation: Adv. Fluid Mech.
+  name: Advances in Fluid Mechanics
+- abbreviation: J. Southeast Asian Earth Sci.
+  name: Journal of Southeast Asian Earth Sciences
+- abbreviation: Sens.
+  name: Sensors
+- abbreviation: Phys. Rev. Fluids
+  name: Physical Review Fluids
+- abbreviation: Phys. D
+  name: Physica D
+- abbreviation: N.Z. Geol. Surv. Bull.
+  name: New Zealand Geological Survey Bulletin
+- abbreviation: Mater. Sci. Eng. C
+  name: 'Materials Science and Engineering: C'
+- abbreviation: Inverse Prob.
+  name: Inverse Problems
+- abbreviation: Solid-state Electron.
+  name: Solid-state Electronics
+- abbreviation: Int. J. High Perform. Comput. Networking
+  name: International Journal of High Performance Computing and Networking
+- abbreviation: Comput. Phys. Commun.
+  name: Computer Physics Communications
+- abbreviation: Phys. Status Solidi B
+  name: physica status solidi (b)
+- abbreviation: Pure Appl. Geophys.
+  name: Pure and Applied Geophysics
+- abbreviation: Int. J. Earth Sci.
+  name: International Journal of Earth Sciences
+- abbreviation: Spectrochim. Acta, Part B
+  name: 'Spectrochimica Acta, Part B: Atomic Spectroscopy'
+- abbreviation: Isot. Geosci.
+  name: Isotope Geoscience
+- abbreviation: Appl. Math. Lett.
+  name: Applied Mathematics Letters
+- abbreviation: Min. J.
+  name: Mining Journal
+- abbreviation: Phys. Rev. Materials
+  name: Physical Review Materials
+- abbreviation: Int. J. Simul. Process Model.
+  name: International Journal of Simulation and Process Modelling
+- abbreviation: Ann. Phys. (Berlin)
+  name: Annalen der Physik
+  variations:
+  - Ann. Phys. (Berl.)
+- abbreviation: Int. J. Geomech.
+  name: International Journal of Geomechanics
+- abbreviation: J. Phase Equilibria
+  name: Journal of Phase Equilibria
+- abbreviation: Int. J. High Perform. Syst. Archit.
+  name: International Journal of High Performance Systems Architecture
+- abbreviation: Trans. Br. Ceram. Soc.
+  name: Transactions of the British Ceramic Society
+- abbreviation: Greenl. Geosci.
+  name: Greenland Geoscience
+- abbreviation: Astrophys. J. Lett.
+  name: Astrophysical Journal, Letters to the Editor
+- abbreviation: Ann. Inst. Henri Poincaré
+  name: Annales de l'Institut Henri Poincaré
+- abbreviation: Beilstein J. Nanotechnol.
+  name: Beilstein Journal of Nanotechnology
+- abbreviation: Phys. Rev. Phys. Educ. Res.
+  name: Physical Review Physics Education Research
+- abbreviation: Jpn. J. Appl. Phys., Part 1
+  name: Japanese Journal of Applied Physics Part 1
+- abbreviation: Comput. Sci. Discovery
+  name: Computational Science & Discovery
+- abbreviation: Geochem. Geophys. Geosyst.
+  name: Geochemistry, Geophysics, Geosystems
+- abbreviation: Zh. Fiz. Khim. [Russ. J. Phys. Chem.]
+  name: Zhurnal Fizicheskoi Khimii [Russian Journal of Physical Chemistry]
+- abbreviation: Opt. News
+  name: Optics News
+- abbreviation: Am. Assoc. Pet. Geol. Bull.
+  name: American Association of Petroleum Geologists Bulletin
+- abbreviation: Opt. Spektrosk. [Opt. Spectrosc. (USSR)]
+  name: Optika i Spektroskopiya [Optics and Spectroscopy (USSR)]
+- abbreviation: Solid State Sci.
+  name: Solid State Sciences
+- abbreviation: N.Z. J. Geol. Geophys.
+  name: New Zealand Journal of Geology and Geophysics
+- abbreviation: Trans. Metall. Soc. AIME
+  name: Transactions of the Metallurgical Society of AIME
+- abbreviation: Nucl. Instrum.
+  name: Nuclear Instruments
+- abbreviation: Earth Sci. Inf.
+  name: Earth Science Informatics
+- abbreviation: Int. J. Numer. Methods Fluids
+  name: International Journal for Numerical Methods in Fluids
+- abbreviation: J. Res. Natl. Bur. Stand.
+  name: Journal of Research of the National Bureau of Standards
+- abbreviation: Annu. Rev. Fluid Mech.
+  name: Annual Review of Fluid Mechanics
+- abbreviation: Ann. Inst. Henri Poincaré, A
+  name: "Annales de l'Institut Henri Poincaré, Section A: Physique Theorique"
+- abbreviation: Dalton Trans.
+  name: Dalton Transactions
+- abbreviation: J. Paleontol.
+  name: Journal of Paleontology
+- abbreviation: Int. J. Web Grid Serv.
+  name: International Journal of Web and Grid Services
+- abbreviation: Comments Astrophys. Space Phys.
+  name: Comments on Astrophysics and Space Physics
+- abbreviation: Int. J. Comput. Sci. Math.
+  name: International Journal of Computing Science and Mathematics
+- abbreviation: NATO ASI Ser., Ser. E
+  name: NATO ASI Series, Series E Applied Physics
+- abbreviation: Astrophys. Bull.
+  name: Astrophysical Bulletin
+- abbreviation: Mech. Syst. Sig. Process.
+  name: Mechanical Systems and Signal Processing
+- abbreviation: Commun. Theor. Phys.
+  name: Communications in Theoretical Physics
+- abbreviation: 'Phys. B: Condens. Matter'
+  name: 'Physica B: Condensed Matter'
+  variations:
+  - Phys. B Condens. Matter
+- abbreviation: Zh. Prikl. Spektrosk. [J. Appl. Spectrosc. (USSR)]
+  name: Zhurnal Prikladnoi Spektroskopii [Journal of Applied Spectroscopy (USSR)]
+- abbreviation: Prog. Theor. Phys.
+  name: Progress of Theoretical Physics
+- abbreviation: Explor. Min. Geol.
+  name: Exploration and Mining Geology
+- abbreviation: Comptes Rendus Académie Sci. - Ser. I
+  name: Comptes Rendus de l'Académie des Sciences - Series I - Mathematics
+  variations:
+  - C. R. Acad. Sci. Paris, Ser. I
+  - Comptes Rendus Académie Sci. - Ser. - Math.
+- abbreviation: Acta Seismol. Sin.
+  name: Acta Seismologica Sinica
+- abbreviation: NATO ASI Ser., Ser. A
+  name: NATO ASI Series, Series A Life Sciences
+- abbreviation: High Temp. (USSR)
+  name: High Temperature (USSR) [translation of Teplofizika Vysokikh Temperatur]
+- abbreviation: Facta Univ. - Ser. Electron. Energ.
+  name: 'Facta universitatis - series: Electronics and Energetics'
+- abbreviation: J. Phys. G
+  name: Journal of Physics G
+- abbreviation: Q. J. R. Astron. Soc.
+  name: Quarterly Journal of the Royal Astronomical Society
+- abbreviation: Astron. Astrophys. Rev.
+  name: Astronomy and Astrophysics Review
+- abbreviation: Electrochem. Soc. Interface
+  name: The Electrochemical Society Interface
+- abbreviation: Eur. Phys. J. B
+  name: 'European Physics Journal B: Condensed Matter'
+- abbreviation: Phys. Status Solidi
+  name: Physica Status Solidi
+- abbreviation: Chem. Rev.
+  name: Chemical Reviews
+- abbreviation: J. Appl. Mech.
+  name: Journal of Applied Mechanics
+- abbreviation: Beitr. Zur Phys. Atmosphäre
+  name: Beiträge Zur Physik der Atmosphäre
+  variations:
+  - Beitr. Zur Phys. Atmos.
+- abbreviation: N.Z. J. Sci.
+  name: New Zealand Journal of Science
+- abbreviation: Trans. Am. Inst. Min. Metall. Pet. Eng.
+  name: Transactions of the American Institute of Mining, Metallurgical and Petroleum Engineers
+- abbreviation: Proc. Geol. Assoc.
+  name: Proceedings of the Geologists' Association
+- abbreviation: Int. J. Fract.Mech.
+  name: International Journal of Fracture Mechanics
+- abbreviation: Geosci. J.
+  name: Geosciences Journal
+- abbreviation: Int. J. Inf. Secur.
+  name: International Journal of Information Security
+- abbreviation: Phys. Rev. Lett.
+  acronym: PRL
+  name: Physical Review Letters
+- abbreviation: Publ. Astron. Soc. Pac.
+  name: Publications of the Astronomical Society of the Pacific
+- abbreviation: 'J. Geophys. Res. B: Solid Earth'
+  name: 'Journal of Geophysical Research, B: Solid Earth'
+- abbreviation: Semicond. Today
+  name: Semiconductor Today
+- abbreviation: Appl. Geophys.
+  name: Applied Geophysics
+- abbreviation: Izv. Acad. Sci. USSR, Phys. Solid Earth
+  name: Izvestiya, Academy of Sciences, USSR, Physics of the Solid Earth [translation of Izvestiya Akademii Nauk SSSR, Fizika Zemli]
+- abbreviation: Adv. Nucl. Phys.
+  name: Advances in Nuclear Physics
+- abbreviation: Int. J. Shaping Model.
+  name: International Journal of Shape Modeling
+- abbreviation: Mol. Cryst. Liq. Cryst.
+  name: Molecular Crystals and Liquid Crystals
+- abbreviation: Rev. Opt. Theor. Instrum.
+  name: Revue dOptique, Théorique et Instrumentale
+- abbreviation: Ann. Geophys.
+  name: Annales de Geophysique
+- abbreviation: Sol. Energy Mater. Sol. Cells.
+  name: Solar Energy Materials amd Solar Cells
+- abbreviation: Europhys. Lett.
+  name: Europhysics Letters (EPL)
+- abbreviation: Chin. J. Aeronaut.
+  name: Chinese Journal of Aeronautics
+- abbreviation: Phys. Nonlinear Phenom.
+  name: 'Physica D: Nonlinear Phenomena'
+  variations:
+  - Phys. D Nonlinear Phenom.
+  - 'Phys. D: Nonlinear Phenom.'
+  - Physica D
+- abbreviation: Acta Metall.
+  name: Acta Metallurgica
+- abbreviation: J. Phys. Conf. Series
+  name: 'Journal of Physics: Conference series'
+- abbreviation: Acc. Chem. Res.
+  name: Accounts of Chemical Research
+- abbreviation: J. Polym. Sci. Polym. Lett. Ed.
+  name: Journal of Polymer Science, Polymer Letters Edition
+- abbreviation: J. Electron Spectrosc. Relat. Phenom.
+  name: Journal of Electron Spectroscopy and Related Phenomenon
+- abbreviation: Phys. Rev.
+  name: Physical Review
+- abbreviation: Astrophys. J. Suppl. Ser.
+  name: Astrophysics Journal Supplement Series
+- abbreviation: J. Chem. Phys.
+  name: Journal of Chemical Physics
+- abbreviation: Bull. Astron. Inst. Neth.
+  name: Bulletin of the Astronomical Institutes of the Netherlands
+- abbreviation: J. Stat. Mech.
+  name: 'Journal of Statistical Mechanics: Theory and Experiment'
+  variations:
+  - 'J. Stat. Mech.: Theory Exp.'
+  - 'J. Stat. Mech: Theory Exp.'
+- abbreviation: Plasma Res. Express
+  name: Plasma Research Express
+- abbreviation: Phys. World
+  name: Physics World
+- abbreviation: Bayer CropSci. J.
+  name: Bayer CropScience Journal
+- abbreviation: Proc. R. Soc. London, Ser. B
+  name: Proceedings of the Royal Society of London, Series B
+- abbreviation: J. Phys. A
+  name: 'Journal of Physics A: Mathematical and General'
+  variations:
+  - 'J. Phys. A: Math. Gen.'
+- abbreviation: Czechoslov. J. Phys.
+  name: Czechoslovak Journal of Physics
+  variations:
+  - Czech. J. Phys.
+- abbreviation: Phys. Fluids
+  name: Physics of Fluids
+- abbreviation: IEEJ Trans. Sens. Micromachines
+  name: IEEJ Transactions on Sensors and Micromachines
+- abbreviation: Sov. Phys. Semicond.
+  name: Soviet Physics-Semiconductors [translation of Fizika i Tekhnika Poluprovodnikov]
+- abbreviation: Izv. Acad. Nauk SSSR, Fiz. Atmos. Okeana [Izv. Acad. Sci. USSR, Atmos. Oceanic Phys.]
+  name: Izvestiya Akademii Nauk SSSR, Fizika Atmosfery i Okeana [Izvestiya, Academy of Sciences, USSR, Atmospheric and Oceanic Physics]
+- abbreviation: Astrophys. Lett.
+  name: Astrophysical Letters
+- abbreviation: Nat. Biomed. Eng.
+  name: Nature Biomedical Engineering
+- abbreviation: Ann. Inst. Henri Poincaré, B
+  name: "Annales de l'Institut Henri Poincaré, Section B: Calculdes Probabilités et Statistique"
+- abbreviation: Phys. Status Solidi RRL
+  name: Physica Status Solidi (RRL) - Rapid Research Letters
+- abbreviation: Pure Appl. Phys.
+  name: Pure and Applied Physics
+- abbreviation: Int. J. Wireless Inf. Networks
+  name: International Journal of Wireless Information Networks
+- abbreviation: J. Electrochem. Soc.
+  name: Journal of the Electrochemical Society
+- abbreviation: Int. J. Multiphase Flow
+  name: International Journal of Multiphase Flow
+- abbreviation: Chem. Phys.
+  name: Chemical Physics
+- abbreviation: Nano Futur.
+  name: Nano Futures
+- abbreviation: J. Appl. Spectrosc. (USSR)
+  name: Journal of Applied Spectroscopy (USSR) [translation of Zhurnal Prikladnoi Spektroskopii]
+- abbreviation: Adv. Water Res.
+  name: Advances in Water Resources
+- abbreviation: Ultrasonics
+  name: Ultrasonics
+- abbreviation: Int. J. Embedded Syst.
+  name: International Journal of Embedded Systems
+- abbreviation: NACTA J.
+  name: NACTA Journal
+- abbreviation: J. Appl. Phycol.
+  name: Journal of Applied Phycology
+- abbreviation: U.S. Geol. Surv. Bull.
+  name: U.S. Geological Survey Bulletin
+- abbreviation: Commun. Pure Appl. Math.
+  name: Communications on Pure and Applied Mathematics
+- abbreviation: Space Res. Today
+  name: Space Research Today
+- abbreviation: Sol. Syst. Res.
+  name: Solar System Research
+- abbreviation: Antarct. Sci.
+  name: Antarctic Science
+- abbreviation: J. Geol. Soc. Aust.
+  name: Journal of the Geological Society of Australia
+- abbreviation: Q. J. Stud. Alcohol
+  name: Quarterly Journal of Studies on Alcohol
+- abbreviation: J. Res. Natl. Bur. Stand. Sec. C
+  name: 'Journal of Research of the National Bureau of Standards, Section C: Engineering and Instrumentation'
+- abbreviation: J. Phys. Chem. Solids
+  name: Journal of Physics and Chemistry of Solids
+- abbreviation: J. Polym. Sci.
+  name: Journal of Polymer Science
+- abbreviation: J. Lumin.
+  name: Journal of Luminescence
+- abbreviation: SAMPE J.
+  name: SAMPE Journal
+- abbreviation: Mat. Res. Soc. Symp. Proc.
+  name: Materials Research Society Symposium Proceedings
+  variations:
+  - Mater. Res. Soc. Symp. Proc.
+- abbreviation: Russ. Chem. Rev.
+  name: Russian Chemical Reviews
+- abbreviation: Hydrol. Sci. J.
+  name: Hydrological Sciences Journal
+- abbreviation: Phase Transit.
+  name: Phase Transitions
+- abbreviation: Radiat. Eff. Defects Solids
+  name: Radiation Effects and Defects in Solids
+- abbreviation: Eur. Phys. J. DS
+  name: 'European Physical Journal DS: Data Science'
+- abbreviation: 'J. Phys. A: Math. Nucl. Gen.'
+  name: 'Journal of Physics A: Mathematical, Nuclear and General'
+- abbreviation: Eur. Phys. J. PV
+  name: 'European Physical Journal PV: Photovoltaics'
+- abbreviation: Int. J. Condens. Matter Res.
+  name: International Journal of Condensed Matter Research
+- abbreviation: Jahrb. Oberflachentech.
+  name: Jahrbuch Oberflachentechnik
+- abbreviation: Multifunct. Mater.
+  name: Multifunctional Materials
+- abbreviation: J. Res. Natl. Inst. Stand. Technol.
+  name: Journal of Research of the National Institute of Standards and Technology
+- abbreviation: Izv. Math.
+  name: 'Izvestiya: Mathematics'
+- abbreviation: Acta Geol. Sin.
+  name: Acta Geologica Sinica
+- abbreviation: E-J. Surf. Sci. Nanotechnol.
+  name: e-Journal of Surface Science and Nanotechnology
+- abbreviation: Phys. Earth Planet. In.
+  name: Physics of the Earth and Planetary Interiors
+- abbreviation: Geochem. Int.
+  name: Geochemistry International
+- abbreviation: Ann. Phys. (Leipzig)
+  name: Annalen der Physik (Leipzig)
+- abbreviation: Seismol. Res. Lett.
+  name: Seismological Research Letters
+- abbreviation: CIM Bull.
+  name: CIM Bulletin
+- abbreviation: Q. J. Geol. Soc. London
+  name: Quarterly Journal of the Geological Society of London
+- abbreviation: Rheol. Acta
+  name: Rheologica Acta
+- abbreviation: Physica
+  name: Physica
+- abbreviation: Light Sci. Appl.
+  name: 'Light: Science & Applications'
+- abbreviation: 'Phys. C: Supercond. Its Appl.'
+  name: 'Physica C: Superconductivity and its Applications'
+  variations:
+  - Phys. C Supercond. Its Appl.
+- abbreviation: Phys. Rev. E
+  acronym: PRE
+  name: Physical Review E
+  variations:
+  - 'Phys. Rev. E: Stat. Phys. Plasmas Fluids Relat. Interdisciplin. Top.'
+  - 'Physical Review E: Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary Topics'
+- abbreviation: New Sci.
+  name: New Scientist
+- abbreviation: Explor. Geophys.
+  name: Exploration Geophysics
+- abbreviation: Int. J. Hydropower Dams
+  name: International Journal on Hydropower and Dams
+- abbreviation: C. R. Acad. Sci.
+  name: Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences
+  variations:
+  - C. R. Hebd. Séances Acad. Sci.
+- abbreviation: Int. J. Magn.
+  name: International Journal of Magnetism
+- abbreviation: Top. Appl. Phys.
+  name: Topics in Applied Physics
+- abbreviation: J. Thermophys Heat Transfer
+  name: Journal of Thermophysics and Heat Transfer
+- abbreviation: Int. J. Press. Vessels Pip.
+  name: International Journal of Pressure Vessels and Piping
+- abbreviation: IOP SciNotes
+  name: IOP SciNotes
+- abbreviation: Neth. J. Geosci.
+  name: Netherlands Journal of Geosciences
+- abbreviation: Appl. Math. Model.
+  name: Applied Mathematical Modelling
+- abbreviation: Int. J. Non Linear Mech.
+  name: International Journal of Non-Linear Mechanics
+- abbreviation: J. Chem. Soc.
+  name: Journal of the Chemical Society
+- abbreviation: Sov. Tech. Phys. Lett.
+  name: Soviet Technical Physics Letters [translation of Pisma v Zhurnal Tekhnicheskoi Fiziki]
+- abbreviation: Trans. Faraday Soc.
+  name: Transactions of the Faraday Society
+- abbreviation: Z. Phys. A Hadrons Nucl.
+  name: Zeitschrift für Physik A Hadrons and Nuclei
+- abbreviation: Eur. Phys. J. B
+  name: 'European Physical Journal B: Condensed Matter and Complex Systems'
+  variations:
+  - Eur. Phys. J. B-Condens. Matter Complex Syst.
+- abbreviation: Int. J. Cosmet. Sci.
+  name: International Journal of Cosmetic Science
+- abbreviation: J. Non-Equilib. Thermodyn.
+  name: Journal of Non-Equilibrium Thermodynamics
+- abbreviation: Quat. Res.
+  name: Quaternary Research
+- abbreviation: Int. Appl. Mech.
+  name: International Applied Mechanics
+- abbreviation: J. Phys. C Solid State Phys.
+  name: 'Journal of Physics C: Solid State Physics'
+  variations:
+  - J. Phys. C
+  - 'J. Phys. C: Solid State Phys.'
+- abbreviation: Int. J. PIXE
+  name: International Journal of PIXE
+- abbreviation: Phys. Z. Sowjetunion
+  name: Physikalische Zeitschrift der Sowjetunion
+- abbreviation: 'J. Vac. Sci. Technol. A: Vac. Surf. Films'
+  name: 'Journal of Vacuum Science & Technology A: Vacuum, Surfaces, and Films'
+- abbreviation: Chin. Astron. Astrophy
+  name: Chinese Astronomy and Astrophysics
+- abbreviation: Z. für Krist.
+  name: Zeitschrift für Kristallographie
+  variations:
+  - Z. Für Krist.
+  - Z. Krist.
+- abbreviation: Bull. Geol. Soc. Den.
+  name: Bulletin of the Geological Society of Denmark
+- abbreviation: Icarus
+  name: Icarus
+- abbreviation: Int. J. Engine Res.
+  name: International Journal of Engine Research
+- abbreviation: J. Phys. Mater.
+  name: 'Journal of Physics: Materials'
+- abbreviation: Plasma Sci. Technol.
+  name: Plasma Science and Technology
+- abbreviation: Geol. Soc. Am. Bull.
+  name: Geological Society of America Bulletin
+- abbreviation: Northwest Sci.
+  name: Northwest Science
+- abbreviation: EPJ Appl. Metamater.
+  name: EPJ Applied Metamaterials
+- abbreviation: Int. J. Thermophys.
+  name: International Journal of Thermophysics
+- abbreviation: Earth Planets Space
+  name: Earth Planets Space [formerly Journal of Geomagnetism and Geoelectricity]
+- abbreviation: Comput. Mech.
+  name: Computational Mechanics
+- abbreviation: N.Z. J. Mar. Freshwater Res.
+  name: New Zealand Journal of Marine and Freshwater Research
+- abbreviation: Int. J. Form. Processes
+  name: International Journal of Forming Processes
+- abbreviation: Mar. Min.
+  name: Marine Mining
+- abbreviation: Fiz. Nizk. Temp. [Sov. J. Low Temp. Phys.]
+  name: Fizika Nizkikh Temperatur [Soviet Journal of Low Temperature Physics]
+- abbreviation: Int. J. Mod. Phys. E
+  name: International Journal of Modern Physics E
+- abbreviation: Comput. Lett.
+  name: Computing Letters
+- abbreviation: J. Non-Cryst. Solids
+  name: Journal of Non-Crystalline Solids
+- name: Physica B
+  variations:
+  - Phys. B
+- abbreviation: Sov. Phys. Usp.
+  name: Soviet Physics-Uspekhi [translation of Uspekhi Fizicheskikh Nauk]
+- abbreviation: OSA Tech. Dig. Online
+  name: OSA Technical Digest (online)
+- abbreviation: Numer. Heat Transfer, Part B
+  name: Numerical Heat Transfer Part B
+- abbreviation: Can. Min. J.
+  name: Canadian Mining Journal
+- abbreviation: Himalayan Geol.
+  name: Himalayan Geology
+- abbreviation: Springer Ser. Opt. Sci.
+  name: Springer Series in Opical Sciences
+- abbreviation: Akust. Zh. [Sov. Phys. Acoust.]
+  name: Akusticheskii Zhurnal [Soviet PhysicsAcoustics]
+- abbreviation: 'J. Phys. B: At. Mol. Opt. Phys.'
+  name: 'Journal of Physics B: Atomic, Molecular and Optical Physics'
+- abbreviation: Appl. Phys. A
+  name: Applied Physics A
+- abbreviation: ACS Photonics
+  name: ACS Photonics
+- abbreviation: Vacuum
+  name: Vacuum
+- abbreviation: Solid-State Electron.
+  name: Solid-State Electronics
+- abbreviation: Chin. Ger. J. Clin. Oncol.
+  name: Chinese-German Journal of Clinical Oncology
+- abbreviation: Can. Mineral.
+  name: Canadian Mineralogist
+- abbreviation: Mon. Not. R. Astron Soc.
+  name: Monthly Notices of the Royal Astronomical Society
+- abbreviation: Int. J. Rehabil. Res.
+  name: International Journal of Rehabilitation Research
+- abbreviation: Radiotekh. Elektron. [Radio Eng. Electron. Phys. (USSR)]
+  name: Radiotekhnika i Elektronika [Radio Engineering and Electronic Physics (USSR)]
+- abbreviation: J. Korean Phys. Soc.
+  name: Journal of the Korean Physical Society
+- abbreviation: AVS Quantum Sci.
+  name: AVS Quantum Science
+- abbreviation: Adv. Appl. Mech.
+  name: Advances in Applied Mechanics
+- abbreviation: IEEE J. of Sel. Top. Quantum Electron.
+  name: IEEE Journal of Selected Topics in Quantum Electronics
+  variations:
+  - IEEE J. Sel. Top. Quantum Electron.
+- abbreviation: Anal. Lett.
+  name: Analytical Letters
+- abbreviation: Eur. J. Appl. Math.
+  name: European Journal of Applied Mathematics
+- abbreviation: Lect. Notes Earth Sci.
+  name: Lecture Notes in Earth Sciences
+- abbreviation: J. Geom. Phys.
+  name: Journal of Geometry and Physics
+- abbreviation: Int. J. Mine Water
+  name: International Journal of Mine Water
+- abbreviation: Aquat. Geochem.
+  name: Aquatic Geochemistry
+- abbreviation: Vistas Astron.
+  name: Vistas in Astronomy
+- abbreviation: Eur. Phys. J. H
+  name: The European Physical Journal H
+- abbreviation: Lett. Nuovo Cimento
+  name: Lettere al Nuovo Cimento
+- abbreviation: Pis'ma Astron. Zh. [Sov. Astron. Lett.]
+  name: Pis'ma v Astronomicheskii Zhurnal [Soviet Astronomy Letters]
+- abbreviation: Int. J. Energy Res.
+  name: International Journal of Energy Research
+- abbreviation: Int. J. Nondestr. Test.
+  name: International Journal of Nondestructive Testing
+- abbreviation: Phys. Status Solidi RRL
+  name: physica status solidi (RRL) - Rapid Research Letters
+- abbreviation: Z. Kristallogr. Kristallgeom. Kristallphys. Kristallchem.
+  name: Zeitschrift für Kristallographie, Kristallgeometrie, Kristallphysik, Kristallchemie
+- abbreviation: Scr. Mater.
+  name: Scripta Materialia
+- abbreviation: Int. J. Intell. Syst.
+  name: International Journal of Intelligent Systems
+- abbreviation: Diam. Relat. Mater.
+  name: Diamond and Related Materials
+- abbreviation: Helv. Chim. Acta
+  name: Helvetica Chimica Acta
+- abbreviation: Nucl. Instrum. Methods Phys. Res. Sect. B
+  name: Nuclear Instruments and Methods in Physics Research Section B
+- abbreviation: Aust. J. Grape Wine Res.
+  name: Australian Journal of Grape and Wine Research
+- abbreviation: J. Breath Res.
+  name: Journal of Breath Research
+- abbreviation: Z. Phys. D
+  name: Zeitschrift für Physik D
+- abbreviation: J. Volcanol. Geotherm. Res.
+  name: Journal of Volcanology and Geothermal Research
+- abbreviation: 'J. Phys.: Condens. Matter'
+  name: 'Journal of Physics: Condensed Matter'
+  variations:
+  - J. Phys. Condens. Matter
+- abbreviation: Proc. R. Soc. London, Ser. A
+  name: 'Proceedings of the Royal Society of London, Series A: Mathematical and Physical Sciences'
+  variations:
+  - 'Proc. R. Soc. London, Ser. A: Math. Phys. Sci.'
+- abbreviation: 'Adv. Electron. Mater. '
+  name: Advanced Electronic Materials
+- abbreviation: J. Surf. Investig. X-Ray Synchrotron Neutron Tech.
+  name: 'Journal of Surface Investigation: X-ray, Synchrotron and Neutron Techniques'
+- abbreviation: IEEE Proc. Solid State Electron Devices
+  name: IEEE Proceedings I - Solid-State and Electron Devices
+- abbreviation: Eur. Phys. J. D
+  name: 'European Physics Journal D: Atomic, Molecular, and Optical Physics'
+- abbreviation: Nucl. Phys. B
+  name: Nuclear Physics B
+- abbreviation: Remote Sens. Environ.
+  name: Remote Sensing of Environment
+- abbreviation: Gaswaerme Int.
+  name: Gaswaerme International
+- abbreviation: J. Astronaut. Sci.
+  name: Journal of Astronautical Sciences
+- abbreviation: J. Sci. Instrum.
+  name: Journal of Scientific Instruments
+- abbreviation: J. Acoust. Soc. Am.
+  name: Journal of the Acoustical Society of America
+- abbreviation: Prog. Aerosp. Sci.
+  name: Progress in Aerospace Sciences
+- abbreviation: J. Phys. Complexity
+  name: 'Journal of Physics: Complexity'
+- abbreviation: Europhys. Lett.
+  name: EPL (Europhysics Letters)
+  variations:
+  - EPL (Europhysics Lett.
+- abbreviation: Acta Phys. Pol.
+  name: Acta Physica Polonica
+- abbreviation: Radiotekh. Elektron. [Radio Eng. Electron. (USSR)]
+  name: Radiotekhnika i Elektronika [Radio Engineering and Electronics (USSR)]
+- abbreviation: Acta Crystallogr. Sec. B
+  name: 'Acta Crystallographica, Section B: Structural Crystallography and Crystal Chemistry'
+- abbreviation: J. Appl. Crystallogr.
+  name: Journal of Applied Crystallography
+- abbreviation: J. Nat. Conserv.
+  name: Journal of Nature Conservation
+- abbreviation: Z. Phys. A
+  name: Zeitschrift für Physik A
+- abbreviation: J. Am. Inst. Electr. Eng.
+  name: Journal of the American Institute of Electrical Engineers
+- abbreviation: Ann. Fluid Dyn.
+  name: Annals of Fluid Dynamics
+- abbreviation: JETP Lett.
+  name: JETP Letters [translation of Pisma v Zhurnal Eksperimentalnoi i Teoreticheskoi Fiziki]
+- abbreviation: Opt.-Mekh. Prom. [Sov. J. Opt. Technol.]
+  name: Optiko-Mekhanicheskaya Promyshlennost [Soviet Journal of Optical Technology]
+- abbreviation: Faraday Discuss.
+  name: Faraday Discussions
+- abbreviation: Appl. Geogr.
+  name: Applied Geography
+- abbreviation: Q. J. Mech. Appl. Math.
+  name: Quarterly Journal of Mechanics and Applied Mathematics
+- abbreviation: Int. J. Trop. Insect Sci.
+  name: International Journal of Tropical Insect Science
+- abbreviation: J. Fluid Mech.
+  name: Journal of Fluid Mechanics
+- abbreviation: Science
+  name: Science
+  variations:
+  - Science (80-. ).
+- abbreviation: 'Z. Phys. B: Condens. Matter Quanta'
+  name: 'Zeitschrift für Physik B: Condensed Matter and Quanta'
+- abbreviation: New Astron. Rev.
+  name: New Astronomy Reviews
+- abbreviation: Opt. Commun.
+  name: Optics Communications
+- abbreviation: Z. Naturforsch.
+  name: Zeitschrift für Naturforschung
+- abbreviation: Int. J. Mod. Phys. D
+  name: International Journal of Modern Physics D
+- abbreviation: Min. Mag.
+  name: Mining Magazine
+- abbreviation: J. Hydrodyn. Ser. B
+  name: Journal of Hydrodynamics, Series B
+- abbreviation: C. R. Acad. Sci. Ser. A
+  name: "Comptes Rendus de l'Académie des Sciences, Serie A: Sciences Mathématiques"
+- abbreviation: J. Phys. (Moscow)
+  name: Journal of Physics (Moscow)
+- abbreviation: Proc. Natl. Acad. Sci. U.S.A.
+  acronym: PNAS
+  name: Proceedings of the National Academy of Sciences of the United States of America
+  variations:
+  - PNAS
+  - Proc. Nat. Acad. Sci. U.S.A.
+  - Proceedings of the National academy of Sciences of the United States of America
+- abbreviation: ACS Omega
+  name: ACS Omega
+- abbreviation: APL Mater.
+  name: APL Materials
+- abbreviation: IBM Tech. Discl. Bull.
+  name: IBM Technical Disclosure Bulletin
+- abbreviation: Nano-Micro Lett.
+  name: Nano-Micro Letters
+- abbreviation: Z. Phys. B
+  name: Zeitschrift für Physik B
+- abbreviation: Cryogenics
+  name: Cryogenics
+- abbreviation: Phys. Status Solidi C
+  name: Physica Status Solidi C
+- abbreviation: APL Bioeng.
+  name: APL Bioengineering
+- abbreviation: J. Rheol.
+  name: Journal of Rheology
+- abbreviation: Zh. Tekh. Fiz. [Sov. Phys. Tech. Phys.]
+  name: Zhurnal Tekhnicheskoi Fiziki [Soviet Physics-Technical Physics]
+- abbreviation: NPG Asia Mater.
+  name: NPG Asia Materials
+- abbreviation: Int. J. Theor. Phys.
+  name: International Journal of Theoretical Physics
+- abbreviation: Int. J. Quantum Chem. 1
+  name: International Journal of Quantum Chemistry, Part 1
+- abbreviation: Norw. J. Geol.
+  name: Norwegian Journal of Geology
+- abbreviation: J. Exp. Theor. Phys.
+  name: Journal of Experimental and Theoretical Physics
+- abbreviation: J. Nonlinear Sci.
+  name: Journal of Nonlinear Science
+- abbreviation: Trans. Soc. Rheol.
+  name: Transactions of the Society of Rheology
+- abbreviation: Metrologia
+  name: Metrologia
+- abbreviation: Eur. Phys. J. AP
+  name: 'European Physical Journal AP: Applied Physics'
+- abbreviation: Sov. J. Nucl. Phys.
+  name: Soviet Journal of Nuclear Physics [translation of Yadernaya Fizika]
+- abbreviation: At. Data. Nucl. Data Tables
+  name: Atomic Data and Nuclear Data Tables
+- abbreviation: Geophys. Prospect.
+  name: Geophysical Prospecting
+- abbreviation: J. Vac. Sci. Technol., B
+  name: 'Journal of Vacuum Science and Technology B: Microelectronics and Nanometer Structures'
+- abbreviation: Planet. Sci. J.
+  name: The Planetary Science Journal
+- abbreviation: Exp. Fluids
+  name: Experiments in Fluids
+- abbreviation: Int. J. Mech. Sci.
+  name: International Journal of Mechanical Sciences
+- abbreviation: Ann. Phys. (NY)
+  name: Annals of Physics
+- abbreviation: J. Geol.
+  name: Journal of Geology
+- abbreviation: 'J. Phys. F: Met. Phys.'
+  name: 'Journal of Physics F: Metal Physics'
+- abbreviation: 'Sci. China D: Earth Sci.'
+  name: 'Science in China, Series D: Earth Sciences'
+  variations:
+  - Sci. China, Ser. D Earth Sci.
+  - 'Sci. China, Ser. D: Earth Sci.'
+- abbreviation: Proc. Cambridge Philos. Soc.
+  name: Proceedings of the Cambridge Philosophical Society
+- abbreviation: J. Chem. Phys.
+  name: The Journal of Chemical Physics
+- abbreviation: Sov. J. Quantum Electron.
+  name: Soviet Journal of Quantum Electronics [translation of Kvantovaya Elektronika (Moscow)]
+- abbreviation: Nat. Phys.
+  name: Nature Physics
+- abbreviation: Aust. J. Crop Sci.
+  name: Australian Journal of Crop Science
+- abbreviation: Asian J. Exp. Sci.
+  name: Asian Journal of Experimental Sciences
+- abbreviation: Sov. J. Plasma Phys.
+  name: Soviet Journal of Plasma Physics [translation of Fizika Plazmy]
+- abbreviation: Arch. Min. Sci.
+  name: Archives of Mining Sciences
+- abbreviation: J. Heat Transfer
+  name: Journal of Heat Transfer
+- abbreviation: J. Colloid Interface Sci.
+  name: Journal of Colloid and Interface Science
+- abbreviation: J. Nucl. Mater.
+  name: Journal of Nuclear Materials
+- abbreviation: Space Sci. Rev.
+  name: Space Science Reviews
+- abbreviation: Trans. Am. Soc. Mech. Eng.
+  name: Transactions of the American Society of Mechanical Engineers
+- abbreviation: Compos. Interfaces
+  name: Composite Interfaces
+- abbreviation: EPJ Tech. Instrum.
+  name: EPJ Techniques and Instrumentation
+- abbreviation: J. Appl. Phys.
+  name: Journal of Applied Physics
+- abbreviation: Eur. Phys. J. NBP
+  name: 'European Physical Journal NBP: Nonlinear Biomedical Physics'
+- abbreviation: Int. J. Circuit Theory Appl.
+  name: International Journal of Circuit Theory and Applications
+- abbreviation: Int. J. Water
+  name: International Journal of Water
+- abbreviation: Phys. Lett. B
+  name: Physics Letters B
+- abbreviation: Earth Sci. Res. J.
+  name: Earth Sciences Research Journal
+- abbreviation: J. Phase Equilib. Diffus.
+  name: Journal of Phase Equilibrium and Diffusion
+- abbreviation: Dokl. Akad. Nauk SSSR [Sov. Phys. Dokl.]
+  name: Doklady Akademii Nauk SSSR [Soviet Physics-Doklady]
+- abbreviation: J. Alloys
+  name: Journal of Alloys and Compounds
+- abbreviation: Int. J. Man Mach. Stud.
+  name: International Journal of Man-Machine Studies
+- abbreviation: Proc. Phys. Soc. London
+  name: Proceedings of the Physical Society of London
+- abbreviation: Nanomed.
+  name: Nanomedicine
+- abbreviation: Philos. Trans. R. Soc. A
+  name: Philosophical Transactions of the Royal Society A
+- abbreviation: IEEE Electron Device Lett.
+  name: IEEE Electron Device Letters
+- abbreviation: Phys. Status Solidi RRL
+  name: 'Physica Status Solidi RRL: Rapid Research Letters'
+- abbreviation: Izv. Akad. Nauk SSSR, Neorg. Mater. [Inorg. Mater. (USSR)]
+  name: Izvestiya Akademii Nauk SSSR, Neorganicheskie Materialy [Inorganic Materials (USSR)]
+- abbreviation: Gas Sep. Purif.
+  name: Gas Separation and Purification
+- abbreviation: Quat. Sci. Rev.
+  name: Quaternary Science Reviews
+- abbreviation: Rev. Geophys. Space Phys.
+  name: Reviews of Geophysics and Space Physics
+- abbreviation: Proc. Phys. Soc. London
+  name: Proceedings of the Physical Society, London
+- abbreviation: AIChE J.
+  name: AIChE Journal
+- abbreviation: J. Nucl. Energy
+  name: Journal of Nuclear Energy
+- abbreviation: Nucl. Phys.
+  name: Nuclear Physics
+- abbreviation: Mater. Sci. Eng. R Rep.
+  name: 'Materials Science and Engineering R: Reports'
+- abbreviation: J. Heat. Treat.
+  name: Journal of Heat Treating
+- abbreviation: Prog. Photovoltaics Res. Appl.
+  name: 'Progress in Photovoltaics: Research and Applications'
+- abbreviation: Int. J. Miner. Process.
+  name: International Journal of Mineral Processing
+- abbreviation: Lect. Notes Phys.
+  name: Lecture Notes in Physics
+- abbreviation: J. Hydro-environ. Res.
+  name: Journal of Hydro-environment Research
+- abbreviation: Rev. Prog. Color. Relat. Top.
+  name: Review of Progress in Coloration and Related Topics
+- abbreviation: J. Pept. Sci.
+  name: Journal of Peptide Science
+- abbreviation: Geochim. Cosmochim. Acta
+  name: Geochimica et Cosmochimica Acta
+- abbreviation: Numer. Anal. Appl.
+  name: Numerical Analysis and Applications
+- abbreviation: IEICE Electron. Express
+  name: IEICE Electronics Express
+- abbreviation: Int. J. Non Equilibr. Process
+  name: International Journal of Non-Equilibrium Processing
+- abbreviation: Philos. Trans. R. Soc.
+  name: Philosophical Transactions of the Royal Society
+- abbreviation: Radiat. Eff.
+  name: Radiation Effects
+- abbreviation: Phys. Rep.
+  name: Physics Reports
+- abbreviation: Ark. Fys.
+  name: Arkiv foer Fysik
+- abbreviation: 'J. Vac. Sci. Technol. B: Microelectron. Process. Phenom.'
+  name: 'Journal of Vacuum Science & Technology B: Microelectronics Processing and Phenomena'
+- abbreviation: Bull. Am. Meteorol. Soc.
+  name: Bulletin of the American Meteorological Society
+- abbreviation: Int. J. Coal Geol.
+  name: International Journal of Coal Geology
+- abbreviation: Commun. Math. Phys.
+  name: Communications in Mathematical Physics
+- abbreviation: Int. J. Wireless Mobile Comput.
+  name: International Journal of Wireless and Mobile Computing
+- abbreviation: Discuss. Faraday Soc.
+  name: Discussions of the Faraday Society
+- abbreviation: EPJ Nucl. Sci. Technol.
+  name: EPJ Nuclear Sciences and Technologies
+- abbreviation: J. Geophys. Res. Space Phys.
+  name: Journal of Geophysical Research, Space Physics
+- abbreviation: Mem. Am. Assoc. Pet. Geol.
+  name: Memoir - American Association of Petroleum Geologists
+- abbreviation: Int. J. Vent.
+  name: International Journal of Ventilation
+- abbreviation: Pet. Coal
+  name: Petroleum and Coal
+- abbreviation: Phys. Lett. A
+  name: Physics Letters A
+- abbreviation: Int. J. Veh. Auton. Syst.
+  name: International Journal of Vehicle Autonomous Systems
+- abbreviation: Laser Phys. Lett.
+  name: Laser Physics Letters
+- abbreviation: Plasma Sources Sci. Technol.
+  name: Plasma Sources Science and Technology
+- abbreviation: Flex. Print. Electron.
+  name: Flexible and Printed Electronics
+- abbreviation: J. Mar. Res.
+  name: Journal of Marine Research
+- abbreviation: J. Res. Natl. Bur. Stand. Sec. A
+  name: 'Journal of Research of the National Bureau of Standards, Section A: Physics and Chemistry'
+- abbreviation: Phys. Rev. Applied
+  name: Physical Review Applied
+- abbreviation: Exp. Hematol.
+  name: Experimental Hematology
+- abbreviation: Few-Body Syst.
+  name: Few-Body Systems
+- abbreviation: Eur. Phys. J. E
+  name: The European Physical Journal E
+- abbreviation: Adv. Opt. Mater.
+  name: Advanced Optical Materials
+- abbreviation: Quat. Int.
+  name: Quaternary International
+- abbreviation: Global J. Geol. Sci.
+  name: Global Journal of Geological Sciences
+- abbreviation: Int. J. Quantum Inf.
+  name: International Journal of Quantum Information
+- abbreviation: Wuli Xuebao (Acta Phys. Sin.) [Chin. J. Phys.]
+  name: Wuli Xuebao (Acta Physica Sinica) [Chinese Journal of Physics]
+- abbreviation: Proc. Phys. Soc. B
+  name: Proceedings of the Physical Society B
+- abbreviation: C. R. Acad. Sci.
+  name: Comptes Rendus de l'Académie des Sciences
+- abbreviation: Laser Phys.
+  name: Laser Physics
+- abbreviation: Adv. Quantum Technol.
+  name: Advanced Quantum Technologies
+- abbreviation: Int. J. Gen. Syst.
+  name: International Journal of General Systems
+- abbreviation: Eur. Phys. J. E
+  name: 'The European Physical Journal E: Soft Matter and Biological Physics'
+- abbreviation: J. Earth Sci.
+  name: Journal of Earth Science
+- abbreviation: J. Comput. Phys.
+  name: Journal of Computational Physics
+- abbreviation: J. Semicond. Technol. Sci.
+  name: Journal of Semiconductor Technology and Science
+- abbreviation: Comb. Probab. Comput.
+  name: Combinatorics, Probability and Computing
+- abbreviation: Earth Planet. Sci. Lett.
+  name: Earth and Planetary Science Letters
+- abbreviation: J. Infrared Millim. Terahertz Waves
+  name: Journal of Infrared, Millimeter, and Terahertz Waves
+- abbreviation: Geol. Geofiz.
+  name: Geologiya i Geofizika
+- abbreviation: Ground Water Monit. Rem.
+  name: Ground Water Monitoring and Remediation
+- abbreviation: ACS Appl. Mater. Interfaces
+  name: ACS Applied Materials & Interfaces
+- abbreviation: Astron. Zh. [Sov. Astron.]
+  name: Astronomicheskii Zhurnal [Soviet Astronomy]
+- abbreviation: Surf. Sci.
+  name: Surface Science
+- abbreviation: Int. J. Heavy Veh. Syst.
+  name: International Journal of Heavy Vehicle Systems
+- abbreviation: Mater. Res. Bull.
+  name: Materials Research Bulletin
+- abbreviation: 'Phys. Rev. E: Stat. Nonlinear Soft Matter Phys.'
+  name: 'Physical Review E: Statistical, Nonlinear, and Soft Matter Physics'
+- abbreviation: J. Phys. B
+  name: Journal of Physics B
+- abbreviation: Eur. Phys. J. TI
+  name: 'European Physical Journal TI: Techniques and Instrumentation'
+- abbreviation: Heat Transfer Asian Res.
+  name: Heat Transfer - Asian Research
+- abbreviation: Can. J. Genet. Cytol.
+  name: Canadian Journal of Genetics and Cytology
+- abbreviation: Condens. Matter Theor.
+  name: Condensed Matter Theories
+- abbreviation: Geol. J.
+  name: Geological Journal
+- abbreviation: Int. J. Crit. Infrastruct.
+  name: International Journal of Critical Infrastructures
+- abbreviation: Trans. Am. Geophys. Union
+  name: Transactions of the American Geophysical Union
+  variations:
+  - Trans.-Am. Geophys. Union
+- abbreviation: Ore Geol. Rev.
+  name: Ore Geology Reviews
+- abbreviation: Nat. Photonics
+  name: Nature Photonics
+- abbreviation: J. Mineral. Petrol. Sci.
+  name: Journal of Mineralogical and Petrological Sciences
+- abbreviation: Int. J. Phycol. Phycochem.
+  name: International Journal of Phycology and Phycochemistry
+- abbreviation: Appl. Mech. Rev.
+  name: Applied Mechanics Reviews
+- abbreviation: Appl. Phys. Lett.
+  name: Applied Physics Letters
+- abbreviation: Condens. Matter Phys.
+  name: Condensed Matter Physics
+- abbreviation: Phys. Rev. Research
+  name: Physical Review Research
+- abbreviation: Bioinspir. Biomim.
+  name: Bioinspiration & Biomimetics
+- abbreviation: J. Phys. D
+  name: Journal of Physics D
+- abbreviation: Philos. Trans. R. Soc. London, Ser. A
+  name: Philosophical Transactions of the Royal Society of London, Series A
+- abbreviation: Int. J. Mod. Phys. A
+  name: International Journal of Modern Physics A
+- abbreviation: Nano Res.
+  name: Nano Research
+- abbreviation: J. Mater. Sci. Mater. Electron.
+  name: 'Journal of Materials Science: Materials in Electronics'
+- abbreviation: Eur. Phys. J. Plus
+  name: The European Physical Journal Plus
+- abbreviation: Sov. Phys. Crystallogr.
+  name: Soviet Physics-Crystallography [translation of Kristallografiya]
+- abbreviation: Asian J. Phys.
+  name: Asian Journal of Physics
+- abbreviation: Z. Phys. Chem. (Leipzig)
+  name: Zeitschrift für Physikalische Chemie (Leipzig)
+- abbreviation: Inorg. Chem.
+  name: Inorganic Chemistry
+- abbreviation: Modelling Simul. Mater. Sci. Eng.
+  name: Modelling and Simulation in Materials Science and Engineering
+- abbreviation: Rev. Sci. Instrum.
+  name: Review of Scientific Instruments
+- abbreviation: Int. J. Life Cycle Assess.
+  name: International Journal of Life Cycle Assessment
+- abbreviation: Annu. Rev. At. Mol. Phys.
+  name: Annual Review of Atomic and Molecular Physics
+- abbreviation: Fiz. Elem. Chastits At. Yadra [Sov. J. Part. Nucl.]
+  name: Fizika Elementarnykh Chastits i Atomnogo Yadra [Soviet Journal of Particles and Nuclei]
+- abbreviation: EPJ Data Sci.
+  name: EPJ Data Science
+- abbreviation: Mod. Phys. Lett. B
+  name: Modern Physics Letters B
+- abbreviation: ACS Appl. Nano Mater.
+  name: ACS Applied Nano Materials
+- abbreviation: Geol. Soc. Spec.Publ.
+  name: Geological Society Special Publications
+- abbreviation: Geol. Jahrb.
+  name: Geologisches Jahrbuch
+- abbreviation: Am. Lab.
+  name: American Laboratory
+- abbreviation: Astron. Nachr.
+  name: Astronomische Nachrichten
+- abbreviation: Int. J. Quantum Chem.
+  name: International Journal of Quantum Chemistry
+- abbreviation: Mar. Freshwater Res.
+  name: Marine and Freshwater Research
+- abbreviation: J. Mol. Spectrosc.
+  name: Journal of Molecular Spectroscopy
+- abbreviation: J. Phys. C
+  name: Journal of Physics C
+- abbreviation: Annu. Rev. Nucl. Sci.
+  name: Annual Review of Nuclear Science
+- abbreviation: Int. Nonwovens J.
+  name: International Nonwovens Journal
+- abbreviation: J. Non-Newtonian Fluid Mech.
+  name: Journal of Non-Newtonian Fluid Mechanics
+- abbreviation: Jpn. J. Appl. Phys., Part 2
+  name: Japanese Journal of Applied Physics Part 2
+- abbreviation: Meas. Sci. Technol.
+  name: Measurement Science and Technology
+- abbreviation: Eng. Res. Express
+  name: Engineering Research Express
+- abbreviation: Biometrika
+  name: Biometrika
+- abbreviation: J. ASTM Int.
+  name: Journal of ASTM International
+- abbreviation: Phys. Chem. Solids
+  name: Physics and Chemistry of Solids
+- abbreviation: Low Temp. Phys.
+  name: Low Temperature Physics
+- abbreviation: Z. Phys. C
+  name: Zeitschrift für Physik C
+- abbreviation: Eur. J. Mineral.
+  name: European Journal of Mineralogy
+- abbreviation: Aquat. Sci.
+  name: Aquatic Sciences
+- abbreviation: J. R. Astron. Soc. Can.
+  name: Journal of the Royal Astronomical Society of Canada
+- abbreviation: Environ. Res. Lett.
+  name: Environmental Research Letters
+- abbreviation: Exp. Mycol.
+  name: Experimental Mycology
+- abbreviation: Opt. Spectrosc.
+  name: Optics and Spectroscopy (USSR) [translation of Optika i Spektroskopiya]
+- abbreviation: Can. J. Phys.
+  name: Canadian Journal of Physics
+- abbreviation: Phys. Plasmas
+  name: Physics of Plasmas
+- abbreviation: J. Appl. Geophys.
+  name: Journal of Applied Geophysics
+- abbreviation: Sb. Math.
+  name: 'Sbornik: Mathematics'
+- abbreviation: AIP Adv.
+  name: AIP Advances
+- abbreviation: Geotech. Test. J.
+  name: Geotechnical Testing Journal
+- abbreviation: EPJ Photovolt.
+  name: EPJ Photovoltaics
+- abbreviation: Rev. Mineral. Geochem.
+  name: Reviews in Mineralogy and Geochemistry
+- abbreviation: Astropart. Phys.
+  name: Astroparticle Physics
+- abbreviation: Int. J. Appl. Earth Obs. Geoinf.
+  name: International Journal of Applied Earth Observation and Geoinformation
+- abbreviation: Philips J. Res.
+  name: Philips Journal of Research
+- abbreviation: Z. Metallkd.
+  name: Zeitschrift für Metallkunde
+- abbreviation: Trans. Am. Crystallogr. Assoc.
+  name: Transactions of the American Crystallographic Association
+- abbreviation: Math. Biosci.
+  name: Mathematical Biosciences
+- abbreviation: Chin. Sci. Bull.
+  name: Chinese Science Bulletin
+- abbreviation: Phys. A
+  name: Physica A
+- abbreviation: Nav. Res. Logist.
+  name: Naval Research Logistics
+- abbreviation: Chin. Phys. B
+  name: Chinese Physics B
+- abbreviation: J. Sediment. Petrol.
+  name: Journal of Sedimentary Petrology
+- abbreviation: Phys. Fluids A
+  name: Physics of Fluids A
+- abbreviation: Exp. Astron.
+  name: Experimental Astronomy
+- abbreviation: Rev. Mex. Fis.
+  name: Revista Mexicana de Fisica
+- abbreviation: Int. J. Remote Sens.
+  name: International Journal of Remote Sensing
+- abbreviation: Phys. E
+  name: Physica E
+- abbreviation: Geotext. Geomembr.
+  name: Geotextiles and Geomembranes
+- abbreviation: Chin. J. Phys.
+  name: Chinese Journal of Physics [translation of Wuli Xuebao (Acta Physica Sinica)]
+- abbreviation: Geol. Today
+  name: Geology Today
+- abbreviation: Prog. React. Kinet.
+  name: Progress in Reaction Kinetics
+- abbreviation: Prog. Theor. Phys. Suppl.
+  name: Progress of Theoretical Physics Supplements
+- abbreviation: Int. J. Fatigue
+  name: International Journal of Fatigue
+- abbreviation: Mater. Sci.-Pol.
+  name: Materials Science-Poland
+- abbreviation: Nucl. Instrum. Methods
+  name: Nuclear Instruments & Methods
+- abbreviation: Adv. Mater. Interfaces
+  name: Advanced Materials Interfaces
+- abbreviation: Proc. Natl. Acad. Sci.
+  acronym: PNAS
+  name: Proceedings of the National Academy of Sciences
+- abbreviation: Sci. China, Ser. C Life Sci.
+  name: 'Science in China, Series C: Life Sciences'
+  variations:
+  - 'Sci. China C: Life Sci.'
+  - 'Sci. China, Ser. C: Life Sci.'
+- abbreviation: 'Phys. Status Solidi A: Appl. Res.'
+  name: 'Physica Status Solidi A: Applied Research'
+- abbreviation: Int. J. Appl. Glass Sci.
+  name: International Journal of Applied Glass Science
+- abbreviation: Z. Phys. B Condens. Matter
+  name: Zeitschrift für Physik B Condensed Matter
+- abbreviation: Nuovo Cimento A
+  name: Nuovo Cimento A
+- abbreviation: Prog. Biomed. Eng.
+  name: Progress in Biomedical Engineering
+- abbreviation: 'J. Phys. A: Gen. Phys.'
+  name: 'Journal of Physics A: General Physics'
+- abbreviation: Plasma Phys.
+  name: Plasma Physics
+- abbreviation: Physics (N.Y.)
+  name: Physics (New York)
+- abbreviation: Int. J. Enterp. Inf. Syst.
+  name: International Journal of Enterprise Information Systems
+- abbreviation: Paleontolog. J.
+  name: Paleontological Journal
+- abbreviation: Ground Water Monit. Rev.
+  name: Ground Water Monitoring Review
+- abbreviation: Bell Lab. Rec.
+  name: Bell Laboratories Record
+- abbreviation: Prog. Energy
+  name: Progress in Energy
+- abbreviation: 'Phys. Status Solidi B: Basic Res.'
+  name: 'Physica Status Solidi B: Basic Research'
+- abbreviation: J. Geog. Sci.
+  name: Journal of Geographical Sciences
+- abbreviation: Aust. Gemmol.
+  name: Australian Gemmologist
+- abbreviation: Sci. Found. China
+  name: Science Foundation in China
+- abbreviation: Chaos
+  name: Chaos
+- abbreviation: J. Hydrol.
+  name: Journal of Hydrology
+- abbreviation: Renew. Sustain. Energy Rev.
+  name: Renewable & Sustainable Energy Reviews
+- abbreviation: Nat. Nanotechnology
+  name: Nature Nanotechnology
+- abbreviation: Izv. Vyssh. Uchebn. Zavad. Fiz. [Sov. Phys. J.]
+  name: Izvestiya Vysshikh Uchebnykh Zavedenii, Fizika [Soviet Physics Journal]
+- abbreviation: Phase Transit. Crit. Phenom.
+  name: Phase Transition and Critical Phenomena
+- abbreviation: J. Nanoparticle Res. Interdiscip. Forum Nanoscale Sci. Technol.
+  name: Journal of Nanoparticle Research
+- abbreviation: J. Appl. Math. Comput.
+  name: Journal of Applied Mathematics and Computing
+- abbreviation: Phys. Chem. Chem. Phys.
+  name: Physical Chemistry Chemical Physics
+  variations:
+  - Phys. Chem. Chem. Phys. PCCP
+- abbreviation: Int. J. Rotating Mach.
+  name: International Journal of Rotating Machinery
+- abbreviation: J. Renew. Sustain. Energy
+  name: Journal of Renewable & Sustainable Energy
+- abbreviation: Chin. J. Phys.
+  name: Chinese Journal of Physics
+- abbreviation: Nanophotonics
+  name: Nanophotonics
+- abbreviation: Sov. Phys. J.
+  name: Soviet Physics Journal [translation of Izvestiya Vysshikh Uchebnykh Zavedenii, Fizika]
+- abbreviation: Lick Obs. Bull.
+  name: Lick Observatory Bulletin
+- abbreviation: Math. Geol.
+  name: Mathematical Geology
+- abbreviation: Geophys. J.
+  name: Geophysical Journal
+- abbreviation: Process Saf. Prog.
+  name: Process Safety Progress
+- abbreviation: Macromolecules
+  name: Macromolecules
+- abbreviation: Phys. Lett.
+  name: Physics Letters
+- abbreviation: J. Nonlinear Math. Phys.
+  name: Journal of Nonlinear Mathematical Physics
+- abbreviation: Mater. Res. Express
+  name: Materials Research Express
+- abbreviation: Pramana - J. Phys.
+  name: Pramana - Journal of Physics
+- abbreviation: Nano
+  name: Nano
+- abbreviation: Contemp. Phys.
+  name: Contemporary Physics
+- abbreviation: 'Surf. Topogr.: Metrol. Prop.'
+  name: 'Surface Topography: Metrology and Properties'
+- abbreviation: Eur. Phys. J. Appl. Phys.
+  name: European Physical Journal Applied Physics
+- abbreviation: Nanoscale
+  name: Nanoscale
+- abbreviation: arXiv.org, e-Print Arch. Astrophys.
+  name: arXiv.org, e-Print Archive Astrophysics
+- abbreviation: J. Vac. Sci. Technol. B
+  name: Journal of Vacuum Science & Technology B
+- abbreviation: J. Hazard. Mater.
+  name: Journal of Hazardous materials
+- abbreviation: Sov. Phys. - Solid State
+  name: Soviet Physics -- Solid State
+- abbreviation: Izv. Vyssh. Uchebn. Zaved. Radiofiz. [Sov. Radiophys.]
+  name: Izvestiya Vysshikh Uchebnykh Zavedenii, Radiofizika [Soviet Radiophysics]
+- abbreviation: Boundary Layer Meteorol.
+  name: Boundary-Layer Meteorology
+- abbreviation: J. Sci. Adv. Mater. Devices
+  name: 'Journal of Science: Advanced Materials and Devices'
+- abbreviation: Phys.-Uspekhi
+  name: Physics-Uspekhi
+- abbreviation: Eur. J. Mech. A. Solids
+  name: European Journal of Mechanics - A/Solids
+- abbreviation: Gravitation Cosmol.
+  name: Gravitation and Cosmology
+- abbreviation: Pet. Sci.
+  name: Petroleum Science
+- abbreviation: Z. Phys. B Condens. Matter Quanta
+  name: Zeitschrift für Physik B Condensed Matter and Quanta
+- abbreviation: Adv. Chem. Phys.
+  name: Advances in Chemical Physics
+- abbreviation: Astrophys. J. Lett.
+  name: The Astrophysical Journal Letters
+- abbreviation: IEEE Geosci. Remote Sens. Lett.
+  name: IEEE Geoscience and Remote Sensing Letters
+- abbreviation: Semicond Sci. Technol.
+  name: Semiconductor Science and Technology
+- abbreviation: Res. Nondestr. Eval.
+  name: Research in Nondestructive Evaluation
+- abbreviation: Mem. R. Astron. Soc.
+  name: Memoirs of the Royal Astronomical Society
+- abbreviation: J. Stat. Phys.
+  name: Journal of Statistical Physics
+- abbreviation: Can. J. Res.
+  name: Canadian Journal of Research
+- abbreviation: Appl. Phys. Rev.
+  name: Applied Physics Reviews
+- abbreviation: Appl. Phys. B
+  name: Applied Physics B
+- abbreviation: Bull. Volcanol.
+  name: Bulletin of Volcanology
+- abbreviation: Chem. Commun. Camb. Engl.
+  name: Chemical Communications (Cambridge, England)
+- abbreviation: Geol. Soc. Spec. Pap.
+  name: Geological Society of America Special Papers
+- abbreviation: Phys. Rev. D
+  acronym: PRD
+  name: Physical Review D
+  variations:
+  - 'Phys. Rev. D: Part. Fields'
+  - 'Physical Review D: Particles and Fields'
+- abbreviation: C. R. Acad. Sci. Ser. B
+  name: "Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences, Serie B: Sciences Physiques"
+- abbreviation: Ironmaking Steelmaking
+  name: Ironmaking and Steelmaking
+- abbreviation: Acta Crystallogr.
+  name: Acta Crystallographica
+- abbreviation: Non-Destr. Test.
+  name: Non-Destructive Testing
+- abbreviation: Appl. Mater. Today
+  name: Applied Materials Today
+- abbreviation: Acta Phys. Austriaca
+  name: Acta Physica Austriaca
+- abbreviation: Int. J. Web Serv. Res.
+  name: International Journal of Web Services Research
+- abbreviation: Acta Chem. Scand.
+  name: Acta Chemica Scandinavica
+- abbreviation: Rev. Geophys.
+  name: Reviews of Geophysics
+- abbreviation: IEEE Trans. Electron Devices
+  name: IEEE Transactions on Electron Devices
+- abbreviation: Int. J. Math. Comput. Phys. Electr. Comput. Eng.
+  name: International Journal of Mathematical, Computational, Physical, Electrical and Computer Engineering
+- abbreviation: J. Cosmol. Astropart. Phys.
+  name: Journal of Cosmology and Astroparticle Physics
+- abbreviation: Sci. Adv.
+  name: Science Advances
+- abbreviation: Appl. Phys. Mater. Sci. Process.
+  name: 'Applied Physics A: Materials Science & Processing'
+- abbreviation: J. Palynol.
+  name: Journal of Palynology
+- abbreviation: 'IOP Conf. Ser.: Mater. Sci. Eng.'
+  name: 'IOP Conference Series: Materials Science and Engineering'
+- abbreviation: Sol. Phys.
+  name: Solar Physics
+- abbreviation: Scanning
+  name: Scanning
+- abbreviation: Pet. Geosci.
+  name: Petroleum Geoscience
+- abbreviation: Math. Models Method Appl. Sci.
+  name: Mathematical Models and Methods in Applied Sciences
+- abbreviation: Nature (London)
+  name: Nature (London)
+- abbreviation: J. Phase Equilib.
+  name: Journal of Phase Equilibrium
+- abbreviation: Int. J. Comput. Intell. Appl.
+  name: International Journal of Computational Intelligence and Applications
+- abbreviation: Chin. J. Astron. Astrophys.
+  name: Chinese Journal of Astronomy and Astrophysics
+- abbreviation: K. Dan. Vidensk. Selsk. Mater. Fys. Medd.
+  name: Kongelige Danske Videnskabernes Selskab, Matematisk-Fysiske Meddelelser
+  variations:
+  - K. Dan. Vidensk. Selsk. Mat. Fys. Medd.
+- abbreviation: Glass Res.
+  name: Glass Research
+- abbreviation: Adv. Energy Mater.
+  name: Advanced Energy Materials
+- abbreviation: Geol. Mag.
+  name: Geological Magazine
+- abbreviation: Phys. Meas.
+  name: Physiological Measurement
+- abbreviation: Astrophys. J.
+  name: Astrophysical Journal
+- abbreviation: Proc. R. Soc. London, Ser. A
+  name: Proceedings of the Royal Society of London Series A
+- abbreviation: Can. J. Earth Sci.
+  name: Canadian Journal of Earth Sciences
+- abbreviation: Eur. Phys. J. ST
+  name: 'European Physical Journal ST: Special Topics'
+- abbreviation: Scilight
+  name: Scilight
+- abbreviation: Physica (Utrecht)
+  name: Physica (Utrecht)
+- abbreviation: BMR J. Aust. Geol. Geophys.
+  name: BMR Journal of Geology and Geophysics
+- abbreviation: Z. Anorg. Allg. Chem.
+  name: Zeitschrift für Anorganische und Allgemeine Chemie
+- abbreviation: arXiv.org, e-Print Arch. Phys.
+  name: arXiv.org, e-Print Archive Physics
+- abbreviation: J. Am. Ceram. Soc.
+  name: Journal of the American Ceramic Society
+- abbreviation: Bur. Mines Inf. Circ.
+  name: Bureau of Mines Information Circular
+- abbreviation: J. Phys. Soc. Jpn.
+  name: Journal of the Physical Society of Japan
+- abbreviation: IEEE J. Quantum Electron.
+  name: IEEE Journal of Quantum Electronics
+- abbreviation: Eur. Phys. J. D
+  name: 'The European Physical Journal D: Atomic, Molecular, Optical and Plasma Physics'
+- abbreviation: Biomed. Mater.
+  name: Biomedical Materials
+- abbreviation: Sov. J. At. Energy
+  name: Soviet Journal of Atomic Energy [translation of Atomnaya Energiya]
+- abbreviation: Photonics Res.
+  name: Photonics Research
+- abbreviation: Radio Eng. Electron. Phys. (USSR)
+  name: Radio Engineering and Electronic Physics (USSR) [translation of Radiotekhnika i Elektronika]
+- abbreviation: J. Polym. Sci. Polym. Phys. Ed.
+  name: Journal of Polymer Science, Polymer Physics Edition
+- abbreviation: Mater. Sci. Eng.
+  name: Materials Science and Engineering
+- abbreviation: Europhys. Lett.
+  name: Europhysics Letters
+- abbreviation: Phys. Kondens. Mater.
+  name: Physik der Kondensierten Materie
+- abbreviation: Nucl. Phys. A
+  name: Nuclear Physics A
+- abbreviation: J. VLSI Sig. Proc.
+  name: Journal of VLSI Signal Processing
+- abbreviation: Nucl. Sci. Eng.
+  name: Nuclear Science and Engineering
+- abbreviation: 'J. Phys. G: Nucl. Part. Phys.'
+  name: 'Journal of Physics G: Nuclear and Particle Physics'
+  variations:
+  - J. Phys. G
+- abbreviation: Bull. ECerS
+  name: Bulletin of ECerS
+- abbreviation: J. Contemp. Phys.
+  name: Journal of Contemporary Physics
+- abbreviation: Nat. Catal.
+  name: Nature Catalysis
+- abbreviation: Adv. Space Res.
+  name: Advances in Space Research
+- abbreviation: Eur. Phys. J. C
+  name: 'European Physics Journal C: Particles and Fields'
+- abbreviation: Mater. Sci. Semicond. Process.
+  name: Materials Science in Semiconductor Processing
+- abbreviation: Eur. Phys. J. A
+  name: 'The European Physical Journal A: Hadrons and Nuclei'
+- abbreviation: Int. J. Heat Exch.
+  name: International Journal of Heat Exchangers
+- abbreviation: Int. J. Neural Syst.
+  name: International Journal of Neural Systems
+- abbreviation: Proc. Int. Astron. Congr.
+  name: Proceedings of the International Astronomical Congress
+- abbreviation: Int. J. Data Warehouse. Min.
+  name: International Journal of Data Warehousing and Mining
+- abbreviation: 'IOP Conf. Ser.: Earth Environ. Sci.'
+  name: 'IOP Conference Series: Earth and Environmental Science'
+- abbreviation: J. R. Soc. Interface
+  name: Journal of the Royal Society, Interface
+- abbreviation: Proc. Appl. Math. Mech.
+  name: Proceedings in Applied Mathematics and Mechanics
+- abbreviation: Adv. At. Mol. Phys.
+  name: Advances in Atomic and Molecular Physics
+- abbreviation: EPJ Special Topics
+  name: EPJ Special Topics
+- abbreviation: APL Photonics
+  name: APL Photonics
+- abbreviation: J. Geochem. Explor.
+  name: Journal of Geochemical Exploration
+- abbreviation: Solid State Ionics
+  name: Solid State Ionics
+- abbreviation: Sov. Phys. Acoust.
+  name: Soviet Physics-Acoustics [translation of Akusticheskii Zhurnal]
+- abbreviation: Propellants Explos. Pyrotech.
+  name: Propellants, Explosives, Pyrotechnics
+- abbreviation: Ind. Eng. Chem.
+  name: Industrial and Engineering Chemistry
+- abbreviation: Phys. Rev. A
+  acronym: PRA
+  name: Physical Review A
+  variations:
+  - 'Phys. Rev. A: At. Mol. Opt. Phys.'
+  - 'Physical Review A: Atomic, Molecular, and Optical Physics'
+- abbreviation: Electron. Lett.
+  name: Electronics Letters
+- abbreviation: Geomech. Geoeng.
+  name: Geomechanics and Geoengineering
+- abbreviation: Ann. Phys. Chem.
+  name: Annual Review of Physical Chemistry
+- abbreviation: Proc. R. Soc. London
+  name: Proceedings of the Royal Society of London
+- abbreviation: Appl. Spectrosc.
+  name: Applied Spectroscopy
+- abbreviation: Int. J. Damage Mech
+  name: International Journal of Damage Mechanics
+- abbreviation: Complex Syst.
+  name: Complex Systems
+- abbreviation: J. Navig.
+  name: Journal of Navigation
+- abbreviation: Chin. Phys. C
+  name: Chinese Physics C
+- abbreviation: Optik (Stuttgart)
+  name: Optik (Stuttgart)
+- abbreviation: C. R. Geosci.
+  name: Comptes Rendus Geoscience
+- abbreviation: Int. J. Space Struct.
+  name: International Journal of Space Structures
+- abbreviation: Acta Math. Acad. Sci. Hung.
+  name: Acta Mathematica Academiae Scientiarum Hungaricae
+- abbreviation: Natl. Bur. Stand. Misc. Publ. (U.S.)
+  name: National Bureau of Standards (U.S.), Miscellaneous Publication
+- abbreviation: Int. J. Thermodyn.
+  name: International Journal of Thermodynamics
+- abbreviation: Lithol. Min. Resour.
+  name: Lithology and Mineral Resources
+- abbreviation: Mineral. Mag.
+  name: Mineralogical Magazine
+- abbreviation: Mod. Phys. Lett. A
+  name: Modern Physics Letters A
+- abbreviation: Eur. Phys. J. A
+  name: 'European Physical Journal A: Hadrons and Nuclei'
+- abbreviation: J. Astrophys. Astron.
+  name: Journal of Astrophysics and Astronomy
+- abbreviation: Mol. Phys.
+  name: Molecular Physics
+- abbreviation: Earth Sci. Rev.
+  name: Earth-Science Reviews
+- abbreviation: Kolloid Z. Z. Polym.
+  name: Kolloid Zeitschrift & Zeitschrift für Polymere
+- abbreviation: Atomization Sprays
+  name: Atomization and Sprays
+- abbreviation: J. Phys. Energy
+  name: 'Journal of Physics: Energy'
+- abbreviation: Z. Naturforsch. Teil A
+  name: 'Zeitschrift für Naturforschung, Teil A: Physik, Physikalische Chemie, Kosmophysik'
+- abbreviation: Philos. Mag.
+  name: Philosophical Magazine
+- abbreviation: Acta Phys. Pol. B
+  name: Acta Physica Polonica B
+- abbreviation: Geol. Soc. Spec. Pub.
+  name: Geological Society Special Publication
+- abbreviation: Int. J. Heat Fluid Flow
+  name: International Journal of Heat and Fluid Flow
+- abbreviation: J. Quant. Spectrosc. Radiat. Transf.
+  name: Journal of Quantitative Spectroscopy & Radiative Transfer
+  variations:
+  - J. Quant. Spectrosc. Radiat. Transfer
+- abbreviation: Astron. Astrophys.
+  name: Astronomy and Astrophysics
+- abbreviation: J. Magn. Soc. Jpn.
+  name: Journal of the Magnetics Society of Japan
+- abbreviation: Thin Solid Films
+  name: Thin Solid Films
+- abbreviation: J. China Univ. Geosci.
+  name: Journal of the China University of Geosciences
+- abbreviation: Pis'ma Zh. Eksp. Teor. Fiz. [JETP Lett.]
+  name: Pis'ma v Zhurnal Eksperimentalnoi i Teoreticheskoi Fiziki [JETP Letters]
+- abbreviation: J. Appl. Remote Sens.
+  name: Journal of Applied Remote Sensing
+- abbreviation: Acta Geotech.
+  name: Acta Geotechnica
+- abbreviation: Sov. Radiophys.
+  name: Soviet Radiophysics [translation of Izvestiya Vysshikh Uchebnykh Zavedenii, Radiofizika]
+- abbreviation: Eur. Phys. J. AP
+  name: The European Physical Journal AP
+- abbreviation: Russ. Math. Surv.
+  name: Russian Mathematical Surveys
+- abbreviation: Appl. Geochem.
+  name: Applied Geochemistry
+- abbreviation: Phys. C
+  name: Physica C
+- abbreviation: Struct. Bond.
+  name: Structure and Bonding
+- abbreviation: Bull. Eng. Geol. Env.
+  name: Bulletin of Engineering Geology and the Environment
+- abbreviation: Phys. Mesomech.
+  name: Physical Mesomechanics
+- abbreviation: Digital Signal Process.
+  name: Digital Signal Processing
+- abbreviation: 'Z. Phys. B: Condens. Matter'
+  name: 'Zeitschrift für Physik B: Condensed Matter'
+- abbreviation: Int. J. Exergy
+  name: International Journal of Exergy
+- abbreviation: Min. Sci. Press
+  name: Mining and Scientific Press
+- abbreviation: ' Adv. Mater. Opt. Electron.'
+  name: Advanced Materials for Optics and Electronics
+- abbreviation: Int. J. Geom. Methods Mod. Phys.
+  name: International Journal of Geometric Methods in Modern Physics
+- abbreviation: Comput. Sci. Eng.
+  name: Computing in Science & Engineering
+- abbreviation: J. Fire Sci.
+  name: Journal of Fire Sciences
+- abbreviation: Nano Energy
+  name: Nano Energy
+- abbreviation: J. Nanophoton.
+  name: Journal of Nanophotonics
+- abbreviation: J. Opt. Soc. Am.
+  name: Journal of the Optical Society of America
+- abbreviation: Turk. J. Phys.
+  name: Turkisch Journal of Physics
+- abbreviation: 'J. Phys. B: At. Mol. Phys.'
+  name: 'Journal of Physics B: Atomic and Molecular Physics'
+- abbreviation: 'J. Phys. E: Sci. Instrum.'
+  name: 'Journal of Physics E: Scientific Instruments'
+- abbreviation: Chem. Phys. Lett.
+  name: Chemical Physics Letters
+- abbreviation: Phosphorus, Sulfur Silicon Relat. Elem.
+  name: Phosphorus Sulfur Silicon and the Related Elements
+- abbreviation: Water Resour.
+  name: Water Resources
+- abbreviation: Comments Nucl. Part. Phys.
+  name: Comments on Nuclear and Particle Physics
+- abbreviation: Curr. Appl Phys.
+  name: Current Applied Physics
+- abbreviation: Math. Comput.
+  name: Mathematics of Computation
+- abbreviation: Eur. J. Phys.
+  name: European Journal of Physics
+- abbreviation: Proc. R. Soc. Lond. A
+  name: Proceedings of the Royal Society of London A
+  variations:
+  - Proc. R. Soc. Lond. Ser. Math. Phys. Sci.
+  - Proc. R. Soc. Math. Phys. Eng. Sci.
+- abbreviation: Quantum Sci. Technol.
+  name: Quantum Science and Technology
+- abbreviation: Philos. Mag. Abingdon Engl.
+  name: Philosophical Mag. Abingdon England
+- abbreviation: Ferroelectrics
+  name: Ferroelectrics
+- abbreviation: Electron. Struct.
+  name: Electronic Structure
+- abbreviation: J. Nucl. Energy C
+  name: 'Journal of Nuclear Energy, Part C: Plasma Physics, Accelerators, Thermonuclear Research'
+- abbreviation: Prog. Lipid Res.
+  name: Progress in Lipid Research
+- abbreviation: Eur. J. Mech. B. Fluids
+  name: European Journal of Mechanics - B/Fluids
+- abbreviation: 'Philos. Trans. R. Soc. A: Math. Phys. Eng. Sci.'
+  name: 'Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences'
+  variations:
+  - Philos. Trans. R. Soc. Math. Phys. Eng. Sci.
+- abbreviation: Anal. Chem.
+  name: Analytical Chemistry
+- abbreviation: C. R. Acad. Sci. Ser. B
+  name: "Comptes Rendus de l'Académie des Sciences, Serie B: Sciences Physiques"
+- abbreviation: Comput. Intell.
+  name: Computational Intelligence
+- abbreviation: Int. J. Algae
+  name: International Journal on Algae
+- abbreviation: Proc. Phys. Soc. London, Sect. A
+  name: Proceedings of the Physical Society. Section A
+- abbreviation: Smart Mater. Struct.
+  name: Smart Materials and Structures
+- abbreviation: Eur. Phys. J. A
+  name: The European Physical Journal A
+- abbreviation: Acta Phys. Pol.-Ser. Gen. Phys.
+  name: Acta Physica Polonica-Series A General Physics
+- abbreviation: Renewable Sustainable Energy Rev.
+  name: Renewable and Sustainable Energy Reviews
+- abbreviation: Astron. Geophys.
+  name: Astronomy & Geophysics
+- abbreviation: J. Math. Phys.
+  name: Journal of Mathematical Physics
+- abbreviation: Nonlinear Anal. Real World Appl.
+  name: 'Nonlinear Analysis: Real World Applications'
+- abbreviation: Physica E
+  name: Physica E-low-dimensional Systems & Nanostructures
+- abbreviation: Biofabrication
+  name: Biofabrication
+- abbreviation: Sov. J. Part. Nucl.
+  name: Soviet Journal of Particles and Nuclei [translation of Fizika Elementarnykh Chastitsi Atomnogo Yadra]
+- abbreviation: Int. J. Metadata Semant. Ontol.
+  name: International Journal of Metadata, Semantics and Ontologies
+- abbreviation: Miner. Deposita
+  name: Mineralium Deposita
+- abbreviation: C. R. Acad. Sci. Ser. A
+  name: "Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences, Serie A: Sciences Mathématiques"
+- abbreviation: 'Phys. Status Solidi B: Basic Solid State Phys.'
+  name: 'Physica Status Solidi B: Basic Solid State Physics'
+- abbreviation: Int. J. Serv. Oper. Inf.
+  name: International Journal of Services Operations and Informatics
+- abbreviation: Z. Astrophys.
+  name: Zeitschrift für Astrophysik
+- abbreviation: Opt. Lett.
+  name: Optics Letters
+- abbreviation: Nano Lett.
+  name: Nano Letters
+- abbreviation: Nanoscale Adv.
+  name: Nanoscale Advances
+- abbreviation: Proc. Combust. Inst.
+  name: Proceedings of the Combustion Institute
+- abbreviation: Phys. Rev. C
+  acronym: PRC
+  name: Physical Review C
+  variations:
+  - 'Phys. Rev. C: Nucl. Phys.'
+  - 'Physical Review C: Nuclear Physics'
+- abbreviation: Comptes Rendus Phys.
+  name: Comptes Rendus Physique
+  variations:
+  - C. R. Phys.
+  - C. R. Physique
+- abbreviation: J. Am. Water Works Assn.
+  name: Journal American Water Works Association
+- abbreviation: Aust. J. Earth Sci.
+  name: Australian Journal of Earth Sciences
+- abbreviation: Exp. Clin. Psychopharmacol.
+  name: Experimental and Clinical Psychopharacology
+- abbreviation: Mater. Sci. Eng. B Solid-State Mater. Adv. Technol.
+  name: 'Materials Science & Engineering B: Solid-State Materials for Advanced Technology'
+- abbreviation: J. Geophys. Res.
+  name: Journal of Geophysical Research
+- abbreviation: Sens. Switz.
+  name: Sensors (Switzerland)
+- abbreviation: Eur. Phys. J. Plus
+  name: European Physical Journal Plus
+- abbreviation: J. Metamorph. Geol.
+  name: Journal of Metamorphic Geology
+- abbreviation: Nano Express
+  name: Nano Express
+- abbreviation: J. Vac. Sci. Technol.
+  name: Journal of Vacuum Science and Technology
+- abbreviation: Izv. Phys. Solid Earth
+  name: Izvestiya Physics of the Solid Earth
+- abbreviation: J. Terramech.
+  name: Journal of Terramechanics
+- abbreviation: Prib. Tekh. E ksp. [Instrum. Exp. Tech. (USSR)]
+  name: Pribory i Tekhnika Eksperimenta [Instruments and Experimental Techniques (USSR)]
+- abbreviation: Q. J. Sci. Lit. Arts
+  name: Quarterly Journal of Science, Literature, and the Arts
+- abbreviation: J. Appl. Syst. Anal.
+  name: Journal of Applied Systems Analysis
+- abbreviation: Radio Eng. Electron. (USSR)
+  name: Radio Engineering and Electronics (USSR) [translation of Radiotekhnika i Elektronika]
+- abbreviation: Surv. Geophys.
+  name: Surveys in Geophysics
+- abbreviation: Philos. Trans. R. Soc. London
+  name: Philosophical Transactions of the Royal Society of London
+- abbreviation: Mar. Geol.
+  name: Marine Geology
+- abbreviation: Springer Ser. Solid-State Sci.
+  name: Springer Series in Solid-State Sciences
+- abbreviation: J. Atmos. Sci.
+  name: Journal of Atmospheric Sciences
+- abbreviation: Sci. Am.
+  name: Scientific American
+- abbreviation: Bell Syst. Tech. J.
+  name: Bell System Technical Journal
+- abbreviation: Trans. Am. Soc. Met.
+  name: Transactions of the American Society for Metals
+- abbreviation: J. Phys. Commun.
+  name: Journal of Physics Communications
+- abbreviation: 'Z. Phys. D: At. Mol. Clust.'
+  name: 'Zeitschrift für Physik D: Atoms, Molecules and Clusters'
+- abbreviation: Comput. Stat. Data Anal.
+  name: Computational Statistics and Data Analysis
+- abbreviation: EPJ Quantum Technol.
+  name: EPJ Quantum Technology
+- abbreviation: IEEE Trans. Microwave Theory Tech.
+  name: IEEE Transactions on Microwave Theory and Techniques
+  variations:
+  - IEEE Trans. Microw. Theory Tech.
+- abbreviation: AGSO J. Aust. Geol. Geophys.
+  name: AGSO Journal of Australian Geology and Geophysics
+- abbreviation: Appl. Sci. Switz.
+  name: Applied Sciences (Switzerland)
+- abbreviation: Nucl. Instrum. Methods Phys. Res. Sect. B Beam Interact. Mater. At.
+  name: 'Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms'
+- abbreviation: Phys. Status Solidi B
+  name: Physica Status Solidi B
+- abbreviation: J. Photochem. Photobiol. Chem.
+  name: Journal of Photochemistry and Photobiology
+- abbreviation: J. Nondestr. Eval.
+  name: Journal of Nondestructive Evaluation
+- abbreviation: 'Mach. Learn.: Sci. Technol.'
+  name: 'Machine Learning: Science and Technology'
+- abbreviation: Methods Appl. Fluoresc.
+  name: Methods and Applications in Fluorescence
+- abbreviation: Eur. Phys. J. E
+  name: 'European Physical Journal E: Soft Matter and Biological Physics'
+- abbreviation: Proc. IRE
+  name: Proceedings of the IRE
+- abbreviation: Bull. Glaciol. Res.
+  name: Bulletin of Glaciological Research
+- abbreviation: Int. J. Sediment Res.
+  name: International Journal of Sediment Research
+- abbreviation: J. Inst. Pet.
+  name: Journal of the Institute of Petroleum
+- abbreviation: Eur. Phys. J. N
+  name: 'European Physical Journal N: Nuclear Sciences and Technologies'
+- abbreviation: Q. J. R. Meteorolog. Soc.
+  name: Quarterly Journal of the Royal Meteorological Society
+- abbreviation: Comments At. Mol. Phys.
+  name: Comments on Atomic and Molecular Physics
+- abbreviation: Biomed. Phys. Eng. Express
+  name: Biomedical Physics & Engineering Express
+- abbreviation: ACS Appl. Energy Mater.
+  name: ACS Applied Energy Materials
+- abbreviation: Cont. Shelf Res.
+  name: Continental Shelf Research
+- abbreviation: Geomech. Tunnelling
+  name: Geomechanics and Tunnelling
+- abbreviation: Bull. Am. Astron. Soc.
+  name: Bulletin of the American Astronomical Society
+- abbreviation: Int. J. Sustainable Dev.
+  name: International Journal of Sustainable Development
+- abbreviation: Eur. Phys. J. E
+  name: 'European Physics Journal E: Soft Matter'
+- abbreviation: AAPG Mem.
+  name: AAPG Memoir
+- abbreviation: J. Geod.
+  name: Journal of Geodesy
+- abbreviation: Geomag. Aeron.
+  name: Geomagnetism and Aeronomy
+- abbreviation: Proc. Phys. Soc. London, Sect. B
+  name: Proceedings of the Physical Society. Section B
+- abbreviation: Astron. J.
+  name: Astronomical Journal
+- abbreviation: J. Multiscale Model.
+  name: Journal of Multiscale Modeling
+- abbreviation: Mar. Pet. Geol.
+  name: Marine and Petroleum Geology
+- abbreviation: Proc. Int. Astron. Union
+  name: Proceedings of the International Astronomical Union
+- abbreviation: Rice Sci.
+  name: Rice Science
+- abbreviation: Am. J. Sci.
+  name: American Journal of Science
+- abbreviation: EPJ Nonlinear Biomed. Phys.
+  name: EPJ Nonlinear Biomedical Physics
+- abbreviation: J. Franklin Inst.
+  name: Journal of the Franklin Institute
+- abbreviation: Exp. Mech.
+  name: Experimental Mechanics
+- abbreviation: Instrum. Exp. Tech. (USSR)
+  name: Instruments and Experimental Techniques (USSR) [translation of Pribory i Tekhnika Eksperimenta]
+- abbreviation: J. Opt.
+  name: Journal of Optics
+- abbreviation: Sens. Actuators Phys.
+  name: 'Sensors and Actuators A: Physical'
+- abbreviation: Astrophys. J. Suppl. Ser.
+  name: The Astrophysical Journal Supplement Series
+- abbreviation: Eur. Phys. J. AM
+  name: 'European Physical Journal AM: Applied Metamaterials'
+- abbreviation: NDT Int.
+  name: NDT International
+- abbreviation: 'Sci. China G: Phys. Mech. Astron.'
+  name: 'Science in China, Series G: Physics, Mechanics and Astronomy'
+- abbreviation: Eur. Phys. J. H
+  name: 'European Physical Journal H: Historical Perspectives on Contemporary Physics'
+- abbreviation: Plasma Phys. Control. Fusion
+  name: Plasma Physics and Controlled Fusion
+- abbreviation: JETP Lett.
+  name: JETP Letters
+- abbreviation: J. Plasma Phys.
+  name: Journal of Plasma Physics
+- abbreviation: J. R. Aeronaut. Soc.
+  name: Journal of the Roy Aeronautical Society
+- abbreviation: Phys. Today
+  name: Physics Today
+- abbreviation: Astrophys. J.
+  name: Astrophysics Journal
+- abbreviation: Pramana
+  name: Pramana
+- abbreviation: 'Z. Phys. A: Hadrons Nucl.'
+  name: 'Zeitschrift für Physik A: Atoms and Nuclei'
+  variations:
+  - 'Z. Phys. A: At. Nucl.'
+- abbreviation: Phys. Met. Metallogr. (USSR)
+  name: Physics of Metals and Metallography (USSR) [translation of Fizika Metallovi Metallovedenie]
+- abbreviation: 2D Mater.
+  name: 2D Materials
+- abbreviation: Nucl. Fusion
+  name: Nuclear Fusion
+- abbreviation: J. Sea Res.
+  name: Journal of Sea Research
+- abbreviation: Trans. Am. Nucl. Soc.
+  name: Transactions of the American Nuclear Society
+- abbreviation: Fields Quanta
+  name: Fields and Quanta
+- abbreviation: Jpn. J. Appl. Phys., Part 1
+  name: Japanese Journal of Applied Physics, Part 1
+- abbreviation: Signal Process.
+  name: Signal Processing
+- abbreviation: Sov. Phys. Tech. Phys.
+  name: Soviet Physics-Technical Physics [translation of Zhurnal Tekhnicheskoi Fiziki]
+- abbreviation: Math. Geosci.
+  name: Mathematical Geosciences
+- abbreviation: ECS Electrochem. Lett.
+  name: ECS Electrochemistry Letters
+- abbreviation: Am. J. Phys.
+  name: American Journal of Physics
+- abbreviation: J. Phys. F
+  name: Journal of Physics F
+- abbreviation: J. Phys. Colloq.
+  name: Journal de Physique Colloques
+- abbreviation: Izv. Acad. Sci. USSR, Atmos. Oceanic Phys.
+  name: Izvestiya, Academy of Sciences, USSR, Atmospheric and Oceanic Physics [translation of Izvestiya Akademii Nauk SSSR, Fizika Atmosfery i Okeana]
+- abbreviation: Mater. Sci. Eng. B
+  name: Materials Science and Engineering B
+- abbreviation: J. Semicond.
+  name: Journal of Semiconductors
+- abbreviation: Jpn. J. Phys.
+  name: Japanese Journal of Physics
+- abbreviation: Int. J. Fuzzy Syst.
+  name: International Journal of Fuzzy Systems
+- abbreviation: Metall. Mater. Trans. B Process Metall. Mater. Process. Sci.
+  name: 'Metallurgical And Materials Transactions B-Process Metallurgy And Materials Processing Science '
+- abbreviation: EPJ Web Conf.
+  name: EPJ Web of Conferences
+- abbreviation: Anal. Methods
+  name: Analytical Methods
+- abbreviation: ACS Energy Lett.
+  name: ACS Energy Letters
+- abbreviation: AIAA J.
+  name: AIAA Journal
+- abbreviation: Hydrol. Process.
+  name: Hydrological Processes
+- abbreviation: Phys. Scr. T
+  name: Physica Scripta T
+- abbreviation: IET Image Proc.
+  name: IET Image Processing
+- abbreviation: Z. Phys. Chem. Abt. B
+  name: 'Zeitschrift für Physikalische Chemie, Abteilung B: Chemie der Elementarprozesse, Aufbau der Materie'
+- abbreviation: J. Inorg. Nucl. Chem.
+  name: Journal of Inorganic and Nuclear Chemistry
+- abbreviation: Mech. Solids
+  name: Mechanics of Solids
+- abbreviation: Ann. Math.
+  name: Annals of Mathematics
+- abbreviation: Eur. Phys. J. C
+  name: The European Physical Journal C
+- abbreviation: Nuovo Cimento B
+  name: Nuovo Cimento B
+- abbreviation: Acta Phys. Pol. A
+  name: Acta Physica Polonica A
+- abbreviation: Int. J. Rock Mech. Min. Sci.
+  name: International Journal of Rock Mechanics and Mining Sciences
+- abbreviation: Jpn. J. Appl. Phys. Part 2 Lett. Express Lett.
+  name: 'Japanese Journal of Applied Physics, Part 2: Letters and Express Letters'
+- abbreviation: MRS Internet J. Nitride Semicond. Res.
+  name: MRS Internet Journal of Nitride Semiconductor Research
+- abbreviation: Chin. Phys. Lett.
+  name: Chinese Physics Letters
+- abbreviation: Med. Phys.
+  name: Medical Physics
+- abbreviation: Geo-Mar. Lett.
+  name: Geo-Marine Letters
+- abbreviation: Optoelectron. Lett.
+  name: Optoelectronics Letters
+- abbreviation: Teplofiz. Vys. Temp. [High Temp. (USSR)]
+  name: Teplofizika Vysokikh Temperatur [High Temperature (USSR)]
+- abbreviation: Rev. Conserv.
+  name: Reviews in Conservation
+- abbreviation: Aust. J. Phys.
+  name: Australian Journal of Physics
+- abbreviation: Earth Sci. Front.
+  name: Earth Science Frontiers
+- abbreviation: J. Fluids Struct.
+  name: Journal of Fluids and Structures
+- abbreviation: Can. J. Chem.
+  name: Canadian Journal of Chemistry
+- abbreviation: Z. Angew. Phys.
+  name: Zeitschrift für Angewandte Physik
+- abbreviation: Int. J. High Perform. Comput. Appl.
+  name: International Journal of High Performance Computing Applications
+- abbreviation: Fiz. Tekh. Poluprovodn. [Sov. Phys. Semicond.]
+  name: Fizika i Tekhnika Poluprovodnikov [Soviet Physics-Semiconductors]
+- abbreviation: Proc. Zool. Soc.
+  name: Proceedings of the Zoological Society
+- abbreviation: Zh. Eksp. Teor. Fiz. [Sov. Phys. JETP]
+  name: Zhurnal Eksperimentalnoi i Teoreticheskoi Fiziki [Soviet Physics-JETP]
+- abbreviation: Phys. Status Solidi Appl. Mater. Sci.
+  name: 'Physica Status Solidi A: Applications and Materials Science'
+- abbreviation: Opt. - Int. J. Light Electron Opt.
+  name: Optik - International Journal for Light and Electron Optics
+- abbreviation: Astron. J.
+  name: Astronomy Journal
+- abbreviation: Philos. Mag. Lett.
+  name: Philosophical Magazine Letters
+- abbreviation: J. Geol. Soc. (London, U.K.)
+  name: Journal of the Geological Society (London, United Kingdom)
+- abbreviation: Eur. Phys. J. C
+  name: 'European Physical Journal C: Particles and Fields'
+- abbreviation: Rev. Math. Phys.
+  name: Reviews in Mathematical Physics
+- abbreviation: 'J. Phys.: Conf. Ser.'
+  name: 'Journal of Physics: Conference Series'
+- abbreviation: Int. J. Doc. Anal. Recogn.
+  name: International Journal on Document Analysis and Recognition
+- abbreviation: Acta Crystallogr. Sec. A
+  name: 'Acta Crystallographica, Section A: Crystal Physics, Diffraction,Theoretical and General Crystallography'
+- abbreviation: Am. Mineral.
+  name: American Mineralogist
+- abbreviation: Wiley Interdiscip. Rev. Comput. Stat.
+  name: 'Wiley Interdisciplinary Reviews: Computational Statistics'
+- abbreviation: 'J. Vac. Sci. Technol. B: Microelectron. Nanometer Struct.'
+  name: 'Journal of Vacuum Science & Technology B: Microelectronics and Nanometer Structures'
+- abbreviation: J. Geophys. Res. Solid Earth
+  name: Journal of Geophysical Research, Solid Earth
+- abbreviation: J. Appl. Mech. Trans. ASME
+  name: ASME Journal of Applied Mechanics
+- abbreviation: Nonlinear Anal. Hybrid Syst
+  name: 'Nonlinear Analysis: Hybrid Systems'
+- abbreviation: Water Resour. Res.
+  name: Water Resources Research
+- abbreviation: Phys. Rev. B
+  acronym: PRB
+  name: Physical Review B
+  variations:
+  - Phys. Rev. B Condens. Matter
+  - 'Phys. Rev. B: Condens. Matter'
+  - 'Physical Review B: Condensed Matter'
+- abbreviation: Rev. Mod. Phys.
+  name: Reviews of Modern Physics
+- abbreviation: Hyperfine Interact.
+  name: Hyperfine Interactions
+- abbreviation: Geophys. Mag.
+  name: Geophysical Magazine
+- abbreviation: Ann. Phys. (Amsterdam, Neth.)
+  name: Annals of Physics (Amsterdam, Netherlands)
+- abbreviation: Acta Phys.
+  name: Acta Physica
+- abbreviation: Int. J. Uncertainty Fuzziness Knowledge Based Syst.
+  name: International Journal of Uncertainty, Fuzziness and Knowlege-Based Systems
+- abbreviation: Int. J. Optomechatronics
+  name: International Journal of Optomechatronics
+- abbreviation: J. Phys. B
+  name: 'Journal of Physics B: Atomic, Molecular and Optical'
+- abbreviation: Proc. Phys. Soc., Sect. B
+  name: Proceedings of the Physical Society, Section B
+- abbreviation: J. Am. Chem. Soc.
+  name: Journal of the American Chemical Society
+- abbreviation: J. Phys. (Paris)
+  name: Journal de Physique (Paris)
+- abbreviation: J. Geosci.
+  name: Journal of Geosciences
+- abbreviation: Phys. Fluids B
+  name: Physics of Fluids B
+- abbreviation: J. Theor. Biol.
+  name: Journal of Theoretical Biology
+- abbreviation: Int. J. Bifurcation Chaos
+  name: International Journal of Bifurcation and Chaos
+- abbreviation: J. Magn. Magn. Mater.
+  name: Journal of Magnetism and Magnetic Materials
+- abbreviation: Math. Phys. Anal. Geom.
+  name: Mathematical Physics Analysis and Geometry
+- abbreviation: Mar. struct.
+  name: Marine Structures
+- abbreviation: Nucl. Data, Sec. B
+  name: Nuclear Data, Section B
+- abbreviation: Rocky Mt Geol.
+  name: Rocky Mountain Geology
+- abbreviation: J. Low Temp. Phys.
+  name: Journal of Low Temperature Physics
+- abbreviation: Ann. Phys. (N.Y.)
+  name: Annals of Physics (New York)
+- abbreviation: New Astron.
+  name: New Astronomy
+- abbreviation: J. Mech. Phys. Solids
+  acronym: JMPS
+  name: Journal of the Mechanics and Physics of Solids
+- abbreviation: Nukleonika
+  name: Nukleonika
+- abbreviation: Fiz. Plazmy [Sov. J. Plasma Phys.]
+  name: Fizika Plazmy [Soviet Journal of Plasma Physics]
+- abbreviation: Int. J. Immunopharmacol.
+  name: International Journal of Immunopharmacology
+- abbreviation: RCA Rev.
+  name: RCA Review
+- abbreviation: Math. Methods Appl. Sci.
+  name: Mathematicsl Methods in the Applied Sciences
+- abbreviation: Phys. Rev. X
+  acronym: PRX
+  name: Physical Review X
+- abbreviation: IEEE Trans. Sonics Ultrason.
+  name: IEEE Transactions on Sonics and Ultrasonics
+- abbreviation: Stud. Conserv.
+  name: Studies in Conservation
+- abbreviation: ACS Nano
+  name: ACS Nano
+- abbreviation: J. Atmos. Terr. Phys.
+  name: Journal of Atmospheric and Terrestrial Physics
+- abbreviation: J. Phys. Chem. Ref. Data
+  name: Journal of Physical and Chemical Reference Data
+- abbreviation: MRS Proc.
+  name: MRS Proceedings
+- abbreviation: Fluid Dyn. Res.
+  name: Fluid Dynamics Research
+- abbreviation: 'Phys. Status Solidi C: Curr. Top. Solid State Phys.'
+  name: 'Physica Status Solidi C: Current Topics in Solid State Physics'
+- abbreviation: Lett. Math. Phys.
+  name: Letters in Mathematical Physics
+- abbreviation: Mater. Quantum Technol.
+  name: Materials for Quantum Technology
+- abbreviation: Int. J. Climatol.
+  name: International Journal of Climatology
+- abbreviation: Int. J. Hydrog. Energy
+  name: International Journal of Hydrogen Energy
+- abbreviation: J. Min. Sci.
+  name: Journal of Mining Science
+- abbreviation: J. Great Lakes Res.
+  name: Journal of Great Lakes Research
+- abbreviation: Int. J. Syst. Sci.
+  name: International Journal of Systems Science
+- abbreviation: J. Macromol. Sci. Phys.
+  name: Journal of Macromolecular Science, [Part B] Physics
+- abbreviation: J. Geophys. Res. Earth Surf.
+  name: Journal of Geophysical Research, Earth Surface
+- abbreviation: Compos. Struct.
+  name: Composite Structures
+- abbreviation: J. Struct. Geol.
+  name: Journal of Structural Geology
+- abbreviation: Eur. Phys. J. WOC
+  name: 'European Physical Journal WOC: Web of Conferences'
+- abbreviation: Naturwissenschaften
+  name: Naturwissenschaften
+- abbreviation: Z. Phys. Chem. (Frankurt am Main)
+  name: Zeitschrift für Physikalische Chemie (Frankfurt am Main)
+- abbreviation: Int. J. Heat Mass Transfer
+  name: International Journal of Heat and Mass Transfer
+- abbreviation: Int. J. Pept. Res. Ther.
+  name: International Journal of Peptide Research and Therapeutics
+- abbreviation: Chin. J. Geochem.
+  name: Chinese Journal of Geochemistry
+- abbreviation: Z. Anal. Chem.
+  name: Zeitschrift für Analytische Chemie
+- abbreviation: Proc. Phys. Soc.
+  name: Proceedings of the Physical Society
+- abbreviation: Annu. Rev. Astron. Astrophys.
+  name: Annual Review of Astronomy and Astrophysics
+- abbreviation: Int. J. Model. Simul.
+  name: International Journal of Modelling and Simulation
+- abbreviation: J. Seismolog.
+  name: Journal of Seismology
+- abbreviation: Opt. Eng
+  name: Optical Engineering
+- abbreviation: J. Phys. A
+  name: Journal of Physics A
+- abbreviation: Phys. Status Solidi A
+  name: physica status solidi (a)
+- abbreviation: J. Porphyrins Phthalocyanines
+  name: Journal of Porphyrins and Phthalocyanines
+- abbreviation: Ber. Bunsenges. Phys. Chem.
+  name: Berichte der Bunsengesellschaft für Physikalische Chemie
+- abbreviation: J. Phys. Chem.
+  name: Journal of Physical Chemistry
+- abbreviation: Proc. IEEE
+  name: Proceedings of the IEEE
+- abbreviation: Exp. Heat Transfer
+  name: Experimental Heat Transfer
+- abbreviation: Phys. Teach.
+  name: Physics Teacher
+- abbreviation: Appl. Sci. Res.
+  name: Applied Scientific Research
+- abbreviation: Infrared Phys.
+  name: Infrared Physics
+- abbreviation: Proc. Est. Acad. Sci.
+  name: Proceedings of the Estonian Academy of Sciences
+- abbreviation: J. Cryst. Growth
+  name: Journal of Crystal Growth
+- abbreviation: J. Photochem. Photobiol. C Photochem. Rev.
+  name: 'Journal of Photochemistry and Photobiology C: Photochemistry Reviews'
+- abbreviation: Int. J. Oncol.
+  name: International Journal of Oncology
+- abbreviation: Int. J. Appl. Syst. Stud.
+  name: International Journal of Applied Systemic Studies
+- abbreviation: Ann. Gis
+  name: Annals of GIS
+- abbreviation: J. Paleolimnol.
+  name: Journal of Paleolimnology
+- abbreviation: Bull. Alloy Phase Diagr.
+  name: Bulletin of Alloy Phase Diagrams
+- abbreviation: IBM J. Res. Dev.
+  name: IBM Journal of Research and Development
+- abbreviation: Int. J. Altern. Propul.
+  name: International Journal of Alternative Propulsion
+- abbreviation: Eur. Phys. J. Special Topics
+  name: The European Physical Journal Special Topics
+- abbreviation: Prog. Nat. Sci. Mater. Int.
+  name: 'Progress in Natural Science: Materials International'
+- abbreviation: Int. J. Comput. Methods
+  name: International Journal of Computational Methods
+- abbreviation: Adv. Mater.
+  name: Advanced Materials
+- abbreviation: Aust. J. Basic Appl. Sci.
+  name: Australian Journal of Basic and Applied Sciences
+- abbreviation: Geol. Ore Deposits
+  name: Geology of Ore Deposits
+- abbreviation: Sci. China, Ser. G
+  name: 'Science in China, Series G: Physics Mechanics and Astronomy'
+- abbreviation: Fuzzy Sets Syst.
+  name: Fuzzy Sets and Systems
+- abbreviation: Class. Quantum Gravity
+  name: Classical and Quantum Gravity
+- abbreviation: Materials
+  name: Materials
+- abbreviation: NATO ASI Ser., Ser. B
+  name: NATO ASI Series, Series B Physics
+- abbreviation: Int. J. Cem. Compos. Lightweight Concrete
+  name: International Journal of Cement Composites and Lightweight Concrete
+- abbreviation: Phys. Procedia
+  name: Physics Procedia
+- abbreviation: Energy Policy
+  name: Energy Policy
+- abbreviation: Eur. Phys. J. D
+  name: The European Physical Journal D
+- abbreviation: Jpn. J. Appl. Phys., Part 2
+  name: Japanese Journal of Applied Physics, Part 2
+- abbreviation: J. Mar. Sci. Appl.
+  name: Journal of Marine Science and Application
+- abbreviation: J. Radiol. Prot.
+  name: Journal of Radiological Protection
+- abbreviation: J. Micromechanics Microengineering
+  name: Journal of Micromechanics and Microengineering
+- abbreviation: Izv. Acad. Nauk SSSR, Fiz. Zemli. [Izv. Acad. Sci. USSR, Phys. Solid Earth]
+  name: Izvestiya Akademii Nauk SSSR, Fizika Zemli [Izvestiya, Academy of Sciences, USSR, Physics of the Solid Earth]
+- abbreviation: Int. J. Numer. Methods Heat Fluid Flow
+  name: International Journal of Numerical Methods for Heat and Fluid Flow
+- abbreviation: Sci. Prog.
+  name: Science Progress
+- abbreviation: Geophys. J. Int.
+  name: Geophysical Journal International
+- abbreviation: Quat. Geochronol.
+  name: Quaternary Geochronology
+- abbreviation: J. Res. Natl. Bur. Stand. Sec. B
+  name: 'Journal of Research of the National Bureau of Standards, Section B: Mathematical Sciences'
+- abbreviation: Soc. Astron. Lett.
+  name: Soviet Astronomy Letters [translation of Pisma v Astronomicheskii Zhurnal]
+- abbreviation: Yad. Fiz. [Sov. J. Nucl. Phys.]
+  name: Yadernaya Fizika [Soviet Journal of Nuclear Physics]
+- abbreviation: Zh. Eksp. Teor. Fiz
+  name: Zhurnal Éksperimentalnoi i Teoreticheskoi Fiziki
+- abbreviation: J. Chim. Phys.
+  name: Journal de Chimie Physique
+- abbreviation: Bull. Chem. Soc. Jpn.
+  name: Bulletin of the Chemical Society of Japan
+- abbreviation: Hydrol. J.
+  name: Hydrogeology Journal
+- abbreviation: Opt. Mater. Express
+  name: Optical Materials Express
+- abbreviation: Phys. Solid State
+  name: Physics of the Solid State
+- abbreviation: Electron Backscatter Diffr. Mater. Sci.
+  name: Electron Backscatter Diffraction in Materials Science
+- abbreviation: Annu. Rev. Condens. Matter Phys.
+  name: Annual Review of Condensed Matter Physics
+- abbreviation: J. Phys. Photonics
+  name: 'Journal of Physics: Photonics'
+- abbreviation: J. Mar. Sys.
+  name: Journal of Marine Systems
+- abbreviation: Int. J. Solids Struct.
+  acronym: IJSS
+  name: International Journal of Solids and Structures
+- abbreviation: U.S. Geol. Surv. Prof. Pap.
+  name: U.S. Geological Survey Professional Paper
+- abbreviation: At. Energ. [Sov. J. At. Energy]
+  name: Atomnaya Energiya [Soviet Journal of Atomic Energy]
+- abbreviation: Res. Astron. Astrophys.
+  name: Research in Astronomy and Astrophysics
+- abbreviation: Int. J. Grid Util. Comput.
+  name: International Journal of Grid and Utility Computing
+- abbreviation: Int. J. Innovative Comput. Appl.
+  name: International Journal of Innovative Computing and Applications
+- abbreviation: Geol. Rundsch.
+  name: Geologische Rundschau
+- abbreviation: Int. J. Crashworthiness
+  name: International Journal of Crashworthiness
+- abbreviation: Ann. Glaciol.
+  name: Annals of Glaciology
+- abbreviation: Bull. Can. Petrol. Geol.
+  name: Bulletin of Canadian Petroleum Geology
+- abbreviation: IEEE Trans. Geosci. Remote Sens.
+  name: IEEE Transactions on Geoscience and Remote Sensing
+- abbreviation: Los Alamos Nat. Lab. Prepr. Arch. Phys.
+  name: Los Alamos National Laboratory, Preprint Archive, Physics
+- abbreviation: Sov. Astron.
+  name: Soviet Astronomy [translation of Astronomicheskii Zhurnal]
+- abbreviation: IEEE Trans. Nucl. Sci.
+  name: IEEE Transactions on Nuclear Science
+- abbreviation: Phys. Scr.
+  name: Physica Scripta
+- abbreviation: Philips Res. Rep.
+  name: Philips Research Reports
+- abbreviation: Usp. Fiz. Nauk [Sov. Phys. Usp.]
+  name: Uspekhi Fizicheskikh Nauk [Soviet Physics-Uspekhi]
+- abbreviation: J. Elast.
+  name: Journal of Elasticity
+- abbreviation: J. Volcanol. Seismolog.
+  name: Journal of Volcanology and Seismology
+- abbreviation: Int. J. Antimicrob. Agents
+  name: International Journal of Antimicrobial Agents
+- abbreviation: Int. J. Inf. Qual.
+  name: International Journal of Information Quality
+- abbreviation: Heat Mass Transfer
+  name: Heat and Mass Transfer
+- abbreviation: Int. J. Reliab. Saf.
+  name: International Journal of Reliability and Safety
+- abbreviation: Phys. At. Nucl.
+  name: Physics of Atomic Nuclei
+- abbreviation: Adv. Funct. Mater.
+  name: Advanced Functional Materials
+- abbreviation: J. Ultrastruct. Res.
+  name: Journal of Ultrastructure Research
+- abbreviation: Sens. Actuators B Chem.
+  name: 'Sensors and Actuators B: Chemical'
+- abbreviation: Andean Geol.
+  name: Andean Geology
+- abbreviation: Comments Plasma Phys. Controlled Fusion
+  name: Comments on Plasma Physics and Controlled Fusion
+- abbreviation: Lect. Notes Math.
+  name: Lecture Notes in Mathematics
+- abbreviation: Cosmic Res.
+  name: Cosmic Research
+- abbreviation: J. Audio Eng. Soc.
+  name: Journal of the Audio Engineering Society
+- abbreviation: Laser Part. Beams
+  name: Laser and Particle Beams
+- abbreviation: J. Petrol.
+  name: Journal of Petrology
+- abbreviation: Fiz. Tverd. Tela (Leningrad) [Sov. Phys. Solid State]
+  name: Fizika Tverdogo Tela (Leningrad) [Soviet Physics-Solid State]
+- abbreviation: Phys. Status Solidi A
+  name: Physica Status Solidi A
+- abbreviation: Theor. Chim. Acta
+  name: Theoretica Chimica Acta
+- abbreviation: J. Opt. Soc. Am. B
+  name: 'Journal of the Optical Society of America B: Optical Physics'
+- abbreviation: Proc. R. Soc. London, Ser. B
+  name: Proceedings of the Royal Society of London Series B
+- abbreviation: Geol. Soc. London Spec. Publ.
+  name: Geological Society, London, Special Publications
+- abbreviation: Found. Phys.
+  name: Foundations of Physics
+- abbreviation: N.Z. J. Zool.
+  name: New Zealand Journal of Zoology
+- abbreviation: Natl. Bur. Stand. Spec. Publ. (U.S.)
+  name: National Bureau of Standards (U.S.), Special Publication
+- abbreviation: Environ. Res. Commun.
+  name: Environmental Research Communications
+- abbreviation: Nanotechnology
+  name: Nanotechnology
+- abbreviation: J. Stat. Comput. Simul.
+  name: Journal of Statistical Computation and Simulation
+- abbreviation: Astrophys. J.
+  name: The Astrophysical Journal
+- abbreviation: Proc. Nutr. Soc.
+  name: Proceedings of the Nutrition Society
+- abbreviation: CIRP Ann.
+  name: CIRP Annals
+- abbreviation: GFF
+  name: Geologiska Foereningens i Stockholm Foerhandlingar
+- abbreviation: Nuovo Cimento
+  name: Nuovo Cimento
+- abbreviation: Funct. Compos. Struct.
+  name: Functional Composites and Structures
+- abbreviation: Annu. Rev. Earth Planet. Sci.
+  name: Annual Review of Earth and Planetary Sciences
+- abbreviation: Adv. X-Ray Anal.
+  name: Advances in X-Ray Analysis
+- abbreviation: SPIE Proc.
+  name: Proceedings of SPIE
+  variations:
+  - Proc. SPIE
+- abbreviation: Converg. Sci. Phys. Oncol.
+  name: Convergent Science Physical Oncology
+- abbreviation: J. South Amer. Earth Sci.
+  name: Journal of South American Earth Sciences
+- abbreviation: Int. J. Extrem. Manuf.
+  name: International Journal of Extreme Manufacturing
+- abbreviation: IEEE Trans. Magn.
+  name: IEEE Transactions on Magnetics
+- abbreviation: Pis'ma Zh. Tekh. Fiz. [Sov. Tech. Phys. Lett.]
+  name: Pis'ma v Zhurnal Tekhnicheskoi Fiziki [Soviet Technical Physics Letters]
+- abbreviation: Comput. Math. Math. Phys.
+  name: Computational Mathematics and Mathematical Physics
+- abbreviation: Phys. Educ.
+  name: Physics Education
+- abbreviation: Chin. Phys.
+  name: Chinese Physics
+- abbreviation: Math. Proc. Cambridge Philos. Soc.
+  name: Mathematical Proceedings of the Cambridge Philosophical Society
+- abbreviation: Proc. Phys. Soc., Sect. A
+  name: Proceedings of the Physical Society, Section A
+- abbreviation: Comments Solid State Phys.
+  name: Comments on Solid State Physics
+- abbreviation: Spectrochim. Acta
+  name: Spectrochimica Acta
+- abbreviation: J. Earth Syst. Sci.
+  name: Journal of Earth System Science
+- abbreviation: Int. J. Aromather.
+  name: International Journal of Aromatherapy
+- abbreviation: Int. J. Artif. Intell. Tools
+  name: International Journal on Artificial Intelligence Tools
+- abbreviation: Ann. Phys. (Paris)
+  name: Annales de Physique (Paris)
+- abbreviation: IEEE Trans. Terahertz Sci. Technol.
+  name: IEEE Transactions on Terahertz Science and Technology
+- abbreviation: Anal. Sci.
+  name: Analytical Sciences
+- abbreviation: Proc. Phys. Soc. London, Sec. A
+  name: Proceedings of the Physical Society, London, Section A
+- abbreviation: Fortschr. Phys.
+  name: Fortschritte der Physik
+- abbreviation: Sol. RRL
+  name: Solar RRL
+- abbreviation: J. AOAC Int.
+  name: Journal of AOAC International
+- abbreviation: J. Geodyn.
+  name: Journal of Geodynamics
+- abbreviation: Matter Radiat. at Extremes
+  name: Matter and Radiation at Extremes
+- abbreviation: Nonlinear Anal. Theory Methods Appl.
+  name: 'Nonlinear Analysis: Theory Methods & Applications'
+- abbreviation: Opt. Express
+  name: Optics Express
+- abbreviation: Res. Notes AAS
+  name: Research Notes of the AAS
+- abbreviation: Int. J. Veh. Saf.
+  name: International Journal of Vehicle Safety
+- abbreviation: Int. J. Secur. Netw.
+  name: International Journal of Security and Networks
+- abbreviation: Sediment. Geol.
+  name: Sedimentary Geology
+- abbreviation: Phys. Status Solidi C
+  name: physica status solidi (c)
+- abbreviation: COSPAR Colloq. Ser.
+  name: COSPAR Colloquia Series
+- abbreviation: Nat. Rev. Mater.
+  name: Nature Reviews Materials
+- abbreviation: Eur. Phys. J. AP
+  name: 'The European Physical Journal AP: Applied Physics'
+- abbreviation: Ann. N.Y. Acad. Sci.
+  name: Annals of the New York Academy of Sciences
+- abbreviation: EPJ Plus
+  name: EPJ Plus
+- abbreviation: UK Energy Res. Cent.
+  name: UK Energy Research Centre
+- abbreviation: Geol. Mijnbouw
+  name: Geologie en Mijnbouw
+- abbreviation: Resour. Geol.
+  name: Resource Geology
+- abbreviation: Water Res.
+  name: Water Research
+- abbreviation: Sov. Phys. Dokl.
+  name: Soviet Physics-Doklady [translation of Doklady Akademii Nauk SSSR]
+- abbreviation: Appl. Phys. Express
+  name: Applied Physics Express
+- abbreviation: J. Sci. Comput.
+  name: Journal of Scientific Computing
+- abbreviation: Nat. Geosci.
+  name: Nature Geoscience
+- abbreviation: Eur. Phys. J. B
+  name: 'The European Physical Journal B: Condensed Matter and Complex Systems'
+- abbreviation: Acustica
+  name: Acustica
+- abbreviation: Int. J. Soft Comput.
+  name: International Journal of Soft Computing
+- abbreviation: NATO ASI Ser., Ser. C
+  name: NATO ASI Series, Series C Mathematical and Physical Sciences
+- abbreviation: Phys. Rev. Accel. Beams
+  name: Physical Review Accelerators and Beams
+- abbreviation: Int. J. Approximate Reasoning
+  name: International Journal of Approximate Reasoning
+- abbreviation: Ultramicroscopy
+  name: Ultramicroscopy
+- abbreviation: Int. J. Fluid Mech. Res.
+  name: International Journal of Fluid Mechanics Research
+- abbreviation: Opt. Photonik
+  name: Optik & Photonik
+- abbreviation: IEEE Trans. Inf. Theory
+  name: IEEE Transactions on Information Theory
+- abbreviation: Int. J. Numer. Anal. Methods Geomech.
+  name: International Journal for Numerical and Analytical Methods in Geomechanics
+- abbreviation: Adv. Magn. Reson.
+  name: Advances in Magnetic Resonance
+- abbreviation: Stratigr. Geol. Correl.
+  name: Stratigraphy and Geological Correlation
+- abbreviation: arXiv.org, e-Print Arch. Condens. Matter
+  name: arXiv.org, e-Print Archive Condensed Matter
+- abbreviation: AAPG Bull.
+  name: AAPG Bulletin
+- abbreviation: Adv. Opt. Photonics
+  name: Advances in Optics and Photonics
+- abbreviation: Opt. Acta
+  name: Optica Acta
+- abbreviation: Russ. J. Phys. Chem.
+  name: Russian Journal of Physical Chemistry [translation of Zhurnal Fizicheskoi Khimii]
+- abbreviation: Quantum Opt.
+  name: Quantum Optics
+- abbreviation: Basin Res.
+  name: Basin Research
+- abbreviation: Geochem. Trans.
+  name: Geochemical Transactions
+- abbreviation: J. Synchrotron Radiat.
+  name: Journal of Synchrotron Radiation
+- abbreviation: J. Ultrasound
+  name: Journal of Ultrasound
+- abbreviation: Tm - Tech. Mess.
+  name: tm - Technisches Messen
+- abbreviation: J. Geol. Soc. Jam.
+  name: Journal of the Geological Society of Jamaica
+- abbreviation: Phosphorus Sulfur Rel. Elem.
+  name: Phosphorus Sulfur and Related Elements
+- abbreviation: Z. Phys. Chem. Materialforsch.
+  name: Zeitschrift für Physikalisch-Chemische Materialforschung
+- abbreviation: J. Geophys.
+  name: Journal of Geophysics
+- abbreviation: Int. J. Mod. Phys. C
+  name: International Journal of Modern Physics C
+- abbreviation: J. Geol. Soc. London
+  name: Journal of the Geological Society of London
+- abbreviation: 'J. Phys. D: Appl. Phys.'
+  name: 'Journal of Physics D: Applied Physics'
+  variations:
+  - J. Phys. Appl. Phys.
+- abbreviation: Z. Elektrochem.
+  name: Zeitschrift für Elektrochemie
+- abbreviation: Physica A
+  name: 'Physica A: Statistical Mechanics and its Applications'
+- abbreviation: Phys. Med. Biol.
+  name: Physics in Medicine & Biology
+- abbreviation: Math. Phys. Appl. Math.
+  name: Mathematical Physics and Applied Mathematics
+- abbreviation: J. Comput. Appl. Math.
+  name: Journal of Computational and Applied Mathematics
+- abbreviation: Heat Recovery Syst. CHP
+  name: Heat Recovery Systems and CHP
+- abbreviation: Philos. Trans. R. Soc. London, Ser. B
+  name: Philosophical Transactions of the Royal Society of London, Series B
+- abbreviation: Superlattices Microstruct.
+  name: Superlattices and Microstructures
+- abbreviation: Math. Z.
+  name: Mathematische Zeitschrift
+- abbreviation: Hydrol. Sci. Bull.
+  name: Hydrological Sciences Bulletin
+- abbreviation: J. Math. Phys. (N.Y.)
+  name: Journal of Mathematical Physics (New York)
+- abbreviation: Nanomaterials
+  name: Nanomaterials
+- abbreviation: Chaos, Solitons Fractals
+  name: Chaos, Solitons & Fractals
+- abbreviation: Int. J. Quantum Chem. 2
+  name: International Journal of Quantum Chemistry, Part 2
+- abbreviation: 'Adv. Nat. Sci.: Nanosci. Nanotechnol.'
+  name: 'Advances in Natural Sciences: Nanoscience and Nanotechnology'
+- abbreviation: Numer. Heat Transfer, Part A
+  name: Numerical Heat Transfer Part A
+- abbreviation: Philos. Trans. R. Soc. London, Ser. A
+  name: 'Philosophical Transactions of the Royal Society of London, Series A: Mathematical and Physical Sciences'
+- abbreviation: Proc. Phys. Soc. London, Sec. B
+  name: Proceedings of the Physical Society, London, Section B
+- abbreviation: Int. J. Refrig
+  name: International Journal of Refrigeration
+- abbreviation: Adv. Mater. Technol.
+  name: Advanced Materials Technologies
+- abbreviation: Prog. Cryst. Growth Charact.
+  name: Progress in Crystal Growth and Characterization
+- abbreviation: Int. J. Digital Earth
+  name: International Journal of Digital Earth
+- abbreviation: Ann. Chim. Phys.
+  name: Annales de Chimie et de Physique
+- abbreviation: Solar Cells
+  name: Solar Cells
+- abbreviation: Int. J. Intell. Inf. Database Syst.
+  name: International Journal of Intelligent Information and Database Systems
+- abbreviation: J. Light. Technol.
+  name: Journal of Lightwave Technology
+- abbreviation: Int. DATA Ser., Sel. Data Mixtures, Ser. A
+  name: International DATA Series, Selected Data on Mixtures, Series A
+- abbreviation: Eur. Phys. J. QT
+  name: 'European Physical Journal QT: Quantum Technology'
+- abbreviation: Adv. Phys.
+  name: Advances in Physics
+- abbreviation: Fiz. Met. Metalloved. [Phys. Met. Metallogr. (USSR)]
+  name: Fizika Metallov i Metallovedenie [Physics of Metals and Metallography (USSR)]
+- abbreviation: J. Syst. Paleontol.
+  name: Journal of Systematic Palaeontology
+- abbreviation: J. Supercond.
+  name: Journal of Superconductivity
+- abbreviation: Geophys. Res. Lett.
+  name: Geophysical Research Letters
+- abbreviation: Nano Today
+  name: Nano Today
+- abbreviation: Eur. Phys. J. D
+  name: 'European Physical Journal D: Atomic, Molecular, Optical and Plasma Physics'
+- abbreviation: Sci. Model. Simul.
+  name: Scientific Modeling and Simulation
+- abbreviation: Acta Geophys.
+  name: Acta Geophysica
+- abbreviation: Philos. Trans. R. Soc. Lond. Ser. A Math. Phys. Eng. Sci.
+  name: Philosophical Transactions of the Royal Society of London. Series A. Mathematical, Physical and Engineering Sciences
+- abbreviation: Astrophys. J. Suppl. Ser.
+  name: Astrophysical Journal, Supplement Series
+- abbreviation: Inorg. Mater. (USSR)
+  name: Inorganic Materials (USSR) [translation of Izvestiya Akademii Nauk SSSR, Neorganicheskie Materialy]
+- abbreviation: ECS Trans.
+  name: ECS Transactions
+- abbreviation: AIP Conf. Proc.
+  name: AIP Conference Proceedings
+- abbreviation: Mineral. Petrol.
+  name: Mineralogy and Petrology
