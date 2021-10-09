@@ -1,5 +1,6 @@
+from distutils.core import setup
+
 from setuptools import find_packages
-from setuptools import setup
 
 setup(
     name="GooseBib",
@@ -11,6 +12,7 @@ setup(
     keywords="LaTeX; BibTeX",
     url="https://github.com/tdegeus/GooseBib",
     packages=find_packages(),
+    package_data={"": ["*.yaml"]},
     use_scm_version={"write_to": "GooseBib/_version.py"},
     setup_requires=["setuptools_scm"],
     install_requires=[
