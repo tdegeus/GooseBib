@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+dependencies:
+  - bibtexparser
+  - click
+  - docopt
+  - gitpython
+  - python
+  - pyyaml
+  - requests

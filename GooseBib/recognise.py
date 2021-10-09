@@ -1,13 +1,19 @@
 import re
+from functools import singledispatch
 
 
-def doi(*args):
+@singledispatch
+def doi():
     """
-    Loop over input arguments and try to match a doi, return the first match.
+    Try to match a doi, return the first match.
 
-    :param args: Arguments to check.
+    :param args: Arguments to check,
     :return: The first match (stripped for url etc.).
     """
+
+
+@doi.register(str)
+def _(*args):
 
     match = [
         (re.compile(r"(.*)(https://doi.org/)([^\s]*)(.*)", re.IGNORECASE), 3),
@@ -26,13 +32,28 @@ def doi(*args):
     return None
 
 
-def arxivid(*args):
+@doi.register(dict)
+def _(entry):
+
+    for key in ["doi"]:
+        if key in entry:
+            return doi(entry[key])
+
+    return doi(*[val for key, val in entry.items() if key not in ["arxivid", "eprint"]])
+
+
+@singledispatch
+def arxivid():
     """
-    Loop over input arguments and try to match a arxiv-id, return the first match.
+    Try to match a arxiv-id, return the first match.
 
     :param args: Arguments to check.
     :return: The first match (stripped for url etc.).
     """
+
+
+@arxivid.register(str)
+def _(*args):
 
     match = [
         (re.compile(r"(.*)(https://arxiv.org/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),
@@ -49,6 +70,16 @@ def arxivid(*args):
                     return match
 
     return None
+
+
+@arxivid.register(dict)
+def _(entry):
+
+    for key in ["arxivid", "eprint"]:
+        if key in entry:
+            return arxivid(entry[key])
+
+    return arxivid(*[val for key, val in entry.items() if key not in ["doi"]])
 
 
 if __name__ == "__main__":
