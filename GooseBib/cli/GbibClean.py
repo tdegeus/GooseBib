@@ -31,6 +31,8 @@ import sys
 import bibtexparser
 import docopt
 
+from .. import recognise
+from .. import reformat
 from .. import version
 
 # ==================================== RAISE COMMAND LINE ERROR ====================================
@@ -54,154 +56,6 @@ def subr(regex, sub, text):
     # continue substituting
     if n:
         return subr(regex, sub, text)
-
-    return text
-
-
-# ========================================== EXTRACT DOI ===========================================
-
-
-def getDoi(*args):
-
-    # define find/replace criteria
-    match = [
-        (re.compile(r"(.*)(https://doi.org/)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-        (re.compile(r"(.*)(http://doi.org/)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-        (re.compile(r"(.*)(doi/abs/)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-        (re.compile(r"(.*)(doi)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-    ]
-
-    # try to find matching entries (and strip them)
-    for regex, sub in match:
-        for arg in args:
-            if re.match(regex, arg):
-                num = re.sub(regex, sub, arg)
-                if not re.match(r"(.*)([\s])(.*)", num):
-                    return num
-
-    # quit function without a positive match
-    return None
-
-
-# ======================================== EXTRACT ARXIVID =========================================
-
-
-def getArxiv(*args):
-
-    # define find/replace criteria
-    match = [
-        (re.compile(r"(.*)(https://arxiv.org/abs/)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-        (re.compile(r"(.*)(http://arxiv.org/abs/)([^\s]*)(.*)", re.IGNORECASE), r"\3"),
-        (re.compile(r"(.*)(arxiv)([^:]*)([:]?)(.*)", re.IGNORECASE), r"\5"),
-        (re.compile(r"([0-9]*\.[0-9]*[v]?[0-9]*)", re.IGNORECASE), r"\1"),
-    ]
-
-    # try to find matching entries (and strip them)
-    for regex, sub in match:
-        for arg in args:
-            if re.match(regex, arg):
-                num = re.sub(regex, sub, arg)
-                if not re.match(r"(.*)([\s])(.*)", num):
-                    return num
-
-    # quit function without a positive match
-    return None
-
-
-# ======================================== REFORMAT AUTHORS ========================================
-
-
-def reformatAuthor(text, sep=" "):
-
-    # skip authors that cannot be split in first and last name
-    if len(text.split(",")) <= 1:
-        return text
-
-    # define find/replace criteria
-    match = [
-        (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),
-        (
-            re.compile(r"([A-Za-z][\}]*)([\w0-9\{\}\`\'\"\\\.\^\{]*)", re.UNICODE),
-            r"\1.",
-        ),
-        (re.compile(r"([A-Za-z\.][\-]?)([\ ]*)", re.UNICODE), r"\1"),
-        (re.compile(r"([A-Za-z\.][\-]?)([A-Za-z])", re.UNICODE), r"\1" + sep + r"\2"),
-    ]
-
-    # extract first and last name
-    last, first = text.split(",")
-
-    # update extend all "." with a space, to distinguish initials
-    first = first.replace(".", ". ")
-
-    # loop over over find/replace criteria
-    for regex, sub in match:
-        first = re.sub(regex, sub, first)
-
-    # remove spaces from the beginning and end
-    first = first.strip()
-
-    # rejoin first and last name
-    return last + ", " + first.upper()
-
-
-# ========================================== PROTECT MATH ==========================================
-
-
-def protectMath(text):
-
-    # skip text without any math
-    if len(text.split(r"{\$}")) < 3:
-        return text
-
-    # define find/replace criteria
-    match = [
-        (re.compile(r"(\{\\\$\})(.*)(\{\\\$\})", re.UNICODE), r"$\2$"),
-        (re.compile(r"(\$\$)(.*)(\$\$)", re.UNICODE), r"$\2$"),
-        (re.compile(r"(\$)(.*)(\{\\{\})(.*)(\$)", re.UNICODE), r"\1\2{\4\5"),
-        (re.compile(r"(\$)(.*)(\{\\}\})(.*)(\$)", re.UNICODE), r"\1\2}\4\5"),
-        (re.compile(r"(\$)(.*)(\{\\_\})(.*)(\$)", re.UNICODE), r"\1\2_\4\5"),
-        (re.compile(r"(\$)(.*)(\{\\^\})(.*)(\$)", re.UNICODE), r"\1\2^\4\5"),
-        (re.compile(r"(\$)(.*)(\\backslash)(.*)(\$)", re.UNICODE), r"\1\2\\\4\5"),
-    ]
-
-    # loop over over find/replace criteria
-    for regex, sub in match:
-        text = subr(regex, sub, text)
-
-    return text
-
-
-# ================================ CONVERT UNICODE SYMBOLS TO LATEX ================================
-
-
-def replaceUnicode(text):
-
-    # NB list not exhaustive, please extend!
-    match = [
-        ("ç", r"\c{c}"),
-        ("è", r"\`{e}"),
-        ("é", r"\'{e}"),
-        ("ë", r"\"{e}"),
-        ("ô", r"\^{o}"),
-        ("ö", r"\"{o}"),
-        ("ü", r"\"{y}"),
-        ("g̃", r"\~{g}"),
-        ("ñ", r"\~{n}"),
-        ("İ", r"\.{I}"),
-        ("à", r"\'{a}"),
-        ("ă", r"\v{a}"),
-        ("ř", r"\v{r}"),
-        ("–", "--"),
-        ("—", "--"),
-        ("“", "``"),
-        ("”", "''"),
-        ("×", r"$\times$"),
-    ]
-
-    # loop over over find/replace criteria
-    for ex, sub in match:
-        text = text.replace(ex, sub)
 
     return text
 
@@ -256,7 +110,7 @@ def main():
 
         # find doi
         if "doi" not in entry:
-            doi = getDoi(
+            doi = recognise.doi(
                 *[val for key, val in entry.items() if key not in ["arxivid", "eprint"]]
             )
             if doi:
@@ -266,7 +120,7 @@ def main():
 
         # find arXiv-id
         if "arxivid" not in entry:
-            arxivid = getArxiv(
+            arxivid = recognise.arxivid(
                 *[val for key, val in entry.items() if key not in ["doi"]]
             )
             if arxivid:
@@ -282,7 +136,10 @@ def main():
             if key in entry:
                 try:
                     entry[key] = " and ".join(
-                        [reformatAuthor(i, sep) for i in entry[key].split(" and ")]
+                        [
+                            reformat.abbreviate_firstname(i, sep)
+                            for i in entry[key].split(" and ")
+                        ]
                     )
                 except:
                     print(entry[key])
@@ -296,13 +153,13 @@ def main():
         if not args["ignore_math"]:
             for key in ["title"]:
                 if key in entry:
-                    entry[key] = protectMath(entry[key])
+                    entry[key] = reformat.protect_math(entry[key])
 
         # convert unicode to LaTeX
         if not args["ignore_unicode"]:
             for key in ["author", "editor", "title"]:
                 if key in entry:
-                    entry[key] = replaceUnicode(entry[key])
+                    entry[key] = reformat.rm_unicode(entry[key])
 
         # abbreviations: change symbol after "."
         for key in ["journal", "author"]:

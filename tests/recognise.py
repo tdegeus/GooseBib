@@ -12,8 +12,12 @@ class Test_recognise(unittest.TestCase):
 
         doi = "10.1073/pnas.1906551116"
         self.assertEqual(doi, bib.recognise.doi(f"https://doi.org/{doi}"))
+        self.assertEqual(doi, bib.recognise.doi(f"https://dx.doi.org/{doi}"))
         self.assertEqual(doi, bib.recognise.doi(*[f"https://doi.org/{doi}"]))
         self.assertEqual(doi, bib.recognise.doi(dict(doi=f"https://doi.org/{doi}")))
+
+        self.assertEqual(doi, bib.recognise.doi(f"doi: {doi}"))
+        self.assertEqual(doi, bib.recognise.doi(f"doi:{doi}"))
 
     def test_arxiv(self):
 
@@ -33,6 +37,8 @@ class Test_recognise(unittest.TestCase):
             bib.recognise.arxivid(dict(arxivid=f"https://arxiv.org/abs/{arxivid}")),
         )
         self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv preprint: {arxivid}"))
+        self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv: {arxivid}"))
+        self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv:{arxivid}"))
 
 
 if __name__ == "__main__":

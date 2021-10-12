@@ -16,10 +16,14 @@ def doi():
 def _(*args):
 
     match = [
-        (re.compile(r"(.*)(https://doi.org/)([^\s]*)(.*)", re.IGNORECASE), 3),
-        (re.compile(r"(.*)(http://doi.org/)([^\s]*)(.*)", re.IGNORECASE), 3),
+        (
+            re.compile(
+                r"(.*)(http)(s?)(://)([^\s]*)(doi.org/)([^\s]*)(.*)", re.IGNORECASE
+            ),
+            7,
+        ),
         (re.compile(r"(.*)(doi/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),
-        (re.compile(r"(.*)(doi)([^\s]*)(.*)", re.IGNORECASE), 3),
+        (re.compile(r"(.*)(doi)([^0-9]*)([^\s]*)(.*)", re.IGNORECASE), 4),
     ]
 
     for regex, index in match:
@@ -56,9 +60,14 @@ def arxivid():
 def _(*args):
 
     match = [
-        (re.compile(r"(.*)(https://arxiv.org/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),
-        (re.compile(r"(.*)(http://arxiv.org/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),
-        (re.compile(r"(.*)(arxiv)([^:]*)([:]?)(.*)", re.IGNORECASE), 5),
+        (
+            re.compile(
+                r"(.*)(http)(s?)(://)([^\s]*)(arxiv.org/abs/)([^\s]*)(.*)",
+                re.IGNORECASE,
+            ),
+            7,
+        ),
+        (re.compile(r"(.*)(arxiv)([^:]*)([:]?)([\s]*)([^\s]*)(.*)", re.IGNORECASE), 6),
         (re.compile(r"([0-9]*\.[0-9]*[v]?[0-9]*)", re.IGNORECASE), 1),
     ]
 
