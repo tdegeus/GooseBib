@@ -5,6 +5,8 @@ dependencies:
 - click
 - docopt
 - gitpython
+- numpy
 - python
 - pyyaml
 - requests
+- setuptools_scm
