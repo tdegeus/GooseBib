@@ -31,12 +31,12 @@ repos:
   - id: pyupgrade
     args: [--py36-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 3.9.2
+  rev: 4.0.1
   hooks:
   - id: flake8
     args: ['--ignore=E722,W503', --max-line-length=110, "--per-file-ignores=*/__init__.py:F401"]
 - repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v1.17.0
+  rev: v1.18.0
   hooks:
   - id: setup-cfg-fmt
 # check docstrings

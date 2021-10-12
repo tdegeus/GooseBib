@@ -734,6 +734,12 @@ def load(*args: str):
         default={"dirname": os.path.abspath(os.path.dirname(__file__))},
     )
 
+    if os.path.exists(search["config"]["dirname"]):
+        search_order = ["config", "default"]
+    else:
+        search_order = ["default"]
+        search.pop("config")
+
     for key in search:
         search[key]["files"] = _get_yaml_files(search[key]["dirname"])
         search[key]["names"] = [
@@ -747,7 +753,7 @@ def load(*args: str):
         found = False
         name = arg.lower()
 
-        for key in ["config", "default"]:
+        for key in search_order:
             if name in search[key]["names"]:
                 names = np.array(search[key]["names"])
                 path = search[key]["files"][np.argwhere(names == name).ravel()[0]]
