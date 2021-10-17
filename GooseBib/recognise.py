@@ -17,9 +17,7 @@ def _(*args):
 
     match = [
         (
-            re.compile(
-                r"(.*)(http)(s?)(://)([^\s]*)(doi.org/)([^\s]*)(.*)", re.IGNORECASE
-            ),
+            re.compile(r"(.*)(http)(s?)(://)([^\s]*)(doi.org/)([^\s]*)(.*)", re.IGNORECASE),
             7,
         ),
         (re.compile(r"(.*)(doi/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),

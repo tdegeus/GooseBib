@@ -8,7 +8,7 @@ repos:
   rev: 21.9b0
   hooks:
   - id: black
-    args: [--safe, --quiet]
+    args: [--safe, --quiet, --line-length=100]
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.0.1
   hooks:
@@ -34,7 +34,7 @@ repos:
   rev: 4.0.1
   hooks:
   - id: flake8
-    args: ['--ignore=E722,W503', --max-line-length=110, "--per-file-ignores=*/__init__.py:F401"]
+    args: ["--ignore=E722,W503", --max-line-length=110, "--per-file-ignores=*/__init__.py:F401"]
 - repo: https://github.com/asottile/setup-cfg-fmt
   rev: v1.18.0
   hooks:

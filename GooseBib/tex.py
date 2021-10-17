@@ -14,9 +14,7 @@ def list_cite(tex):
     def extract(s):
         try:
             return list(
-                re.split(r"([pt])?(\[.*\]\[.*\])?(\{[a-zA-Z0-9\,\-\ ]*\})", s)[3][
-                    1:-1
-                ].split(",")
+                re.split(r"([pt])?(\[.*\]\[.*\])?(\{[a-zA-Z0-9\,\-\ ]*\})", s)[3][1:-1].split(",")
             )
         except:
             print("Error in interpreting\n {0} ...").format(s[:100])

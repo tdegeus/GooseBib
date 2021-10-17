@@ -41,9 +41,7 @@ def tex2cite(tex):
     def extract(s):
         try:
             return list(
-                re.split(r"([pt])?(\[.*\]\[.*\])?(\{[a-zA-Z0-9\,\-\ ]*\})", s)[3][
-                    1:-1
-                ].split(",")
+                re.split(r"([pt])?(\[.*\]\[.*\])?(\{[a-zA-Z0-9\,\-\ ]*\})", s)[3][1:-1].split(",")
             )
         except:
             print("Error in interpreting\n {0} ...").format(s[:100])
@@ -89,9 +87,7 @@ def main():
     # if the file is an existing directory -> convert to file with same name as the input file
     if args["output"]:
         if os.path.isdir(args["output"]):
-            args["output"] = os.path.join(
-                args["output"], os.path.split(args["bib"])[-1]
-            )
+            args["output"] = os.path.join(args["output"], os.path.split(args["bib"])[-1])
 
     # -------------------------------------- get citation keys ---------------------------------------
 
@@ -112,9 +108,7 @@ def main():
     # ------------------------------------- select from bib-file -------------------------------------
 
     # read BibTeX file
-    bib = bibtexparser.load(
-        open(args["bib"]), parser=bibtexparser.bparser.BibTexParser()
-    )
+    bib = bibtexparser.load(open(args["bib"]), parser=bibtexparser.bparser.BibTexParser())
 
     # get citation keys in the BibTeX files
     bibkeys = [entry["ID"] for entry in bib.entries]
