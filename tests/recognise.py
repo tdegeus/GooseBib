@@ -22,12 +22,8 @@ class Test_recognise(unittest.TestCase):
     def test_arxiv(self):
 
         arxivid = "1904.07635"
-        self.assertEqual(
-            arxivid, bib.recognise.arxivid(f"https://arxiv.org/abs/{arxivid}")
-        )
-        self.assertEqual(
-            arxivid, bib.recognise.arxivid(*[f"https://arxiv.org/abs/{arxivid}"])
-        )
+        self.assertEqual(arxivid, bib.recognise.arxivid(f"https://arxiv.org/abs/{arxivid}"))
+        self.assertEqual(arxivid, bib.recognise.arxivid(*[f"https://arxiv.org/abs/{arxivid}"]))
         self.assertEqual(
             arxivid,
             bib.recognise.arxivid(dict(eprint=f"https://arxiv.org/abs/{arxivid}")),

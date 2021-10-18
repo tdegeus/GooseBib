@@ -1,3 +1,4 @@
+from . import bibtex
 from . import journals
 from . import recognise
 from . import reformat

@@ -177,9 +177,7 @@ class Journal:
             yield "acronym", self.data[self.acro]
 
         idx = np.arange(len(self.data))
-        idx = idx[
-            np.logical_not(np.in1d(idx, np.unique([self.name, self.abbr, self.acro])))
-        ]
+        idx = idx[np.logical_not(np.in1d(idx, np.unique([self.name, self.abbr, self.acro])))]
 
         if idx.size > 0:
             yield "variations", [self.data[i] for i in idx]
@@ -240,9 +238,7 @@ class JournalList:
         renum[old] = np.arange(old.size)
         self.index = renum[self.index]
 
-    def _map(
-        self, journals: list[str], case_sensitive: bool, field: ArrayLike
-    ) -> list[str]:
+    def _map(self, journals: list[str], case_sensitive: bool, field: ArrayLike) -> list[str]:
         """
         Map List of names.
 
@@ -280,9 +276,7 @@ class JournalList:
         """
         return self._map(journals, case_sensitive, self.name)
 
-    def map2abbreviation(
-        self, journals: list[str], case_sensitive: bool = False
-    ) -> list[str]:
+    def map2abbreviation(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
         Map List of names.
 
@@ -292,9 +286,7 @@ class JournalList:
         """
         return self._map(journals, case_sensitive, self.abbr)
 
-    def map2acronym(
-        self, journals: list[str], case_sensitive: bool = False
-    ) -> list[str]:
+    def map2acronym(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
         Map List of names.
 
@@ -318,9 +310,7 @@ class JournalList:
         :return: ``True`` if the list was unique, i.e. if no changes were applied.
         """
 
-        names, ifoward, ibackward = np.unique(
-            self.names, return_index=True, return_inverse=True
-        )
+        names, ifoward, ibackward = np.unique(self.names, return_index=True, return_inverse=True)
 
         if names.size == self.names.size:
             return False
@@ -562,11 +552,7 @@ def generate_jabref(*domains):
     for filename in filenames:
         filepath = os.path.join(tempdir, "journals", filename)
         with open(filepath, newline="") as file:
-            text += list(
-                filter(
-                    None, file.read().replace("’", "'").replace("–", "-").split("\n")
-                )
-            )
+            text += list(filter(None, file.read().replace("’", "'").replace("–", "-").split("\n")))
 
     shutil.rmtree(tempdir)
 
@@ -650,9 +636,7 @@ def generate_default(domain: str):
     elif domain == "mechanics":
 
         db = generate_jabref("mechanical")
-        db["International Journal for Numerical Methods in Engineering"].set_acronym(
-            "IJNME"
-        )
+        db["International Journal for Numerical Methods in Engineering"].set_acronym("IJNME")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
 
@@ -742,9 +726,7 @@ def load(*args: str):
 
     for key in search:
         search[key]["files"] = _get_yaml_files(search[key]["dirname"])
-        search[key]["names"] = [
-            os.path.splitext(f)[0].lower() for f in search[key]["files"]
-        ]
+        search[key]["names"] = [os.path.splitext(f)[0].lower() for f in search[key]["files"]]
 
     db = []
 
