@@ -23,31 +23,16 @@ Options:
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
 # ==================================================================================================
+import argparse
 import difflib
 import os
-import re
 import sys
-
-import argparse
 
 from .. import bibtex
 from .. import version
 
-# ==================================== RAISE COMMAND LINE ERROR ====================================
 
-
-def Error(msg, exit_code=1):
-
-    print(msg)
-
-    sys.exit(exit_code)
-
-
-# ========================================== MAIN PROGRAM ==========================================
-
-
-def main():
-
+def main_impl():
     class Parser(argparse.ArgumentParser):
         def print_help(self):
             print(__doc__)
@@ -66,7 +51,7 @@ def main():
     args = parser.parse_args()
 
     if not os.path.isfile(args.input):
-        Error('"{:s}" does not exist'.format(args.input))
+        raise OSError(f'"{args.input:s}" does not exist')
 
     if os.path.isdir(args.output):
         args.output = os.path.join(args.output, os.path.split(args.input)[-1])
@@ -86,3 +71,12 @@ def main():
     if args.verbose:
         simple = bibtex.select(args.input)
         sys.stdout.writelines(difflib.unified_diff(simple, data))
+
+
+def main():
+
+    try:
+        main_impl()
+    except Exception as e:
+        print(e)
+        return 1
