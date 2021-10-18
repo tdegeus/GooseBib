@@ -28,7 +28,7 @@ import os
 import re
 import sys
 
-import docopt
+import argparse
 
 from .. import bibtex
 from .. import version
@@ -43,46 +43,46 @@ def Error(msg, exit_code=1):
     sys.exit(exit_code)
 
 
-# ===================================== RECURSIVE REPLACEMENT ======================================
-
-
-def subr(regex, sub, text):
-
-    # make substitutions, get the number of substitutions "n"
-    text, n = re.subn(regex, sub, text)
-
-    # continue substituting
-    if n:
-        return subr(regex, sub, text)
-
-    return text
-
-
 # ========================================== MAIN PROGRAM ==========================================
 
 
 def main():
 
-    args = docopt.docopt(__doc__, version=version)
+    class Parser(argparse.ArgumentParser):
+        def print_help(self):
+            print(__doc__)
 
-    if not os.path.isfile(args["<input>"]):
-        Error('"{:s}" does not exist'.format(args["<input>"]))
+    parser = Parser()
+    parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--ignore-case", action="store_true")
+    parser.add_argument("--ignore-math", action="store_true")
+    parser.add_argument("--ignore-unicode", action="store_true")
+    parser.add_argument("--dot-space", ype=str, default="")
+    parser.add_argument("--no-title", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-v", "--version", action="version", version=version)
+    parser.add_argument("input", type=str)
+    parser.add_argument("output", type=str)
+    args = parser.parse_args()
 
-    if os.path.isdir(args["<output>"]):
-        args["<output>"] = os.path.join(args["<output>"], os.path.split(args["<input>"])[-1])
+    if not os.path.isfile(args.input):
+        Error('"{:s}" does not exist'.format(args.input))
+
+    if os.path.isdir(args.output):
+        args.output = os.path.join(args.output, os.path.split(args.input)[-1])
 
     data = bibtex.clean(
-        args["<input>"],
-        sep_name=args["--author-sep"],
-        sep=args["--dot-space"],
-        title=not args["--no-title"],
-        protect_math=not args["--ignore-math"],
-        rm_unicode=not args["--ignore-unicode"],
+        args.input,
+        sep_name=args.author_sep,
+        sep=args.dot_space,
+        title=not args.no_title,
+        protect_math=not args.ignore_math,
+        rm_unicode=not args.ignore_unicode,
     )
 
-    with open(args["<output>"], "w") as file:
+    with open(args.output, "w") as file:
         file.write(data)
 
-    if args["--verbose"]:
-        simple = bibtex.select(args["<input>"])
+    if args.verbose:
+        simple = bibtex.select(args.input)
         sys.stdout.writelines(difflib.unified_diff(simple, data))
