@@ -17,72 +17,66 @@ Options:
       --dot-space=<str>   Character separating abbreviation dots. [default: ]
       --no-title          Remove title from BibTeX file.
       --verbose           Show interpretation.
-      --version           Show version.
+  -v, --version           Show version.
   -h, --help              Show help.
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
 # ==================================================================================================
+import argparse
 import difflib
 import os
-import re
 import sys
-
-import docopt
 
 from .. import bibtex
 from .. import version
 
-# ==================================== RAISE COMMAND LINE ERROR ====================================
 
+def main_impl():
+    class Parser(argparse.ArgumentParser):
+        def print_help(self):
+            print(__doc__)
 
-def Error(msg, exit_code=1):
+    parser = Parser()
+    parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--ignore-case", action="store_true")
+    parser.add_argument("--ignore-math", action="store_true")
+    parser.add_argument("--ignore-unicode", action="store_true")
+    parser.add_argument("--dot-space", type=str, default="")
+    parser.add_argument("--no-title", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-v", "--version", action="version", version=version)
+    parser.add_argument("input", type=str)
+    parser.add_argument("output", type=str)
+    args = parser.parse_args()
 
-    print(msg)
+    if not os.path.isfile(args.input):
+        raise OSError(f'"{args.input:s}" does not exist')
 
-    sys.exit(exit_code)
+    if os.path.isdir(args.output):
+        args.output = os.path.join(args.output, os.path.split(args.input)[-1])
 
+    data = bibtex.clean(
+        args.input,
+        sep_name=args.author_sep,
+        sep=args.dot_space,
+        title=not args.no_title,
+        protect_math=not args.ignore_math,
+        rm_unicode=not args.ignore_unicode,
+    )
 
-# ===================================== RECURSIVE REPLACEMENT ======================================
+    with open(args.output, "w") as file:
+        file.write(data)
 
-
-def subr(regex, sub, text):
-
-    # make substitutions, get the number of substitutions "n"
-    text, n = re.subn(regex, sub, text)
-
-    # continue substituting
-    if n:
-        return subr(regex, sub, text)
-
-    return text
-
-
-# ========================================== MAIN PROGRAM ==========================================
+    if args.verbose:
+        simple = bibtex.select(args.input)
+        sys.stdout.writelines(difflib.unified_diff(simple, data))
 
 
 def main():
 
-    args = docopt.docopt(__doc__, version=version)
-
-    if not os.path.isfile(args["<input>"]):
-        Error('"{:s}" does not exist'.format(args["<input>"]))
-
-    if os.path.isdir(args["<output>"]):
-        args["<output>"] = os.path.join(args["<output>"], os.path.split(args["<input>"])[-1])
-
-    data = bibtex.clean(
-        args["<input>"],
-        sep_name=args["--author-sep"],
-        sep=args["--dot-space"],
-        title=not args["--no-title"],
-        protect_math=not args["--ignore-math"],
-        rm_unicode=not args["--ignore-unicode"],
-    )
-
-    with open(args["<output>"], "w") as file:
-        file.write(data)
-
-    if args["--verbose"]:
-        simple = bibtex.select(args["<input>"])
-        sys.stdout.writelines(difflib.unified_diff(simple, data))
+    try:
+        main_impl()
+    except Exception as e:
+        print(e)
+        return 1
