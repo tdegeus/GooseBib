@@ -42,7 +42,7 @@ def main_impl():
     parser.add_argument("--ignore-case", action="store_true")
     parser.add_argument("--ignore-math", action="store_true")
     parser.add_argument("--ignore-unicode", action="store_true")
-    parser.add_argument("--dot-space", ype=str, default="")
+    parser.add_argument("--dot-space", type=str, default="")
     parser.add_argument("--no-title", action="store_true")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("-v", "--version", action="version", version=version)
