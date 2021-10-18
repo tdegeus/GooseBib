@@ -17,7 +17,7 @@ Options:
       --dot-space=<str>   Character separating abbreviation dots. [default: ]
       --no-title          Remove title from BibTeX file.
       --verbose           Show interpretation.
-      --version           Show version.
+  -v, --version           Show version.
   -h, --help              Show help.
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
