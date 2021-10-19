@@ -25,7 +25,7 @@ setup(
             "GbibCheckAuthors = GooseBib.cli.GbibCheckAuthors:main",
             "GbibCheckLink = GooseBib.cli.GbibCheckLink:main",
             "GbibCheckKeys = GooseBib.cli.GbibCheckKeys:main",
-            "GbibClean = GooseBib.cli.GbibClean:main",
+            "GbibClean = GooseBib.bibtex:GbibClean",
             "GbibList = GooseBib.cli.GbibList:main",
             "GbibParse = GooseBib.cli.GbibParse:main",
             "GbibSelect = GooseBib.cli.GbibSelect:main",

@@ -1,10 +1,17 @@
+import argparse
+import difflib
+import inspect
+import os
 import re
+import sys
+import textwrap
 from functools import singledispatch
 
 import bibtexparser
 
 from . import recognise
 from . import reformat
+from ._version import version
 
 
 def _subr(pattern, repl, string):
@@ -208,3 +215,97 @@ def _(data, *args, **kwargs):
     bib = clean(bib, *args, **kwargs)
 
     return bibtexparser.dumps(bib)
+
+
+def GbibClean():
+    r"""
+    Clean a BibTeX database, stripping it from unnecessary fields,
+    unifying the formatting of authors, and ensuring the proper special characters and
+    math mode settings.
+
+    :usage:
+
+        GbibClean [options] <input> <output>
+
+    :arguments:
+
+        <input>
+            Input BibTeX-file.
+
+        <output>
+            Output file.
+            If ``<output>`` is a directory, it is appended with the filename of ``<input>``.
+
+    :options:
+
+        --author-sep=STR
+            Character to separate authors' initials. Default: "".
+
+        --ignore-case
+            Do not protect case of title.
+
+        --ignore-math
+            Do not apply math-mode fix.
+
+        --ignore-unicode
+            Do not apply unicode fix.
+
+        --dot-space=<str>
+            Character separating abbreviation dots. Default: "".
+
+        --no-title
+            Remove title from BibTeX file.
+
+        --verbose
+            Show interpretation.
+
+        -v, --version
+            Show version.
+
+        -h, --help
+            Show help.
+
+    (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
+    """
+
+    funcname = inspect.getframeinfo(inspect.currentframe()).function
+    doc = textwrap.dedent(inspect.getdoc(globals()[funcname]))
+
+    class Parser(argparse.ArgumentParser):
+        def print_help(self):
+            print(doc)
+
+    parser = Parser()
+    parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--ignore-case", action="store_true")
+    parser.add_argument("--ignore-math", action="store_true")
+    parser.add_argument("--ignore-unicode", action="store_true")
+    parser.add_argument("--dot-space", type=str, default="")
+    parser.add_argument("--no-title", action="store_true")
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-v", "--version", action="version", version=version)
+    parser.add_argument("input", type=str)
+    parser.add_argument("output", type=str)
+    args = parser.parse_args()
+
+    if not os.path.isfile(args.input):
+        raise OSError(f'"{args.input:s}" does not exist')
+
+    if os.path.isdir(args.output):
+        args.output = os.path.join(args.output, os.path.split(args.input)[-1])
+
+    data = clean(
+        args.input,
+        sep_name=args.author_sep,
+        sep=args.dot_space,
+        title=not args.no_title,
+        protect_math=not args.ignore_math,
+        rm_unicode=not args.ignore_unicode,
+    )
+
+    with open(args.output, "w") as file:
+        file.write(data)
+
+    if args.verbose:
+        simple = select(args.input)
+        sys.stdout.writelines(difflib.unified_diff(simple, data))
