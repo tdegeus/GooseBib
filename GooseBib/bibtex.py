@@ -9,6 +9,7 @@ from functools import singledispatch
 
 import bibtexparser
 
+from . import journals
 from . import recognise
 from . import reformat
 from ._version import version
@@ -111,6 +112,8 @@ def _(data, *args, **kwargs):
 @singledispatch
 def clean(
     data,
+    journal_type: str = "abbreviation",
+    journal_database: list[str] = ["pnas", "physics", "mechanics"],
     sep_name: str = "",
     sep: str = "",
     title: bool = True,
@@ -127,7 +130,8 @@ def clean(
         (see :py:func:`GooseBib.recognise.doi` and :py:func:`GooseBib.recognise.arxivid`).
 
     :param data: The BibTeX database (filename or bibtexparser instance).
-    :param output: Output BibTeX.
+    :param journal_type: Use journal: "title", "abbreviation", or "acronym".
+    :param journal_database: Database(s) with official journal names, abbreviations, and acronym.
     :param sep_name: Separate name initials (e.g. "", " ").
     :param sep: Separate abbreviations in title and author: replace ". " e.g. by "." or ". ".
     :param title: Include title of relevant fields.
@@ -135,14 +139,16 @@ def clean(
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
     """
 
+    journal_type = journal_type.lower()
+    journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
+
+    revus = []
+
     for entry in data.entries:
 
-        # fix known Mendeley bugs : todo replace by journals
+        # prepare journal rename
         if "journal" in entry:
-            if entry["journal"] == "EPL (Europhysics Lett.":
-                entry["journal"] = "EPL (Europhys. Lett.)"
-            if entry["journal"] == "Science (80-. ).":
-                entry["journal"] = "Science"
+            revus.append(entry["journal"])
 
         # find doi
         if "doi" not in entry:
@@ -203,6 +209,28 @@ def clean(
         if "url" in entry:
             entry["url"] = _subr(re.compile(r"({)([^}])(})", re.UNICODE), r"\2", entry["url"])
 
+    # rename journal
+
+    if len(journal_database) > 0:
+
+        db = journals.load(*journal_database)
+        if journal_type in ["title", "name", "official", "off"]:
+            new = db.map2name(revus)
+        elif journal_type in ["abbreviation", "abbr"]:
+            new = db.map2abbreviation(revus)
+        elif journal_type in ["acronym", "acro"]:
+            new = db.map2acronym(revus)
+        else:
+            raise OSError(f'Unknown journal type selection "{journal_type}"')
+
+        mapping = {o: n for o, n in zip(revus, new)}
+
+        for entry in data.entries:
+            if "journal" in entry:
+                entry["journal"] = mapping[entry["journal"]]
+
+    # return selection of fields
+
     return select(data, fields=selection(use_bibtexparser=True))
 
 
@@ -238,8 +266,21 @@ def GbibClean():
 
     :options:
 
+        -j, --journal-type=STR
+            Use journal: "title", "abbreviation", or "acronym". Default: "abbreviation".
+
+        --journals=STR
+            Database(s) with official journal names, abbreviations, and acronym.
+            Default: "pnas,physics,mechanics".
+
+        --no-title
+            Remove title from BibTeX file.
+
         --author-sep=STR
             Character to separate authors' initials. Default: "".
+
+        --dot-space=<str>
+            Character separating abbreviation dots. Default: "".
 
         --ignore-case
             Do not protect case of title.
@@ -249,12 +290,6 @@ def GbibClean():
 
         --ignore-unicode
             Do not apply unicode fix.
-
-        --dot-space=<str>
-            Character separating abbreviation dots. Default: "".
-
-        --no-title
-            Remove title from BibTeX file.
 
         --verbose
             Show interpretation.
@@ -277,12 +312,14 @@ def GbibClean():
 
     parser = Parser()
     parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--dot-space", type=str, default="")
     parser.add_argument("--ignore-case", action="store_true")
     parser.add_argument("--ignore-math", action="store_true")
     parser.add_argument("--ignore-unicode", action="store_true")
-    parser.add_argument("--dot-space", type=str, default="")
+    parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
     parser.add_argument("-v", "--version", action="version", version=version)
     parser.add_argument("input", type=str)
     parser.add_argument("output", type=str)
@@ -296,6 +333,8 @@ def GbibClean():
 
     data = clean(
         args.input,
+        journal_type=args.journal_type,
+        journal_database=args.journals.split(","),
         sep_name=args.author_sep,
         sep=args.dot_space,
         title=not args.no_title,
