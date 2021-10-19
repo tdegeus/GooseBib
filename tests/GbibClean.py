@@ -107,6 +107,34 @@ class Test_GooseBib(unittest.TestCase):
 
         os.remove(output)
 
+    def test_journalrename(self):
+
+        source = os.path.join(dirname, "library_mendeley.bib")
+        output = os.path.join(dirname, "output.bib")
+        data = os.path.join(dirname, "library.yaml")
+        subprocess.check_output(["GbibClean", "-j", "acro", source, output])
+
+        with open(output) as file:
+            bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+
+        with open(data) as file:
+            data = yaml.load(file.read(), Loader=yaml.FullLoader)
+
+        data["DeGeus2015a"]["journal"] = "IJSS"
+        data["DeGeus2019"]["journal"] = "PNAS"
+
+        for entry in bib.entries:
+
+            d = data[entry["ID"]]
+
+            for key in d:
+                if entry[key][0] == "{":
+                    self.assertEqual("{" + str(d[key]) + "}", entry[key])
+                else:
+                    self.assertEqual(str(d[key]), entry[key])
+
+        os.remove(output)
+
 
 if __name__ == "__main__":
 

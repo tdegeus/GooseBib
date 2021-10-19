@@ -684,7 +684,7 @@ def _get_yaml_files(dirname: str) -> list[str]:
     return [f for f in ret if re.match(r"(\.y)([a]?)(ml)", os.path.splitext(f)[1])]
 
 
-def load(*args: str):
+def load(*args: str) -> JournalList:
     """
     Load database(s) from files (in default locations).
     Note that the order matters: in case of duplicates the first match is leading.
@@ -709,6 +709,7 @@ def load(*args: str):
     with the library.
 
     :param args: physics, mechanics, PNAS, PNAS-USA, ...
+    :return: JournalList
     """
 
     assert len(args) > 0
