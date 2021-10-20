@@ -8101,10 +8101,11 @@
   name: Proceedings of the Koninklijke Nederlandse Akademie van Wetenschappen
 - abbreviation: Proc. Latv. Acad. Sci. Sect. B
   name: 'Proceedings of the Latvian Academy of Sciences, Section B: Natural, Exact and Applied Sciences'
-- abbreviation: Proc. Nat. Acad. Sci. U.S.A.
+- abbreviation: Proc. Natl. Acad. Sci. U.S.A.
   acronym: PNAS
   name: Proceedings of the National Academy of Sciences of the United States of America
   variations:
+  - Proc. Nat. Acad. Sci. U.S.A.
   - Proceedings of the National academy of Sciences of the United States of America
 - abbreviation: Proc. Nutr. Soc.
   name: Proceedings of the Nutrition Society

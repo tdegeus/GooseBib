@@ -2239,16 +2239,14 @@
   name: Proceedings of the International Astronomical Congress
 - abbreviation: Proc. Int. Astron. Union
   name: Proceedings of the International Astronomical Union
-- abbreviation: Proc. Nat. Acad. Sci.
+- abbreviation: Proc. Natl. Acad. Sci.
   acronym: PNAS
   name: Proceedings of the National Academy of Sciences
-  variations:
-  - Proc. Natl. Acad. Sci.
-- abbreviation: Proc. Nat. Acad. Sci. U.S.A.
+- abbreviation: Proc. Natl. Acad. Sci. U.S.A.
   acronym: PNAS
   name: Proceedings of the National Academy of Sciences of the United States of America
   variations:
-  - Proc. Natl. Acad. Sci. U.S.A.
+  - Proc. Nat. Acad. Sci. U.S.A.
   - Proceedings of the National academy of Sciences of the United States of America
 - abbreviation: Proc. Nutr. Soc.
   name: Proceedings of the Nutrition Society

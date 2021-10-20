@@ -635,17 +635,10 @@ def generate_default(domain: str):
 
         # merge know aliases / set acronyms / add know variations
 
-        db["Physical Review Letters"].set_acronym("PRL")
-        db["Physical Review X"].set_acronym("PRX")
-        db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
-        db["International Journal of Solids and Structures"].set_acronym("IJSS")
-        db["Science"].add_variation("Science (80-. ).")
-        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
-
         _database_merge(
             db=db,
             name="Proceedings of the National Academy of Sciences of the United States of America",
-            abbreviation="Proc. Nat. Acad. Sci. U.S.A.",
+            abbreviation="Proc. Natl. Acad. Sci. U.S.A.",
             acronym="PNAS",
             merge=[
                 "Proceedings of the National academy of Sciences of the United States of America"
@@ -655,7 +648,7 @@ def generate_default(domain: str):
         _database_merge(
             db=db,
             name="Proceedings of the National Academy of Sciences",
-            abbreviation="Proc. Nat. Acad. Sci.",
+            abbreviation="Proc. Natl. Acad. Sci.",
             acronym="PNAS",
         )
 
@@ -1014,6 +1007,13 @@ def generate_default(domain: str):
             abbreviation="K. Dan. Vidensk. Selsk. Mat. Fys. Medd.",
         )
 
+        db["Physical Review Letters"].set_acronym("PRL")
+        db["Physical Review X"].set_acronym("PRX")
+        db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
+        db["International Journal of Solids and Structures"].set_acronym("IJSS")
+        db["Science"].add_variation("Science (80-. ).")
+        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
+
     elif domain == "mechanics":
 
         db = generate_jabref("mechanical")
@@ -1021,7 +1021,7 @@ def generate_default(domain: str):
         _database_merge(
             db=db,
             name="Proceedings of the National Academy of Sciences of the United States of America",
-            abbreviation="Proc. Nat. Acad. Sci. U.S.A.",
+            abbreviation="Proc. Natl. Acad. Sci. U.S.A.",
             acronym="PNAS",
             merge=[
                 "Proceedings of the National academy of Sciences of the United States of America"
@@ -1150,6 +1150,15 @@ def generate_default(domain: str):
         name = "Proceedings of the National Academy of Sciences"
         alias = "Proceedings of the National Academy of Sciences of the United States of America"
         db = {name: db[name] + db[alias]}
+        db[name].add_variation("Proc. Nat. Acad. Sci.")
+        db[name].add_variation("Proc. Natl. Acad. Sci.")
+        db[name].add_variation("Proc. Nat. Acad. Sci. USA")
+        db[name].add_variation("Proc. Natl. Acad. Sci. USA")
+        db[name].add_variation("Proc. Nat. Acad. Sci. U.S.A")
+        db[name].add_variation("Proc. Natl. Acad. Sci. U.S.A")
+        db[name].add_variation("Proc. Nat. Acad. Sci. U. S. A")
+        db[name].add_variation("Proc. Natl. Acad. Sci. U. S. A")
+        db[name].unique()
 
     elif domain == "pnas-usa":
 
@@ -1157,6 +1166,15 @@ def generate_default(domain: str):
         name = "Proceedings of the National Academy of Sciences of the United States of America"
         alias = "Proceedings of the National Academy of Sciences"
         db = {name: db[name] + db[alias]}
+        db[name].add_variation("Proc. Nat. Acad. Sci.")
+        db[name].add_variation("Proc. Natl. Acad. Sci.")
+        db[name].add_variation("Proc. Nat. Acad. Sci. USA")
+        db[name].add_variation("Proc. Natl. Acad. Sci. USA")
+        db[name].add_variation("Proc. Nat. Acad. Sci. U.S.A")
+        db[name].add_variation("Proc. Natl. Acad. Sci. U.S.A")
+        db[name].add_variation("Proc. Nat. Acad. Sci. U. S. A")
+        db[name].add_variation("Proc. Natl. Acad. Sci. U. S. A")
+        db[name].unique()
 
     elif domain == "arxiv":
 
