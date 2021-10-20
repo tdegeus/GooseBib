@@ -189,8 +189,15 @@ class Test_journals(unittest.TestCase):
                 "abbreviation": "Proc. Natl. Acad. Sci.",
                 "acronym": "PNAS",
                 "variations": [
+                    "Proc. Nat. Acad. Sci.",
+                    "Proc. Nat. Acad. Sci. U. S. A",
+                    "Proc. Nat. Acad. Sci. U.S.A",
                     "Proc. Nat. Acad. Sci. U.S.A.",
+                    "Proc. Nat. Acad. Sci. USA",
+                    "Proc. Natl. Acad. Sci. U. S. A",
+                    "Proc. Natl. Acad. Sci. U.S.A",
                     "Proc. Natl. Acad. Sci. U.S.A.",
+                    "Proc. Natl. Acad. Sci. USA",
                     "Proceedings of the National Academy of Sciences of the United States of America",
                     "Proceedings of the National academy of Sciences of the United States of America",
                 ],
@@ -198,6 +205,7 @@ class Test_journals(unittest.TestCase):
         ]
         read = bib.journals.load("pnas")
         read = [dict(r) for r in read.tolist()]
+
         self.assertEqual(expect, read)
 
 
