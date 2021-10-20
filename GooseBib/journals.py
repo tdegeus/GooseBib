@@ -569,6 +569,49 @@ def generate_jabref(*domains):
     return ret
 
 
+def _database_merge(
+    db: dict[Journal],
+    name: str,
+    merge: list[str] = [],
+    abbreviation: str = None,
+    acronym: str = None,
+) -> dict[Journal]:
+    """
+    Merge several database entries
+
+    :oaram db: The database.
+    :param name: The official name to keep (also new key).
+    :param merge: The keys to merge.
+    :param abbreviation: Overwrite journal abbreviation (optional).
+    :param acronym: Overwrite journal acronym (optional).
+    :return: The database
+    """
+
+    if isinstance(merge, str):
+        merge = [merge]
+
+    assert name in db or len(merge) > 0
+
+    if name not in db:
+        db[name] = db.pop(merge[0])
+        merge = merge[1:]
+
+    for m in merge:
+        db[name] += db.pop(m)
+
+    db[name].set_name(name)
+
+    if abbreviation:
+        db[name].set_abbreviation(abbreviation)
+
+    if acronym:
+        db[name].set_acronym(acronym)
+
+    db[name].unique()
+
+    return db
+
+
 def generate_default(domain: str):
     """
     Generate default database:
@@ -592,61 +635,510 @@ def generate_default(domain: str):
 
         # merge know aliases / set acronyms / add know variations
 
-        j = "Proceedings of the National academy of Sciences of the United States of America"
-        a = "Proceedings of the National Academy of Sciences of the United States of America"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PNAS")
-        db[j].set_name(a)
-        db[j].add_variation(j)
-        db[a] = db.pop(j).unique()
-
-        j = "Physical Review A"
-        a = "Physical Review A: Atomic, Molecular, and Optical Physics"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PRA")
-
-        j = "Physical Review B"
-        a = "Physical Review B: Condensed Matter"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PRB")
-
-        j = "Physical Review C"
-        a = "Physical Review C: Nuclear Physics"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PRC")
-
-        j = "Physical Review D"
-        a = "Physical Review D: Particles and Fields"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PRD")
-
-        j = "Physical Review E"
-        a = "Physical Review E: Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary Topics"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PRE")
-
-        j = "Proceedings of the National Academy of Sciences"
-        db[j].set_acronym("PNAS")
-        db[j].set_abbreviation("Proc. Nat. Acad. Sci.")
-
         db["Physical Review Letters"].set_acronym("PRL")
         db["Physical Review X"].set_acronym("PRX")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
-
         db["Science"].add_variation("Science (80-. ).")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
+
+        _database_merge(
+            db=db,
+            name="Proceedings of the National Academy of Sciences of the United States of America",
+            abbreviation="Proc. Nat. Acad. Sci. U.S.A.",
+            acronym="PNAS",
+            merge=[
+                "Proceedings of the National academy of Sciences of the United States of America"
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Proceedings of the National Academy of Sciences",
+            abbreviation="Proc. Nat. Acad. Sci.",
+            acronym="PNAS",
+        )
+
+        _database_merge(
+            db=db,
+            name="Physical Review A",
+            abbreviation="Phys. Rev. A",
+            acronym="PRA",
+            merge=["Physical Review A: Atomic, Molecular, and Optical Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physical Review B",
+            abbreviation="Phys. Rev. B",
+            acronym="PRB",
+            merge=["Physical Review B: Condensed Matter"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physical Review C",
+            abbreviation="Phys. Rev. C",
+            acronym="PRC",
+            merge=["Physical Review C: Nuclear Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physical Review D",
+            abbreviation="Phys. Rev. D",
+            acronym="PRD",
+            merge=["Physical Review D: Particles and Fields"],
+        )
+
+        base = "Physical Review E:"
+        _database_merge(
+            db=db,
+            name="Physical Review E",
+            abbreviation="Phys. Rev. E",
+            acronym="PRE",
+            merge=[
+                f"{base} Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary Topics"
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics A",
+            abbreviation="J. Phys. A",
+            merge=[
+                "Journal of Physics A: General Physics",
+                "Journal of Physics A: Mathematical and General",
+                "Journal of Physics A: Mathematical and Theoretical",
+                "Journal of Physics A: Mathematical, Nuclear and General",
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics B",
+            abbreviation="J. Phys. B",
+            merge=[
+                "Journal of Physics B: Atomic, Molecular and Optical",
+                "Journal of Physics B: Atomic, Molecular and Optical Physics",
+                "Journal of Physics B: Atomic and Molecular Physics",
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics C",
+            abbreviation="J. Phys. C",
+            merge=["Journal of Physics C: Solid State Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics D",
+            abbreviation="J. Phys. D",
+            merge=["Journal of Physics D: Applied Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics E",
+            abbreviation="J. Phys. E",
+            merge=["Journal of Physics E: Scientific Instruments"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics F",
+            abbreviation="J. Phys. F",
+            merge=["Journal of Physics F: Metal Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics G",
+            abbreviation="J. Phys. G",
+            merge=["Journal of Physics G: Nuclear and Particle Physics"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physica A",
+            abbreviation="Phys. A",
+            merge=["Physica A: Statistical Mechanics and its Applications"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physica B",
+            abbreviation="Phys. B",
+            merge=["Physica B: Condensed Matter"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physica C",
+            abbreviation="Phys. C",
+            merge=["Physica C: Superconductivity and its Applications"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physica D",
+            abbreviation="Phys. D",
+            merge=["Physica D: Nonlinear Phenomena"],
+        )
+
+        _database_merge(
+            db=db,
+            name="Physica E",
+            abbreviation="Phys. E",
+            merge=[
+                "Physica E-low-dimensional Systems & Nanostructures",
+                "Physica E: Low-dimensional Systems and Nanostructures",
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Zeitschrift für Physik A",
+            abbreviation="Z. Phys. A",
+            merge=[
+                "Zeitschrift für Physik A: Atoms and Nuclei",
+                "Zeitschrift für Physik A Hadrons and Nuclei",
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Science in China, Series A: Mathematics",
+            abbreviation="Sci. China A",
+        )
+
+        _database_merge(
+            db=db,
+            name="Science in China, Series C: Life Sciences",
+            abbreviation="Sci. China C",
+        )
+
+        _database_merge(
+            db=db,
+            name="Science in China, Series D: Earth Sciences",
+            abbreviation="Sci. China D",
+        )
+
+        _database_merge(
+            db=db,
+            name="Science in China, Series G: Physics Mechanics and Astronomy",
+            abbreviation="Sci. China G",
+        )
+
+        _database_merge(
+            db=db,
+            name="Astrophysics and Space Science",
+            abbreviation="Astrophys. Space Sci.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Annalen der Physik",
+            abbreviation="Ann. Phys.",
+        )
+
+        _database_merge(
+            db=db,
+            name="European Physical Journal B: Condensed Matter and Complex Systems",
+            abbreviation="Eur. Phys. J. B",
+        )
+
+        _database_merge(
+            db=db,
+            name="Czechoslovak Journal of Physics",
+            abbreviation="Czech. J. Phys.",
+        )
+
+        _database_merge(
+            db=db,
+            name="General Relativity and Gravitation",
+            abbreviation="Gen. Relativ. Gravit.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Comptes Rendus Physique",
+            abbreviation="C. R. Physique",
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Electronic Materials",
+            abbreviation="J. Electron. Mater.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Helvetica Physica Acta",
+            abbreviation="Helv. Phys. Acta",
+        )
+
+        _database_merge(
+            db=db,
+            name="Beiträge Zur Physik der Atmosphäre",
+            abbreviation="Beitr. Zur Phys. Atmos.",
+        )
+
+        _database_merge(
+            db=db,
+            name="IEEE Transactions on Microwave Theory and Techniques",
+            abbreviation="IEEE Trans. Microw. Theory Tech.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Physics: Condensed Matter",
+            abbreviation="J. Phys. Condens. Matter",
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Quantitative Spectroscopy & Radiative Transfer",
+            abbreviation="J. Quant. Spectrosc. Radiat. Transf.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal of Statistical Mechanics: Theory and Experiment",
+            abbreviation="J. Stat. Mech.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Materials Research Society Symposium Proceedings",
+            abbreviation="Mat. Res. Soc. Symp. Proc.",
+        )
+
+        base = "Philosophical Transactions of the Royal Society"
+        _database_merge(
+            db=db,
+            name=f"{base} A: Mathematical, Physical and Engineering Sciences",
+            abbreviation="Philos. Trans. R. Soc. A",
+        )
+
+        base = "Proceedings of the Royal Society of London"
+        _database_merge(
+            db=db,
+            name=f"{base}, Series A: Mathematical and Physical Sciences",
+            abbreviation="Proc. R. Soc. London, Ser. A",
+        )
+
+        _database_merge(
+            db=db,
+            name="Proceedings of the Royal Society of London A",
+            abbreviation="Proc. R. Soc. Lond. A",
+        )
+
+        _database_merge(
+            db=db,
+            name="Physical Chemistry Chemical Physics",
+            abbreviation="Phys. Chem. Chem. Phys.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Quantum Electronics",
+            abbreviation="Quantum Electron.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Transactions of the American Geophysical Union",
+            abbreviation="Trans. Am. Geophys. Union",
+        )
+
+        _database_merge(
+            db=db,
+            name="Zeitschrift für Kristallographie",
+            abbreviation="Z. für Krist.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Proceedings of SPIE",
+            abbreviation="Proc. SPIE",
+        )
+
+        _database_merge(
+            db=db,
+            name="Comptes Rendus de l'Académie des Sciences - Series I - Mathematics",
+            abbreviation="C. R. Acad. Sci., Ser. I",
+        )
+
+        _database_merge(
+            db=db,
+            name="Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences",
+            abbreviation="C. R. Acad. Sci.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Journal de Physique IV",
+            abbreviation="J. Phys. IV",
+        )
+
+        _database_merge(
+            db=db,
+            name="Zeitschrift für Physik",
+            abbreviation="Z. Phys.",
+        )
+
+        _database_merge(
+            db=db,
+            name="IEEE Journal of Selected Topics in Quantum Electronics",
+            abbreviation="IEEE J. Sel. Top. Quantum Electron.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Phase Transitions",
+            abbreviation="Phase Transit.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Nano Futures",
+            abbreviation="Nano Futur.",
+        )
+
+        _database_merge(
+            db=db,
+            name="Kongelige Danske Videnskabernes Selskab, Matematisk-Fysiske Meddelelser",
+            abbreviation="K. Dan. Vidensk. Selsk. Mat. Fys. Medd.",
+        )
 
     elif domain == "mechanics":
 
         db = generate_jabref("mechanical")
 
-        j = "Proceedings of the National academy of Sciences of the United States of America"
-        a = "Proceedings of the National Academy of Sciences of the United States of America"
-        db[j] += db.pop(a)
-        db[j].set_acronym("PNAS")
-        db[j].set_name(a)
-        db[a] = db.pop(j).unique()
+        _database_merge(
+            db=db,
+            name="Proceedings of the National Academy of Sciences of the United States of America",
+            abbreviation="Proc. Nat. Acad. Sci. U.S.A.",
+            acronym="PNAS",
+            merge=[
+                "Proceedings of the National academy of Sciences of the United States of America"
+            ],
+        )
+
+        base = "Comptes Rendus de"
+        _database_merge(
+            db=db,
+            name=f"{base} l'Academie des Sciences Serie III: Sciences de la Vie",
+            abbreviation="C. R. Acad. Sci., Ser. III",
+            merge=[f"{base} l' Academie des Sciences Serie III: Sciences de la Vie"],
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base} l'Academie des Sciences Serie IIa: Sciences de la Terre et des Planets",
+            abbreviation="C. R. Acad. Sci., Ser. IIa",
+            merge=[
+                f"{base} l' Academie des Sciences Serie IIa:Sciences de la Terre et des Planets"
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base} l'Academie des Sciences Serie IIb: Mecanique Physique Chimie Astronomie",
+            abbreviation="C. R. Acad. Sci., Ser. IIb",
+            merge=[
+                f"{base} l' Academie des Sciences Serie IIb:Mecanique Physique Chimie Astronomie"
+            ],
+        )
+
+        _database_merge(
+            db=db,
+            name="Comptes Rendus de l'Academie des Sciences Serie IIc: Chemie",
+            abbreviation="C. R. Acad. Sci., Ser. IIc",
+            merge=["Comptes Rendus de l' Academie des Sciences Serie IIc:Chemie"],
+        )
+
+        base = "Proceedings of the Institution of Mechanical Engineers"
+        _database_merge(
+            db=db,
+            name=f"{base}, Part A: Journal of Power and Energy",
+            abbreviation="Proc. Inst. Mech. Eng. Part A",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part B: Journal of Engineering Manufacture",
+            abbreviation="Proc. Inst. Mech. Eng. Part B",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part C: Journal of Mechanical Engineering Science",
+            abbreviation="Proc. Inst. Mech. Eng. Part C",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part D: Journal of Automobile Engineering",
+            abbreviation="Proc. Inst. Mech. Eng. Part D",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part E: Journal of Process Mechanical Engineering",
+            abbreviation="Proc. Inst. Mech. Eng. Part E",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part F: Journal of Rail and Rapid Transit",
+            abbreviation="Proc. Inst. Mech. Eng. Part F",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part G: Journal of Aerospace Engineering",
+            abbreviation="Proc. Inst. Mech. Eng. Part G",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part H: Journal of Engineering in Medicine",
+            abbreviation="Proc. Inst. Mech. Eng. Part H",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part J: Journal of Engineering Tribology",
+            abbreviation="Proc. Inst. Mech. Eng. Part J",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part K: Journal of Multi-body Dynamics",
+            abbreviation="Proc. Inst. Mech. Eng. Part K",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part L: Journal of Materials: Design and Applications",
+            abbreviation="Proc. Inst. Mech. Eng. Part L",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}, Part M: Journal of Engineering for the Maritime Environment",
+            abbreviation="Proc. Inst. Mech. Eng. Part M",
+        )
+
+        _database_merge(
+            db=db,
+            name=f"{base}. Part I: Journal of Systems and Control Engineering",
+            abbreviation="Proc. Inst. Mech. Eng. Part I",
+        )
 
         db["International Journal for Numerical Methods in Engineering"].set_acronym("IJNME")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
@@ -668,7 +1160,7 @@ def generate_default(domain: str):
 
     elif domain == "arxiv":
 
-        db = dict(arXiv = Journal(name="arXiv preprint", abbreviation="arXiv"))
+        db = dict(arXiv=Journal(name="arXiv preprint", abbreviation="arXiv"))
 
         r = generate_default("physics")
         db["arXiv"] += r["arXiv.org, e-Print Archive Astrophysics"]
