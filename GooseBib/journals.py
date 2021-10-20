@@ -590,45 +590,43 @@ def generate_default(domain: str):
 
         db = generate_jabref("geology_physics", "geology_physics_variations")
 
-        # merge know aliases
+        # merge know aliases / set acronyms / add know variations
 
-        db[
-            "Proceedings of the National Academy of Sciences of the United States of America"
-        ] += db.pop(
-            "Proceedings of the National academy of Sciences of the United States of America"
-        )
+        j = "Proceedings of the National Academy of Sciences of the United States of America"
+        a = "Proceedings of the National academy of Sciences of the United States of America"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PNAS")
 
-        db["Physical Review A"] += db.pop(
-            "Physical Review A: Atomic, Molecular, and Optical Physics"
-        )
+        j = "Physical Review A"
+        a = "Physical Review A: Atomic, Molecular, and Optical Physics"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PRA")
 
-        db["Physical Review B"] += db.pop("Physical Review B: Condensed Matter")
+        j = "Physical Review B"
+        a = "Physical Review B: Condensed Matter"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PRB")
 
-        db["Physical Review C"] += db.pop("Physical Review C: Nuclear Physics")
+        j = "Physical Review C"
+        a = "Physical Review C: Nuclear Physics"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PRC")
 
-        db["Physical Review D"] += db.pop("Physical Review D: Particles and Fields")
+        j = "Physical Review D"
+        a = "Physical Review D: Particles and Fields"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PRD")
 
-        db["Physical Review E"] += db.pop(
-            "Physical Review E: Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary Topics"
-        )
-
-        # add common acronyms
+        j = "Physical Review E"
+        a = "Physical Review E: Statistical Physics, Plasmas, Fluids, and Related Interdisciplinary Topics"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PRE")
 
         db["Proceedings of the National Academy of Sciences"].set_acronym("PNAS")
-        db[
-            "Proceedings of the National Academy of Sciences of the United States of America"
-        ].set_acronym("PNAS")
         db["Physical Review Letters"].set_acronym("PRL")
-        db["Physical Review A"].set_acronym("PRA")
-        db["Physical Review B"].set_acronym("PRB")
-        db["Physical Review C"].set_acronym("PRC")
-        db["Physical Review D"].set_acronym("PRD")
-        db["Physical Review E"].set_acronym("PRE")
         db["Physical Review X"].set_acronym("PRX")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
-
-        # add known variations
 
         db["Science"].add_variation("Science (80-. ).")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
