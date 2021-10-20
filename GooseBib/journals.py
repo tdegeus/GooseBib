@@ -201,7 +201,7 @@ class JournalList:
             self.names = []
         else:
             if isinstance(data, dict):
-                data = list(data.values())
+                data = [value for (key, value) in sorted(data.items())]
             self.names = []
             for entry in data:
                 self.names += entry.data
@@ -592,10 +592,13 @@ def generate_default(domain: str):
 
         # merge know aliases / set acronyms / add know variations
 
-        j = "Proceedings of the National Academy of Sciences of the United States of America"
-        a = "Proceedings of the National academy of Sciences of the United States of America"
+        j = "Proceedings of the National academy of Sciences of the United States of America"
+        a = "Proceedings of the National Academy of Sciences of the United States of America"
         db[j] += db.pop(a)
         db[j].set_acronym("PNAS")
+        db[j].set_name(a)
+        db[j].add_variation(j)
+        db[a] = db.pop(j).unique()
 
         j = "Physical Review A"
         a = "Physical Review A: Atomic, Molecular, and Optical Physics"
@@ -622,7 +625,10 @@ def generate_default(domain: str):
         db[j] += db.pop(a)
         db[j].set_acronym("PRE")
 
-        db["Proceedings of the National Academy of Sciences"].set_acronym("PNAS")
+        j = "Proceedings of the National Academy of Sciences"
+        db[j].set_acronym("PNAS")
+        db[j].set_abbreviation("Proc. Nat. Acad. Sci.")
+
         db["Physical Review Letters"].set_acronym("PRL")
         db["Physical Review X"].set_acronym("PRX")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
@@ -634,6 +640,14 @@ def generate_default(domain: str):
     elif domain == "mechanics":
 
         db = generate_jabref("mechanical")
+
+        j = "Proceedings of the National academy of Sciences of the United States of America"
+        a = "Proceedings of the National Academy of Sciences of the United States of America"
+        db[j] += db.pop(a)
+        db[j].set_acronym("PNAS")
+        db[j].set_name(a)
+        db[a] = db.pop(j).unique()
+
         db["International Journal for Numerical Methods in Engineering"].set_acronym("IJNME")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
@@ -652,6 +666,29 @@ def generate_default(domain: str):
         alias = "Proceedings of the National Academy of Sciences"
         db = {name: db[name] + db[alias]}
 
+    elif domain == "arxiv":
+
+        db = dict(arXiv = Journal(name="arXiv preprint", abbreviation="arXiv"))
+
+        r = generate_default("physics")
+        db["arXiv"] += r["arXiv.org, e-Print Archive Astrophysics"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Condensed Matter"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Physics"]
+
+        r = generate_default("mechanics")
+        db["arXiv"] += r["arXiv.org, e-Print Archive Astrophysics"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Condensed Matter"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive General Relativity and Quantum Cosmology"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive High Energy Physics - Experimental"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive High Energy Physics - Lattice"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive High Energy Physics - Phenomenology"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive High Energy Physics - Theory"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Nuclear Experiment"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Nuclear Theory"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Physics"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Quantitative Biology"]
+        db["arXiv"] += r["arXiv.org, e-Print Archive Quantum Physics"]
+
     else:
         raise OSError(f'Unknown domain "{domain}"')
 
@@ -665,7 +702,7 @@ def update_default():
 
     dirname = os.path.dirname(__file__)
 
-    for name in ["physics", "mechanics", "PNAS", "PNAS-USA"]:
+    for name in ["physics", "mechanics", "PNAS", "PNAS-USA", "arXiv"]:
         db = JournalList(generate_default(name))
         dump(os.path.join(dirname, f"{name}.yaml"), db, force=True)
 
