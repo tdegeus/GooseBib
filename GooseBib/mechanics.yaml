@@ -1853,13 +1853,24 @@
 - abbreviation: C. R. Phys.
   name: Comptes Rendus Physique
 - abbreviation: C. R. Acad. Sci., Ser. III
-  name: 'Comptes Rendus de l'' Academie des Sciences Serie III: Sciences de la Vie'
-- abbreviation: 'C. R. Acad. Sci., Ser. IIa: Sci. Terre Planets'
-  name: Comptes Rendus de l' Academie des Sciences Serie IIa:Sciences de la Terre et des Planets
-- abbreviation: 'C. R. Acad. Sci., Ser. IIb: Mec., Phys., Chim., Astron.'
-  name: Comptes Rendus de l' Academie des Sciences Serie IIb:Mecanique Physique Chimie Astronomie
-- abbreviation: 'C. R. Acad. Sci., Ser. IIc: Chim.'
-  name: Comptes Rendus de l' Academie des Sciences Serie IIc:Chemie
+  name: "Comptes Rendus de l'Academie des Sciences Serie III: Sciences de la Vie"
+  variations:
+  - "Comptes Rendus de l' Academie des Sciences Serie III: Sciences de la Vie"
+- abbreviation: C. R. Acad. Sci., Ser. IIa
+  name: "Comptes Rendus de l'Academie des Sciences Serie IIa: Sciences de la Terre et des Planets"
+  variations:
+  - 'C. R. Acad. Sci., Ser. IIa: Sci. Terre Planets'
+  - Comptes Rendus de l' Academie des Sciences Serie IIa:Sciences de la Terre et des Planets
+- abbreviation: C. R. Acad. Sci., Ser. IIb
+  name: "Comptes Rendus de l'Academie des Sciences Serie IIb: Mecanique Physique Chimie Astronomie"
+  variations:
+  - 'C. R. Acad. Sci., Ser. IIb: Mec., Phys., Chim., Astron.'
+  - Comptes Rendus de l' Academie des Sciences Serie IIb:Mecanique Physique Chimie Astronomie
+- abbreviation: C. R. Acad. Sci., Ser. IIc
+  name: "Comptes Rendus de l'Academie des Sciences Serie IIc: Chemie"
+  variations:
+  - 'C. R. Acad. Sci., Ser. IIc: Chim.'
+  - Comptes Rendus de l' Academie des Sciences Serie IIc:Chemie
 - abbreviation: Comput. Biol. Chem.
   name: Computational Biology and Chemistry
 - abbreviation: Comput. Intell.
@@ -8029,34 +8040,59 @@
   name: 'Proceedings of the Institution of Civil Engineers: Waste Resource Management'
 - abbreviation: Proc. Inst. Civ. Eng. Water Manage.
   name: 'Proceedings of the Institution of Civil Engineers: Water Management'
-- abbreviation: Proc. Inst. Mech. Eng. Part A J. Power Energy
+- abbreviation: Proc. Inst. Mech. Eng. Part A
   name: 'Proceedings of the Institution of Mechanical Engineers, Part A: Journal of Power and Energy'
-- abbreviation: Proc. Inst. Mech. Eng. Part B J. Eng. Manuf.
+  variations:
+  - Proc. Inst. Mech. Eng. Part A J. Power Energy
+- abbreviation: Proc. Inst. Mech. Eng. Part B
   name: 'Proceedings of the Institution of Mechanical Engineers, Part B: Journal of Engineering Manufacture'
-- abbreviation: Proc. Inst. Mech. Eng. Part C J. Mech. Eng. Sci.
+  variations:
+  - Proc. Inst. Mech. Eng. Part B J. Eng. Manuf.
+- abbreviation: Proc. Inst. Mech. Eng. Part C
   name: 'Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering Science'
   variations:
   - Proc. Inst. Mech. Eng. C
-- abbreviation: Proc. Inst. Mech. Eng. Part D J. Automob. Eng.
+  - Proc. Inst. Mech. Eng. Part C J. Mech. Eng. Sci.
+- abbreviation: Proc. Inst. Mech. Eng. Part D
   name: 'Proceedings of the Institution of Mechanical Engineers, Part D: Journal of Automobile Engineering'
-- abbreviation: Proc. Inst. Mech. Eng. Part E J. Process Mech. Eng.
+  variations:
+  - Proc. Inst. Mech. Eng. Part D J. Automob. Eng.
+- abbreviation: Proc. Inst. Mech. Eng. Part E
   name: 'Proceedings of the Institution of Mechanical Engineers, Part E: Journal of Process Mechanical Engineering'
-- abbreviation: Proc. Inst. Mech. Eng. Part F J. Rail Rapid Transit
+  variations:
+  - Proc. Inst. Mech. Eng. Part E J. Process Mech. Eng.
+- abbreviation: Proc. Inst. Mech. Eng. Part F
   name: 'Proceedings of the Institution of Mechanical Engineers, Part F: Journal of Rail and Rapid Transit'
-- abbreviation: Proc. Inst. Mech. Eng. Part G J. Aerosp. Eng.
+  variations:
+  - Proc. Inst. Mech. Eng. Part F J. Rail Rapid Transit
+- abbreviation: Proc. Inst. Mech. Eng. Part G
   name: 'Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering'
-- abbreviation: Proc. Inst. Mech. Eng. Part H J. Eng. Med.
+  variations:
+  - Proc. Inst. Mech. Eng. Part G J. Aerosp. Eng.
+- abbreviation: Proc. Inst. Mech. Eng. Part H
   name: 'Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine'
-- abbreviation: Proc. Inst. Mech. Eng. Part J J. Eng. Tribol.
+  variations:
+  - Proc. Inst. Mech. Eng. Part H J. Eng. Med.
+- abbreviation: Proc. Inst. Mech. Eng. Part J
   name: 'Proceedings of the Institution of Mechanical Engineers, Part J: Journal of Engineering Tribology'
-- abbreviation: Proc. Inst. Mech. Eng. Part K J. Multi-body Dyn.
+  variations:
+  - Proc. Inst. Mech. Eng. Part J J. Eng. Tribol.
+- abbreviation: Proc. Inst. Mech. Eng. Part K
   name: 'Proceedings of the Institution of Mechanical Engineers, Part K: Journal of Multi-body Dynamics'
-- abbreviation: Proc. Inst. Mech. Eng. Part L J. Mater. Des. Appl.
+  variations:
+  - Proc. Inst. Mech. Eng. Part K J. Multi-body Dyn.
+- abbreviation: Proc. Inst. Mech. Eng. Part L
   name: 'Proceedings of the Institution of Mechanical Engineers, Part L: Journal of Materials: Design and Applications'
-- abbreviation: Proc. Inst. Mech. Eng. Part M J. Eng. Marit. Environ.
+  variations:
+  - Proc. Inst. Mech. Eng. Part L J. Mater. Des. Appl.
+- abbreviation: Proc. Inst. Mech. Eng. Part M
   name: 'Proceedings of the Institution of Mechanical Engineers, Part M: Journal of Engineering for the Maritime Environment'
-- abbreviation: Proc. Inst. Mech. Eng. Part I J. Syst. Control Eng.
+  variations:
+  - Proc. Inst. Mech. Eng. Part M J. Eng. Marit. Environ.
+- abbreviation: Proc. Inst. Mech. Eng. Part I
   name: 'Proceedings of the Institution of Mechanical Engineers. Part I: Journal of Systems and Control Engineering'
+  variations:
+  - Proc. Inst. Mech. Eng. Part I J. Syst. Control Eng.
 - abbreviation: Proc. Int. Astron. Congr.
   name: Proceedings of the International Astronomical Congress
 - abbreviation: Proc. Int. Astron. Union
@@ -8977,9 +9013,9 @@
 - abbreviation: Tech. Ing. Plast. Compos.
   name: Techniques de l'Ingenieur, Plastiques et Composites
 - abbreviation: Tech. Ing. Sci. Fondam. Math. Ing.
-  name: 'Techniques de l''Ingenieur, Sciences Fondamentales: Mathematiques pour l''Ingenieur'
+  name: "Techniques de l'Ingenieur, Sciences Fondamentales: Mathematiques pour l'Ingenieur"
 - abbreviation: Tech. Ing. Sci. Fondam. Phys. Chim.
-  name: 'Techniques de l''Ingenieur, Sciences Fondamentales: Physique, Chemie'
+  name: "Techniques de l'Ingenieur, Sciences Fondamentales: Physique, Chemie"
 - abbreviation: Tech. Mitt.
   name: Technische Mitteilungen
 - abbreviation: Tech. Uberwach.

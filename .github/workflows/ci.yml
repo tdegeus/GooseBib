@@ -19,7 +19,7 @@ jobs:
       run:
         shell: bash -l {0}
 
-    name: "${{ matrix.runs-on }} • x64 ${{ matrix.args }}"
+    name: ${{ matrix.runs-on }} • x64 ${{ matrix.args }}
     runs-on: ${{ matrix.runs-on }}
 
     steps:

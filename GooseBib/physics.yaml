@@ -144,9 +144,10 @@
   name: Andean Geology
 - abbreviation: Angew. Chem. - Int. Ed.
   name: Angewandte Chemie International Edition
-- abbreviation: Ann. Phys. (Berl.)
+- abbreviation: Ann. Phys.
   name: Annalen der Physik
   variations:
+  - Ann. Phys. (Berl.)
   - Ann. Phys. (Berlin)
 - abbreviation: Ann. Phys. (Leipzig)
   name: Annalen der Physik (Leipzig)
@@ -159,9 +160,9 @@
 - abbreviation: Ann. Inst. Henri Poincaré
   name: Annales de l'Institut Henri Poincaré
 - abbreviation: Ann. Inst. Henri Poincaré, A
-  name: 'Annales de l''Institut Henri Poincaré, Section A: Physique Theorique'
+  name: "Annales de l'Institut Henri Poincaré, Section A: Physique Theorique"
 - abbreviation: Ann. Inst. Henri Poincaré, B
-  name: 'Annales de l''Institut Henri Poincaré, Section B: Calculdes Probabilités et Statistique'
+  name: "Annales de l'Institut Henri Poincaré, Section B: Calculdes Probabilités et Statistique"
 - abbreviation: Ann. Fluid Dyn.
   name: Annals of Fluid Dynamics
 - abbreviation: Ann. Gis
@@ -306,10 +307,10 @@
   name: Bayer CropScience Journal
 - abbreviation: Beilstein J. Nanotechnol.
   name: Beilstein Journal of Nanotechnology
-- abbreviation: Beitr. Zur Phys. Atmosphäre
+- abbreviation: Beitr. Zur Phys. Atmos.
   name: Beiträge Zur Physik der Atmosphäre
   variations:
-  - Beitr. Zur Phys. Atmos.
+  - Beitr. Zur Phys. Atmosphäre
 - abbreviation: Bell Lab. Rec.
   name: Bell Laboratories Record
 - abbreviation: Bell Syst. Tech. J.
@@ -453,27 +454,28 @@
   variations:
   - C. R. Hebd. Séances Acad. Sci.
 - abbreviation: C. R. Acad. Sci. Ser. A
-  name: 'Comptes Rendus Hebdomadaires des Séances de l''Académie des Sciences, Serie A: Sciences Mathématiques'
+  name: "Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences, Serie A: Sciences Mathématiques"
 - abbreviation: C. R. Acad. Sci. Ser. B
-  name: 'Comptes Rendus Hebdomadaires des Séances de l''Académie des Sciences, Serie B: Sciences Physiques'
-- abbreviation: Comptes Rendus Phys.
+  name: "Comptes Rendus Hebdomadaires des Séances de l'Académie des Sciences, Serie B: Sciences Physiques"
+- abbreviation: C. R. Physique
   name: Comptes Rendus Physique
   variations:
   - C. R. Phys.
-  - C. R. Physique
+  - Comptes Rendus Phys.
 - abbreviation: C. R. Acad. Sci.
   name: Comptes Rendus de l'Académie des Sciences
-- abbreviation: C. R. Acad. Sci. Paris, Ser. I
+- abbreviation: C. R. Acad. Sci., Ser. I
   name: Comptes Rendus de l'Académie des Sciences - Series I - Mathematics
   variations:
+  - C. R. Acad. Sci. Paris, Ser. I
   - Comptes Rendus Académie Sci. - Ser. - Math.
   - Comptes Rendus Académie Sci. - Ser. I
 - abbreviation: Comptes Rendus Académie Sci. - Ser. IV
   name: Comptes Rendus de l'Académie des Sciences - Series IV - Physique et Astrophysique
 - abbreviation: C. R. Acad. Sci. Ser. A
-  name: 'Comptes Rendus de l''Académie des Sciences, Serie A: Sciences Mathématiques'
+  name: "Comptes Rendus de l'Académie des Sciences, Serie A: Sciences Mathématiques"
 - abbreviation: C. R. Acad. Sci. Ser. B
-  name: 'Comptes Rendus de l''Académie des Sciences, Serie B: Sciences Physiques'
+  name: "Comptes Rendus de l'Académie des Sciences, Serie B: Sciences Physiques"
 - abbreviation: Comput. Intell.
   name: Computational Intelligence
 - abbreviation: Comput. Math. Math. Phys.
@@ -702,10 +704,10 @@
   name: Gas Separation and Purification
 - abbreviation: Gaswaerme Int.
   name: Gaswaerme International
-- abbreviation: Gen. Relativ. Gravitation
+- abbreviation: Gen. Relativ. Gravit.
   name: General Relativity and Gravitation
   variations:
-  - Gen. Relativ. Gravit.
+  - Gen. Relativ. Gravitation
 - abbreviation: Geo-Mar. Lett.
   name: Geo-Marine Letters
 - abbreviation: Geochem. J.
@@ -794,10 +796,10 @@
   name: Heat and Mass Transfer
 - abbreviation: Helv. Chim. Acta
   name: Helvetica Chimica Acta
-- abbreviation: Helvetica Phys. Acta
+- abbreviation: Helv. Phys. Acta
   name: Helvetica Physica Acta
   variations:
-  - Helv. Phys. Acta
+  - Helvetica Phys. Acta
 - abbreviation: High Temp. (USSR)
   name: High Temperature (USSR) [translation of Teplofizika Vysokikh Temperatur]
 - abbreviation: Himalayan Geol.
@@ -1183,10 +1185,10 @@
   name: Journal de Physique (Paris)
 - abbreviation: J. Phys. Colloq.
   name: Journal de Physique Colloques
-- abbreviation: J. Phys. IV Fr.
+- abbreviation: J. Phys. IV
   name: Journal de Physique IV
   variations:
-  - J. Phys. IV
+  - J. Phys. IV Fr.
 - abbreviation: J. Phys. IV Proc.
   name: Journal de Physique IV (Proceedings)
 - abbreviation: J. Phys. Radium
@@ -1415,55 +1417,53 @@
   name: Journal of Physics (Moscow)
 - abbreviation: J. Phys. A
   name: Journal of Physics A
-- abbreviation: 'J. Phys. A: Gen. Phys.'
-  name: 'Journal of Physics A: General Physics'
-- abbreviation: 'J. Phys. A: Math. Gen.'
-  name: 'Journal of Physics A: Mathematical and General'
   variations:
-  - J. Phys. A
-- abbreviation: J. Phys. Math. Theor.
-  name: 'Journal of Physics A: Mathematical and Theoretical'
-  variations:
+  - 'J. Phys. A: Gen. Phys.'
+  - 'J. Phys. A: Math. Gen.'
+  - 'J. Phys. A: Math. Nucl. Gen.'
   - 'J. Phys. A: Math. Theor.'
-- abbreviation: 'J. Phys. A: Math. Nucl. Gen.'
-  name: 'Journal of Physics A: Mathematical, Nuclear and General'
+  - J. Phys. Math. Theor.
+  - 'Journal of Physics A: General Physics'
+  - 'Journal of Physics A: Mathematical and General'
+  - 'Journal of Physics A: Mathematical and Theoretical'
+  - 'Journal of Physics A: Mathematical, Nuclear and General'
 - abbreviation: J. Phys. B
   name: Journal of Physics B
-- abbreviation: 'J. Phys. B: At. Mol. Phys.'
-  name: 'Journal of Physics B: Atomic and Molecular Physics'
-- abbreviation: J. Phys. B
-  name: 'Journal of Physics B: Atomic, Molecular and Optical'
-- abbreviation: 'J. Phys. B: At. Mol. Opt. Phys.'
-  name: 'Journal of Physics B: Atomic, Molecular and Optical Physics'
+  variations:
+  - 'J. Phys. B: At. Mol. Opt. Phys.'
+  - 'J. Phys. B: At. Mol. Phys.'
+  - 'Journal of Physics B: Atomic and Molecular Physics'
+  - 'Journal of Physics B: Atomic, Molecular and Optical'
+  - 'Journal of Physics B: Atomic, Molecular and Optical Physics'
 - abbreviation: J. Phys. C
   name: Journal of Physics C
-- abbreviation: 'J. Phys. C: Solid State Phys.'
-  name: 'Journal of Physics C: Solid State Physics'
   variations:
-  - J. Phys. C
   - J. Phys. C Solid State Phys.
+  - 'J. Phys. C: Solid State Phys.'
+  - 'Journal of Physics C: Solid State Physics'
 - abbreviation: J. Phys. Commun.
   name: Journal of Physics Communications
 - abbreviation: J. Phys. D
   name: Journal of Physics D
-- abbreviation: 'J. Phys. D: Appl. Phys.'
-  name: 'Journal of Physics D: Applied Physics'
   variations:
   - J. Phys. Appl. Phys.
+  - 'J. Phys. D: Appl. Phys.'
+  - 'Journal of Physics D: Applied Physics'
 - abbreviation: J. Phys. E
   name: Journal of Physics E
-- abbreviation: 'J. Phys. E: Sci. Instrum.'
-  name: 'Journal of Physics E: Scientific Instruments'
+  variations:
+  - 'J. Phys. E: Sci. Instrum.'
+  - 'Journal of Physics E: Scientific Instruments'
 - abbreviation: J. Phys. F
   name: Journal of Physics F
-- abbreviation: 'J. Phys. F: Met. Phys.'
-  name: 'Journal of Physics F: Metal Physics'
+  variations:
+  - 'J. Phys. F: Met. Phys.'
+  - 'Journal of Physics F: Metal Physics'
 - abbreviation: J. Phys. G
   name: Journal of Physics G
-- abbreviation: 'J. Phys. G: Nucl. Part. Phys.'
-  name: 'Journal of Physics G: Nuclear and Particle Physics'
   variations:
-  - J. Phys. G
+  - 'J. Phys. G: Nucl. Part. Phys.'
+  - 'Journal of Physics G: Nuclear and Particle Physics'
 - abbreviation: J. Phys. Chem. Solids
   name: Journal of Physics and Chemistry of Solids
 - abbreviation: J. Phys. Complexity
@@ -1538,10 +1538,10 @@
   name: Journal of Southeast Asian Earth Sciences
 - abbreviation: J. Stat. Comput. Simul.
   name: Journal of Statistical Computation and Simulation
-- abbreviation: 'J. Stat. Mech.: Theory Exp.'
+- abbreviation: J. Stat. Mech.
   name: 'Journal of Statistical Mechanics: Theory and Experiment'
   variations:
-  - J. Stat. Mech.
+  - 'J. Stat. Mech.: Theory Exp.'
   - 'J. Stat. Mech: Theory Exp.'
 - abbreviation: J. Stat. Phys.
   name: Journal of Statistical Physics
@@ -1636,10 +1636,10 @@
   name: Journal of the Royal Society, Interface
 - abbreviation: Kolloid Z. Z. Polym.
   name: Kolloid Zeitschrift & Zeitschrift für Polymere
-- abbreviation: K. Dan. Vidensk. Selsk. Mater. Fys. Medd.
+- abbreviation: K. Dan. Vidensk. Selsk. Mat. Fys. Medd.
   name: Kongelige Danske Videnskabernes Selskab, Matematisk-Fysiske Meddelelser
   variations:
-  - K. Dan. Vidensk. Selsk. Mat. Fys. Medd.
+  - K. Dan. Vidensk. Selsk. Mater. Fys. Medd.
 - abbreviation: Kristallografiya [Sov. Phys. Crystallogr.]
   name: Kristallografiya [Soviet Physics-Crystallography]
 - abbreviation: Kvant. Elektron. (Moscow) [Sov. J. Quantum Electron.]
@@ -1704,10 +1704,10 @@
   name: Materials Research Bulletin
 - abbreviation: Mater. Res. Express
   name: Materials Research Express
-- abbreviation: Mater. Res. Soc. Symp. Proc.
+- abbreviation: Mat. Res. Soc. Symp. Proc.
   name: Materials Research Society Symposium Proceedings
   variations:
-  - Mat. Res. Soc. Symp. Proc.
+  - Mater. Res. Soc. Symp. Proc.
 - abbreviation: Mater. Sci. Eng. B Solid-State Mater. Adv. Technol.
   name: 'Materials Science & Engineering B: Solid-State Materials for Advanced Technology'
 - abbreviation: Mater. Sci. Eng.
@@ -1810,9 +1810,8 @@
   name: Nano Energy
 - abbreviation: Nano Express
   name: Nano Express
-- name: Nano Futures
-  variations:
-  - Nano Futur.
+- abbreviation: Nano Futur.
+  name: Nano Futures
 - abbreviation: Nano Lett.
   name: Nano Letters
 - abbreviation: Nano Res.
@@ -1983,9 +1982,8 @@
   name: Petroleum and Coal
 - abbreviation: Phase Transit. Crit. Phenom.
   name: Phase Transition and Critical Phenomena
-- name: Phase Transitions
-  variations:
-  - Phase Transit.
+- abbreviation: Phase Transit.
+  name: Phase Transitions
 - abbreviation: Philips J. Res.
   name: Philips Journal of Research
 - abbreviation: Philips Res. Rep.
@@ -2000,10 +1998,11 @@
   name: Philosophical Transactions of the Royal Society
 - abbreviation: Philos. Trans. R. Soc. A
   name: Philosophical Transactions of the Royal Society A
-- abbreviation: Philos. Trans. R. Soc. Math. Phys. Eng. Sci.
+- abbreviation: Philos. Trans. R. Soc. A
   name: 'Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences'
   variations:
   - 'Philos. Trans. R. Soc. A: Math. Phys. Eng. Sci.'
+  - Philos. Trans. R. Soc. Math. Phys. Eng. Sci.
 - abbreviation: Philos. Trans. R. Soc. London
   name: Philosophical Transactions of the Royal Society of London
 - abbreviation: Philos. Trans. R. Soc. London, Ser. A
@@ -2026,34 +2025,33 @@
   name: Physica (Utrecht)
 - abbreviation: Phys. A
   name: Physica A
-- abbreviation: Physica A
-  name: 'Physica A: Statistical Mechanics and its Applications'
+  variations:
+  - 'Physica A: Statistical Mechanics and its Applications'
 - abbreviation: Phys. B
   name: Physica B
-- abbreviation: 'Phys. B: Condens. Matter'
-  name: 'Physica B: Condensed Matter'
   variations:
   - Phys. B Condens. Matter
+  - 'Phys. B: Condens. Matter'
+  - 'Physica B: Condensed Matter'
 - abbreviation: Phys. C
   name: Physica C
-- abbreviation: 'Phys. C: Supercond. Its Appl.'
-  name: 'Physica C: Superconductivity and its Applications'
   variations:
   - Phys. C Supercond. Its Appl.
+  - 'Phys. C: Supercond. Its Appl.'
+  - 'Physica C: Superconductivity and its Applications'
 - abbreviation: Phys. D
   name: Physica D
-- abbreviation: Phys. D Nonlinear Phenom.
-  name: 'Physica D: Nonlinear Phenomena'
   variations:
+  - Phys. D Nonlinear Phenom.
   - 'Phys. D: Nonlinear Phenom.'
   - Phys. Nonlinear Phenom.
-  - Physica D
+  - 'Physica D: Nonlinear Phenomena'
 - abbreviation: Phys. E
   name: Physica E
-- abbreviation: Physica E
-  name: Physica E-low-dimensional Systems & Nanostructures
-- abbreviation: 'Phys. E: Low-Dimens. Syst. Nanostructures'
-  name: 'Physica E: Low-dimensional Systems and Nanostructures'
+  variations:
+  - 'Phys. E: Low-Dimens. Syst. Nanostructures'
+  - Physica E-low-dimensional Systems & Nanostructures
+  - 'Physica E: Low-dimensional Systems and Nanostructures'
 - abbreviation: Phys. Scr.
   name: Physica Scripta
 - abbreviation: Phys. Scr. T
@@ -2084,10 +2082,10 @@
   name: 'Physica Status Solidi RRL: Rapid Research Letters'
 - abbreviation: Phys. Biol.
   name: Physical Biology
-- abbreviation: Phys. Chem. Chem. Phys. PCCP
+- abbreviation: Phys. Chem. Chem. Phys.
   name: Physical Chemistry Chemical Physics
   variations:
-  - Phys. Chem. Chem. Phys.
+  - Phys. Chem. Chem. Phys. PCCP
 - abbreviation: Phys. Mesomech.
   name: Physical Mesomechanics
 - abbreviation: Phys. Rev.
@@ -2437,23 +2435,28 @@
   name: Science Foundation in China
 - abbreviation: Sci. Prog.
   name: Science Progress
-- abbreviation: 'Sci. China A: Math.'
+- abbreviation: Sci. China A
   name: 'Science in China, Series A: Mathematics'
   variations:
+  - 'Sci. China A: Math.'
   - Sci. China, Ser. A Math.
   - 'Sci. China, Ser. A: Math.'
-- abbreviation: 'Sci. China C: Life Sci.'
+- abbreviation: Sci. China C
   name: 'Science in China, Series C: Life Sciences'
   variations:
+  - 'Sci. China C: Life Sci.'
   - Sci. China, Ser. C Life Sci.
   - 'Sci. China, Ser. C: Life Sci.'
-- abbreviation: 'Sci. China D: Earth Sci.'
+- abbreviation: Sci. China D
   name: 'Science in China, Series D: Earth Sciences'
   variations:
+  - 'Sci. China D: Earth Sci.'
   - Sci. China, Ser. D Earth Sci.
   - 'Sci. China, Ser. D: Earth Sci.'
-- abbreviation: Sci. China, Ser. G
+- abbreviation: Sci. China G
   name: 'Science in China, Series G: Physics Mechanics and Astronomy'
+  variations:
+  - Sci. China, Ser. G
 - abbreviation: 'Sci. China G: Phys. Mech. Astron.'
   name: 'Science in China, Series G: Physics, Mechanics and Astronomy'
 - abbreviation: Sci. Am.
@@ -2640,10 +2643,10 @@
   name: Topics in Applied Physics
 - abbreviation: Trans. Am. Crystallogr. Assoc.
   name: Transactions of the American Crystallographic Association
-- abbreviation: Trans.-Am. Geophys. Union
+- abbreviation: Trans. Am. Geophys. Union
   name: Transactions of the American Geophysical Union
   variations:
-  - Trans. Am. Geophys. Union
+  - Trans.-Am. Geophys. Union
 - abbreviation: Trans. Am. Inst. Min. Metall. Pet. Eng.
   name: Transactions of the American Institute of Mining, Metallurgical and Petroleum Engineers
 - abbreviation: Trans. Am. Nucl. Soc.
@@ -2702,11 +2705,11 @@
   name: Zeitschrift für Astrophysik
 - abbreviation: Z. Elektrochem.
   name: Zeitschrift für Elektrochemie
-- abbreviation: Z. Für Krist.
+- abbreviation: Z. für Krist.
   name: Zeitschrift für Kristallographie
   variations:
+  - Z. Für Krist.
   - Z. Krist.
-  - Z. für Krist.
 - abbreviation: Z. Kristallogr. Kristallgeom. Kristallphys. Kristallchem.
   name: Zeitschrift für Kristallographie, Kristallgeometrie, Kristallphysik, Kristallchemie
 - abbreviation: Z. Metallkd.
@@ -2722,12 +2725,12 @@
   - Z. für Phys.
 - abbreviation: Z. Phys. A
   name: Zeitschrift für Physik A
-- abbreviation: Z. Phys. A Hadrons Nucl.
-  name: Zeitschrift für Physik A Hadrons and Nuclei
-- abbreviation: 'Z. Phys. A: At. Nucl.'
-  name: 'Zeitschrift für Physik A: Atoms and Nuclei'
   variations:
+  - Z. Phys. A Hadrons Nucl.
+  - 'Z. Phys. A: At. Nucl.'
   - 'Z. Phys. A: Hadrons Nucl.'
+  - Zeitschrift für Physik A Hadrons and Nuclei
+  - 'Zeitschrift für Physik A: Atoms and Nuclei'
 - abbreviation: Z. Phys. B
   name: Zeitschrift für Physik B
 - abbreviation: Z. Phys. B Condens. Matter
