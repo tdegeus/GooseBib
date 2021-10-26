@@ -141,6 +141,26 @@ def _(data, *args, **kwargs):
     )
 
 
+def _parse_plain(string: str) -> bibtexparser.bibdatabase.BibDatabase:
+    """
+    Parse with as little as fixes possible
+    """
+
+    try:
+        return bibtexparser.loads(string)
+    except:
+        warnings.warn("Light parsing for diff failed, trying aggressive parsing", Warning)
+        return bibtexparser.loads(
+            string,
+            parser=bibtexparser.bparser.BibTexParser(
+                homogenize_fields=True,
+                ignore_nonstandard_types=True,
+                add_missing_from_crossref=True,
+                common_strings=True,
+            ),
+        )
+
+
 def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
     """
     Remove duplicate keys.
@@ -248,7 +268,7 @@ def clean(
                 if re.match(r"(\{)(.*)(\})", entry[key]):
                     ignored_authors.append(entry["ID"])
                     continue
-                names = re.split("\ and\ ", entry[key], flags=re.IGNORECASE)
+                names = re.split(r"\ and\ ", entry[key], flags=re.IGNORECASE)
                 names = bibtexparser.customization.getnames(names)
                 names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
                 entry[key] = " and ".join(names)
@@ -416,10 +436,12 @@ def GbibClean():
         --diff=STR
             Write diff to HTML file which shows the old and the reformatted file side-by-side.
 
-        --diff-type=STR (all, select)
-            Show difference between the ``<input>`` and ``<output>`` ("all"), or between ``<input>``
-            and ``<output>`` only for the selected fields in ``<output>`` ("select").
-            Default: all.
+        --diff-type=STR (raw, plain, all, select)
+            Show difference between ``<output>`` and compared to ``<input>`` that is:
+            *   raw: not parsed at all (can lead to a mess because of sorting).
+            *   plain: parsed as little as possible.
+            *   select: parsed as little as possible, but with only selected output fields.
+            Default: select.
 
         --diff-keys=STR
             Limit diff to certain keys (e.g. title, author, journal, ...).
@@ -451,7 +473,8 @@ def GbibClean():
     parser.add_argument("--ignore-unicode", action="store_true")
     parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
-    parser.add_argument("-d", "--diff", type=str)
+    parser.add_argument("--diff", type=str)
+    parser.add_argument("--diff-type", type=str, default="select")
     parser.add_argument("-f", "--force", action="store_true")
     parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
     parser.add_argument("-v", "--version", action="version", version=version)
@@ -505,9 +528,19 @@ def GbibClean():
         file.write(data)
 
     if args.diff:
-        simple = select(source)
+
+        if args.diff_type.lower() == "raw":
+            simple = source
+        elif args.diff_type.lower() == "plain":
+            simple = bibtexparser.dumps(_parse_plain(source))
+        elif args.diff_type.lower() == "select":
+            simple = bibtexparser.dumps(select(_parse_plain(source)))
+        else:
+            raise OSError("Unknown option for --diff-type")
+
         diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
             simple.splitlines(keepends=True), data.splitlines(keepends=True)
         )
+
         with open(args.diff, "w") as file:
             file.write(diff)
