@@ -6,10 +6,12 @@ import io
 import re
 import sys
 import textwrap
+import warnings
 from functools import singledispatch
 
 import bibtexparser
 import click
+import numpy as np
 
 from . import journals
 from . import recognise
@@ -124,6 +126,44 @@ def _(data, *args, **kwargs):
     )
 
 
+def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
+    """
+    Remove duplicate keys.
+    :param data: The BibTeX database.
+    :param merge: Try to keep as many keys as possible.
+    :return: The BibTeX database.
+    """
+
+    keys = [entry["ID"] for entry in data.entries]
+    _, ifoward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
+
+    if ifoward.size == len(keys):
+        return data
+
+    index = np.arange(ibackward.size)
+    renum = index[ifoward][ibackward]
+    old = index[index != renum]
+    new = renum[index != renum]
+
+    entries = [data.entries[i] for i in ifoward]
+    merged = []
+
+    for o, n in zip(old, new):
+        merged.append(data.entries[o]["ID"])
+        if merge:
+            for key in data.entries[o]:
+                if key not in data.entries[n]:
+                    entries[n][key] = data.entries[o][key]
+
+    sorter = np.argsort(ifoward)
+    data.entries = [entries[i] for i in sorter]
+
+    merged = "- " + "\n- ".join([str(i) for i in np.unique(merged)])
+    warnings.warn(f"Merging duplicates, please check:\n{merged}", Warning)
+
+    return data
+
+
 @singledispatch
 def clean(
     data,
@@ -134,6 +174,7 @@ def clean(
     title: bool = True,
     protect_math: bool = True,
     rm_unicode: bool = True,
+    rm_comments: bool = True,
 ):
     """
     Clean a BibTeX database:
@@ -152,7 +193,13 @@ def clean(
     :param title: Include title of relevant fields.
     :param protect_math: Apply fix of :py:func:`reformat.protect_math`.
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
+    :param rm_comments: Remove comments.
     """
+
+    data = unique(data, merge=True)
+
+    if rm_comments:
+        data.comments = []
 
     journal_type = journal_type.lower()
     journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
