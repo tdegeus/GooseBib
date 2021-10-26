@@ -16,6 +16,15 @@ def _subr(regex, sub, text):
     return text
 
 
+def remove_wrapping_braces(string: str):
+    """
+    Remove wrapping "{...}".
+    :param string: A string.
+    :return: The reformatted string.
+    """
+    return _subr(r"(\{)(.*)(\})", r"\2", string)
+
+
 def abbreviate_firstname(name: str, sep: str = " "):
     """
     Reformat a name such that first names are abbreviated to initials, for example::

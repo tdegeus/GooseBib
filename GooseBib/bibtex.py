@@ -220,6 +220,7 @@ def clean(
     journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
 
     revus = []
+    ignored_authors = []
 
     for entry in data.entries:
 
@@ -244,7 +245,11 @@ def clean(
         # fix author abbreviations
         for key in ["author", "editor"]:
             if key in entry:
-                names = bibtexparser.customization.getnames([i for i in entry[key].split(" and ")])
+                if re.match(r"(\{)(.*)(\})", entry[key]):
+                    ignored_authors.append(entry["ID"])
+                    continue
+                names = re.split("\ and\ ", entry[key], flags=re.IGNORECASE)
+                names = bibtexparser.customization.getnames(names)
                 names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
                 entry[key] = " and ".join(names)
 
@@ -268,6 +273,7 @@ def clean(
         for key in ["journal", "author"]:
             if key in entry:
                 entry[key] = entry[key].replace(". ", f".{sep} ")
+                entry[key] = entry[key].replace(r".\ ", f".{sep} ")
 
         # fix underscore problems
         # -
@@ -285,6 +291,10 @@ def clean(
         # -
         if "url" in entry:
             entry["url"] = _subr(re.compile(r"({)([^}])(})", re.UNICODE), r"\2", entry["url"])
+
+    if len(ignored_authors) > 0:
+        ignored_authors = "- " + "\n- ".join([str(i) for i in np.unique(ignored_authors)])
+        warnings.warn(f"Protected authors found, please check:\n{ignored_authors}", Warning)
 
     # rename journal
 
