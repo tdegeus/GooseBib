@@ -28,7 +28,8 @@ def abbreviate_firstname(name: str, sep: str = " "):
     :return: Formatted name.
     """
 
-    assert len(name.split(",")) > 1
+    if len(name.split(",")) == 1:
+        return name
 
     match = [
         (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),

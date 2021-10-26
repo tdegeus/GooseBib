@@ -2,12 +2,14 @@ import argparse
 import difflib
 import inspect
 import os
+import io
 import re
 import sys
 import textwrap
 from functools import singledispatch
 
 import bibtexparser
+import click
 
 from . import journals
 from . import recognise
@@ -63,7 +65,7 @@ def select(data, fields: dict[list] = None, ensure_link: bool = True, remove_url
     Remove unnecessary fields for BibTex file.
 
     :param data:
-        The BibTeX database (filename or bibtexparser instance).
+        The BibTeX database (file, string, or bibtexparser instance).
 
     :param fields:
         Fields to keep per entry type (default from :py:fund:`selection`).
@@ -101,12 +103,25 @@ def select(data, fields: dict[list] = None, ensure_link: bool = True, remove_url
 @select.register(str)
 def _(data, *args, **kwargs):
 
-    with open(data) as file:
-        bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+    return bibtexparser.dumps(
+        select(
+            bibtexparser.loads(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            *args,
+            **kwargs,
+        )
+    )
 
-    bib = select(bib, *args, **kwargs)
 
-    return bibtexparser.dumps(bib)
+@select.register(io.IOBase)
+def _(data, *args, **kwargs):
+
+    return bibtexparser.dumps(
+        select(
+            bibtexparser.load(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            *args,
+            **kwargs,
+        )
+    )
 
 
 @singledispatch
@@ -129,7 +144,7 @@ def clean(
     *   Fill digital identifier if it is not present by can be found from a different field
         (see :py:func:`GooseBib.recognise.doi` and :py:func:`GooseBib.recognise.arxivid`).
 
-    :param data: The BibTeX database (filename or bibtexparser instance).
+    :param data: The BibTeX database (file, string, or bibtexparser instance).
     :param journal_type: Use journal: "title", "abbreviation", or "acronym".
     :param journal_database: Database(s) with official journal names, abbreviations, and acronym.
     :param sep_name: Separate name initials (e.g. "", " ").
@@ -167,9 +182,9 @@ def clean(
         # fix author abbreviations
         for key in ["author", "editor"]:
             if key in entry:
-                entry[key] = " and ".join(
-                    [reformat.abbreviate_firstname(i, sep_name) for i in entry[key].split(" and ")]
-                )
+                names = bibtexparser.customization.getnames([i for i in entry[key].split(" and ")])
+                names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
+                entry[key] = " and ".join(names)
 
         # remove title
         if not title:
@@ -237,12 +252,25 @@ def clean(
 @clean.register(str)
 def _(data, *args, **kwargs):
 
-    with open(data) as file:
-        bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+    return bibtexparser.dumps(
+        clean(
+            bibtexparser.loads(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            *args,
+            **kwargs,
+        )
+    )
 
-    bib = clean(bib, *args, **kwargs)
 
-    return bibtexparser.dumps(bib)
+@clean.register(io.IOBase)
+def _(data, *args, **kwargs):
+
+    return bibtexparser.dumps(
+        clean(
+            bibtexparser.load(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            *args,
+            **kwargs,
+        )
+    )
 
 
 def GbibClean():
@@ -253,34 +281,40 @@ def GbibClean():
 
     :usage:
 
-        GbibClean [options] <input> <output>
+        GbibClean [options] <input>... <output>
 
     :arguments:
 
         <input>
-            Input BibTeX-file.
+            Input BibTeX-file(s).
 
         <output>
             Output file.
-            If ``<output>`` is a directory, it is appended with the filename of ``<input>``.
+            If ``<output>`` is a directory, it is appended with the (first) filename of ``<input>``.
+            Multiple input files are combined to a single output file, in every way they are
+            considered as concatenated.
 
     :options:
 
-        -j, --journal-type=STR
-            Use journal: "title", "abbreviation", or "acronym". Default: "abbreviation".
+        -j, --journal-type=STR (title, abbreviation, acronym)
+            Unify journal titles (if recognised).
+            Default: abbreviation.
 
-        --journals=STR
-            Database(s) with official journal names, abbreviations, and acronym.
+        --journals=STR (physics, mechanics, arxiv, pnas, pnas-usa, ...)
+            Database(s) with official journal names, abbreviations, and acronyms.
+            To make no modifications to journals use ``--journal=""``.
             Default: "pnas,physics,mechanics".
 
         --no-title
             Remove title from BibTeX file.
 
         --author-sep=STR
-            Character to separate authors' initials. Default: "".
+            Character to separate authors' initials.
+            Default: "".
 
         --dot-space=<str>
-            Character separating abbreviation dots. Default: "".
+            Character separating abbreviation dots.
+            Default: "".
 
         --ignore-case
             Do not protect case of title.
@@ -291,8 +325,19 @@ def GbibClean():
         --ignore-unicode
             Do not apply unicode fix.
 
-        --verbose
-            Show interpretation.
+        --diff=STR
+            Write diff to HTML file which shows the old and the reformatted file side-by-side.
+
+        --diff-type=STR (all, select)
+            Show difference between the ``<input>`` and ``<output>`` ("all"), or between ``<input>``
+            and ``<output>`` only for the selected fields in ``<output>`` ("select").
+            Default: all.
+
+        --diff-keys=STR
+            Limit diff to certain keys (e.g. title, author, journal, ...).
+
+        -f, --force
+            Force overwrite of existing files.
 
         -v, --version
             Show version.
@@ -318,21 +363,47 @@ def GbibClean():
     parser.add_argument("--ignore-unicode", action="store_true")
     parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
-    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("-d", "--diff", type=str)
+    parser.add_argument("-f", "--force", action="store_true")
     parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
     parser.add_argument("-v", "--version", action="version", version=version)
-    parser.add_argument("input", type=str)
-    parser.add_argument("output", type=str)
+    parser.add_argument("files", nargs="*", type=str)
     args = parser.parse_args()
 
-    if not os.path.isfile(args.input):
-        raise OSError(f'"{args.input:s}" does not exist')
+    if len(args.files) < 2:
+        raise OSError("Specify <input> and <output>")
 
-    if os.path.isdir(args.output):
-        args.output = os.path.join(args.output, os.path.split(args.input)[-1])
+    sources = args.files[:-1]
+    output = args.files[-1]
+    source = ""
+
+    for filepath in sources:
+        if not os.path.isfile(filepath):
+            raise OSError(f'"{filepath}" does not exist')
+        with open(filepath) as file:
+            source += file.read()
+
+    if os.path.isdir(output):
+        output = os.path.join(output, os.path.split(sources[0])[-1])
+
+    if not args.force:
+
+        overwrite = []
+
+        if os.path.isfile(output):
+            overwrite += [os.path.normpath(output)]
+
+        if args.diff:
+            if os.path.isfile(args.diff):
+                overwrite += [os.path.normpath(args.diff)]
+
+        if len(overwrite) > 0:
+            files = ", ".join(overwrite)
+            if not click.confirm(f'Overwrite "{files}"?'):
+                raise OSError("Cancelled")
 
     data = clean(
-        args.input,
+        source,
         journal_type=args.journal_type,
         journal_database=args.journals.split(","),
         sep_name=args.author_sep,
@@ -342,9 +413,11 @@ def GbibClean():
         rm_unicode=not args.ignore_unicode,
     )
 
-    with open(args.output, "w") as file:
+    with open(output, "w") as file:
         file.write(data)
 
-    if args.verbose:
-        simple = select(args.input)
-        sys.stdout.writelines(difflib.unified_diff(simple, data))
+    if args.diff:
+        simple = select(source)
+        diff = difflib.HtmlDiff(wrapcolumn=100).make_file(simple.splitlines(keepends=True), data.splitlines(keepends=True))
+        with open(args.diff, "w") as file:
+            file.write(diff)
