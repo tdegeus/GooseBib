@@ -1,10 +1,9 @@
 import argparse
 import difflib
 import inspect
-import os
 import io
+import os
 import re
-import sys
 import textwrap
 import warnings
 from functools import singledispatch
@@ -107,7 +106,15 @@ def _(data, *args, **kwargs):
 
     return bibtexparser.dumps(
         select(
-            bibtexparser.loads(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            bibtexparser.loads(
+                data,
+                parser=bibtexparser.bparser.BibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ),
+            ),
             *args,
             **kwargs,
         )
@@ -119,7 +126,15 @@ def _(data, *args, **kwargs):
 
     return bibtexparser.dumps(
         select(
-            bibtexparser.load(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            bibtexparser.load(
+                data,
+                parser=bibtexparser.bparser.BibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ),
+            ),
             *args,
             **kwargs,
         )
@@ -301,7 +316,15 @@ def _(data, *args, **kwargs):
 
     return bibtexparser.dumps(
         clean(
-            bibtexparser.loads(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            bibtexparser.loads(
+                data,
+                parser=bibtexparser.bparser.BibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ),
+            ),
             *args,
             **kwargs,
         )
@@ -313,7 +336,15 @@ def _(data, *args, **kwargs):
 
     return bibtexparser.dumps(
         clean(
-            bibtexparser.load(data, parser=bibtexparser.bparser.BibTexParser(homogenize_fields = True, ignore_nonstandard_types = True, add_missing_from_crossref = True, common_strings = True)),
+            bibtexparser.load(
+                data,
+                parser=bibtexparser.bparser.BibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ),
+            ),
             *args,
             **kwargs,
         )
@@ -465,6 +496,8 @@ def GbibClean():
 
     if args.diff:
         simple = select(source)
-        diff = difflib.HtmlDiff(wrapcolumn=100).make_file(simple.splitlines(keepends=True), data.splitlines(keepends=True))
+        diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
+            simple.splitlines(keepends=True), data.splitlines(keepends=True)
+        )
         with open(args.diff, "w") as file:
             file.write(diff)
