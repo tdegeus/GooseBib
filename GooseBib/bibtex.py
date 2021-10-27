@@ -7,6 +7,7 @@ import re
 import textwrap
 import warnings
 from functools import singledispatch
+from typing import Union
 
 import bibtexparser
 import click
@@ -61,7 +62,12 @@ def selection(use_bibtexparser: bool = False):
 
 
 @singledispatch
-def select(data, fields: dict[list] = None, ensure_link: bool = True, remove_url: bool = True):
+def select(
+    data,
+    fields: Union[dict[list[str]], list[str]] = None,
+    ensure_link: bool = True,
+    remove_url: bool = True,
+):
     """
     Remove unnecessary fields for BibTex file.
 
@@ -70,6 +76,7 @@ def select(data, fields: dict[list] = None, ensure_link: bool = True, remove_url
 
     :param fields:
         Fields to keep per entry type (default from :py:fund:`selection`).
+        If a list is specified all entry types are treated the same.
 
     :param ensure_link:
         Add URL to ``fields`` if no ``doi`` or ``arxivid`` is present.
@@ -80,6 +87,13 @@ def select(data, fields: dict[list] = None, ensure_link: bool = True, remove_url
 
     if fields is None:
         fields = selection(use_bibtexparser=True)
+
+    if isinstance(fields, list):
+        ret = {}
+        for entry in data.entries:
+            if entry["ENTRYTYPE"] not in ret:
+                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE"] + fields
+        fields = ret
 
     for entry in data.entries:
 
@@ -205,13 +219,13 @@ def clean(
     journal_type: str = "abbreviation",
     journal_database: list[str] = ["pnas", "physics", "mechanics"],
     sep_name: str = "",
-    sep: str = "",
+    sep_journal: str = "",
     title: bool = True,
     protect_math: bool = True,
     rm_unicode: bool = True,
     rm_comments: bool = True,
 ):
-    """
+    r"""
     Clean a BibTeX database:
     *   Remove unnecessary fields (see :py:func:`GooseBib.bibtex.select`).
     *   Unify the formatting of authors (see :py:func:`GooseBib.reformat.abbreviate_firstname`).
@@ -224,7 +238,7 @@ def clean(
     :param journal_type: Use journal: "title", "abbreviation", or "acronym".
     :param journal_database: Database(s) with official journal names, abbreviations, and acronym.
     :param sep_name: Separate name initials (e.g. "", " ").
-    :param sep: Separate abbreviations in title and author: replace ". " e.g. by "." or ". ".
+    :param sep_journal: Separate abbreviations in journal: replace ". " e.g. by ". " or ".\ ".
     :param title: Include title of relevant fields.
     :param protect_math: Apply fix of :py:func:`reformat.protect_math`.
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
@@ -290,10 +304,10 @@ def clean(
                     entry[key] = reformat.rm_unicode(entry[key])
 
         # abbreviations: change symbol after "."
-        for key in ["journal", "author"]:
+        for key in ["journal"]:
             if key in entry:
-                entry[key] = entry[key].replace(". ", f".{sep} ")
-                entry[key] = entry[key].replace(r".\ ", f".{sep} ")
+                entry[key] = entry[key].replace(". ", f".{sep_journal} ")
+                entry[key] = entry[key].replace(r".\ ", f".{sep_journal} ")
 
         # fix underscore problems
         # -
@@ -420,8 +434,8 @@ def GbibClean():
             Character to separate authors' initials.
             Default: "".
 
-        --dot-space=<str>
-            Character separating abbreviation dots.
+        --journal-sep=<str>
+            Separate journal abbreviations by ".{sep} "
             Default: "".
 
         --ignore-case
@@ -444,7 +458,7 @@ def GbibClean():
             Default: select.
 
         --diff-keys=STR
-            Limit diff to certain keys (e.g. title, author, journal, ...).
+            Limit diff to certain keys separated by spaces (e.g. "author,journal,doi").
 
         -f, --force
             Force overwrite of existing files.
@@ -467,14 +481,15 @@ def GbibClean():
 
     parser = Parser()
     parser.add_argument("--author-sep", type=str, default="")
-    parser.add_argument("--dot-space", type=str, default="")
+    parser.add_argument("--diff", type=str)
+    parser.add_argument("--diff-type", type=str, default="select")
+    parser.add_argument("--diff-keys", type=str)
     parser.add_argument("--ignore-case", action="store_true")
     parser.add_argument("--ignore-math", action="store_true")
     parser.add_argument("--ignore-unicode", action="store_true")
+    parser.add_argument("--journal-sep", type=str, default="")
     parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
-    parser.add_argument("--diff", type=str)
-    parser.add_argument("--diff-type", type=str, default="select")
     parser.add_argument("-f", "--force", action="store_true")
     parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
     parser.add_argument("-v", "--version", action="version", version=version)
@@ -518,7 +533,7 @@ def GbibClean():
         journal_type=args.journal_type,
         journal_database=args.journals.split(","),
         sep_name=args.author_sep,
-        sep=args.dot_space,
+        sep_journal=args.journal_sep,
         title=not args.no_title,
         protect_math=not args.ignore_math,
         rm_unicode=not args.ignore_unicode,
@@ -537,6 +552,24 @@ def GbibClean():
             simple = bibtexparser.dumps(select(_parse_plain(source)))
         else:
             raise OSError("Unknown option for --diff-type")
+
+        if args.diff_keys:
+            simple = bibtexparser.dumps(
+                select(
+                    _parse_plain(simple),
+                    fields=args.diff_keys.split(","),
+                    ensure_link=False,
+                    remove_url=False,
+                )
+            )
+            data = bibtexparser.dumps(
+                select(
+                    _parse_plain(data),
+                    fields=args.diff_keys.split(","),
+                    ensure_link=False,
+                    remove_url=False,
+                )
+            )
 
         diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
             simple.splitlines(keepends=True), data.splitlines(keepends=True)
