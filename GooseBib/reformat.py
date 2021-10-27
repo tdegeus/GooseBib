@@ -1,5 +1,7 @@
 import re
 
+from bibtexparser.latexenc import latex_to_unicode
+
 
 def _subr(regex, sub, text):
     """
@@ -16,6 +18,15 @@ def _subr(regex, sub, text):
     return text
 
 
+def remove_wrapping_braces(string: str):
+    """
+    Remove wrapping "{...}".
+    :param string: A string.
+    :return: The reformatted string.
+    """
+    return _subr(r"(\{)(.*)(\})", r"\2", string)
+
+
 def abbreviate_firstname(name: str, sep: str = " "):
     """
     Reformat a name such that first names are abbreviated to initials, for example::
@@ -28,7 +39,11 @@ def abbreviate_firstname(name: str, sep: str = " "):
     :return: Formatted name.
     """
 
-    assert len(name.split(",")) > 1
+    if len(name.split(",")) == 1:
+        return name
+
+    if len(name.split(",")) > 2:
+        raise OSError(f'Unable to interpret name "{name}"')
 
     match = [
         (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),
@@ -44,16 +59,15 @@ def abbreviate_firstname(name: str, sep: str = " "):
     ]
 
     last, first = name.split(",")
-
-    # extend all "." with a space, to distinguish initials
     first = first.replace(".", ". ")
+    first = latex_to_unicode(first)
 
     for regex, sub in match:
         first = re.sub(regex, sub, first)
 
     first = first.strip()
 
-    return last + ", " + first.upper()
+    return last + ", " + rm_unicode(first.upper())
 
 
 def name2key(name: str):
