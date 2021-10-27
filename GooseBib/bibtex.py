@@ -401,6 +401,66 @@ def _(data, *args, **kwargs):
     )
 
 
+@singledispatch
+def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]):
+    """
+    Format the journal entry for arXiv preprints.
+    Use "{}" in the formatter to include the arxivid.
+
+    :param data: The BibTeX database (file, string, or bibtexparser instance).
+    :param fmt: Formatter, e.g. "Preprint" or "Preprint: arXiv {}".
+    :param journal_database: Database(s) with known arXiv variants.
+    """
+
+    for entry in data.entries:
+        if "arxivid" in entry and "doi" not in entry:
+            if "journal" not in entry:
+                entry["journal"] = fmt.format(entry["arxivid"])
+            elif "arxiv" in entry["journal"].lower() or "preprint" in entry["journal"].lower():
+                entry["journal"] = fmt.format(entry["arxivid"])
+
+    if len(journal_database) > 0:
+
+        revus = []
+        for entry in data.entries:
+            if "journal" in entry:
+                revus.append(entry["journal"])
+
+        db = journals.load(*journal_database)
+        new = db.map2name(revus)
+        mapping = {o: n for o, n in zip(revus, new)}
+
+        for entry in data.entries:
+            if "journal" in mapping and "arxivid" in entry and "doi" not in entry:
+                entry["journal"] = fmt.format(entry["arxivid"])
+
+    return data
+
+
+@format_journal_arxiv.register(str)
+def _(data, *args, **kwargs):
+
+    return bibtexparser.dumps(
+        format_journal_arxiv(
+            bibtexparser.loads(data),
+            *args,
+            **kwargs,
+        )
+    )
+
+
+@format_journal_arxiv.register(io.IOBase)
+def _(data, *args, **kwargs):
+
+    return bibtexparser.dumps(
+        format_journal_arxiv(
+            bibtexparser.load(data),
+            *args,
+            **kwargs,
+        )
+    )
+
+
 def GbibClean():
     r"""
     Clean a BibTeX database, stripping it from unnecessary fields,
@@ -432,6 +492,10 @@ def GbibClean():
             Database(s) with official journal names, abbreviations, and acronyms.
             To make no modifications to journals use ``--journal=""``.
             Default: "pnas,physics,mechanics".
+
+        --arxiv=STR
+            Format arXiv preprints using a specific formatter.
+            Use "{}" in the formatter to include the arxivid, e.g.: "arXiv preprint {}".
 
         --no-title
             Remove title from BibTeX file.
@@ -486,6 +550,7 @@ def GbibClean():
             print(doc)
 
     parser = Parser()
+    parser.add_argument("--arxiv", type=str)
     parser.add_argument("--author-sep", type=str, default="")
     parser.add_argument("--diff", type=str)
     parser.add_argument("--diff-type", type=str, default="select")
@@ -544,6 +609,12 @@ def GbibClean():
         protect_math=not args.ignore_math,
         rm_unicode=not args.ignore_unicode,
     )
+
+    if data != bibtexparser.dumps(bibtexparser.loads(data)):
+        warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
+
+    if args.arxiv:
+        data = format_journal_arxiv(data, args.arxiv)
 
     with open(output, "w") as file:
         file.write(data)
