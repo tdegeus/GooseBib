@@ -1,5 +1,7 @@
 import re
+
 from bibtexparser.latexenc import latex_to_unicode
+
 
 def _subr(regex, sub, text):
     """

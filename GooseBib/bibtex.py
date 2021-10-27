@@ -6,9 +6,9 @@ import os
 import re
 import textwrap
 import warnings
+from collections import OrderedDict
 from functools import singledispatch
 from typing import Union
-from collections import OrderedDict
 
 import bibtexparser
 import click
@@ -288,7 +288,7 @@ def clean(
                 if re.match(r"(\{)(.*)(\})", entry[key]):
                     ignored_authors.append(entry["ID"])
                     continue
-                names = re.split(r"\ and\ ", entry[key].replace('\n', ' '), flags=re.IGNORECASE)
+                names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
                 names = bibtexparser.customization.getnames(names)
                 names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
                 entry[key] = " and ".join(names)
