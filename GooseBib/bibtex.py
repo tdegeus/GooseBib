@@ -8,6 +8,7 @@ import textwrap
 import warnings
 from functools import singledispatch
 from typing import Union
+from collections import OrderedDict
 
 import bibtexparser
 import click
@@ -223,7 +224,8 @@ def clean(
     title: bool = True,
     protect_math: bool = True,
     rm_unicode: bool = True,
-    rm_comments: bool = True,
+    rm_comment: bool = True,
+    rm_string: bool = True,
 ):
     r"""
     Clean a BibTeX database:
@@ -242,13 +244,17 @@ def clean(
     :param title: Include title of relevant fields.
     :param protect_math: Apply fix of :py:func:`reformat.protect_math`.
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
-    :param rm_comments: Remove comments.
+    :param rm_comment: Remove @comment.
+    :param rm_string: Remove @string (as it is interpreted by the parser).
     """
 
     data = unique(data, merge=True)
 
-    if rm_comments:
+    if rm_comment:
         data.comments = []
+
+    if rm_string:
+        data.strings = OrderedDict()
 
     journal_type = journal_type.lower()
     journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
@@ -282,7 +288,7 @@ def clean(
                 if re.match(r"(\{)(.*)(\})", entry[key]):
                     ignored_authors.append(entry["ID"])
                     continue
-                names = re.split(r"\ and\ ", entry[key], flags=re.IGNORECASE)
+                names = re.split(r"\ and\ ", entry[key].replace('\n', ' '), flags=re.IGNORECASE)
                 names = bibtexparser.customization.getnames(names)
                 names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
                 entry[key] = " and ".join(names)
@@ -564,7 +570,7 @@ def GbibClean():
             )
             data = bibtexparser.dumps(
                 select(
-                    _parse_plain(data),
+                    bibtexparser.loads(data),
                     fields=args.diff_keys.split(","),
                     ensure_link=False,
                     remove_url=False,

@@ -1,5 +1,5 @@
 import re
-
+from bibtexparser.latexenc import latex_to_unicode
 
 def _subr(regex, sub, text):
     """
@@ -40,6 +40,9 @@ def abbreviate_firstname(name: str, sep: str = " "):
     if len(name.split(",")) == 1:
         return name
 
+    if len(name.split(",")) > 2:
+        raise OSError(f'Unable to interpret name "{name}"')
+
     match = [
         (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),
         (
@@ -54,16 +57,15 @@ def abbreviate_firstname(name: str, sep: str = " "):
     ]
 
     last, first = name.split(",")
-
-    # extend all "." with a space, to distinguish initials
     first = first.replace(".", ". ")
+    first = latex_to_unicode(first)
 
     for regex, sub in match:
         first = re.sub(regex, sub, first)
 
     first = first.strip()
 
-    return last + ", " + first.upper()
+    return last + ", " + rm_unicode(first.upper())
 
 
 def name2key(name: str):
