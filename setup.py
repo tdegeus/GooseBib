@@ -15,9 +15,10 @@ setup(
     use_scm_version={"write_to": "GooseBib/_version.py"},
     setup_requires=["setuptools_scm"],
     install_requires=[
-        "docopt",
-        "click",
         "bibtexparser",
+        "click",
+        "docopt",
+        "numpy",
         "requests",
     ],
     entry_points={
