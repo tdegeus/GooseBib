@@ -59,7 +59,7 @@ def tex2cite(tex):
 
 def main():
 
-    # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
     args = docopt.docopt(__doc__, version=version)
@@ -72,7 +72,7 @@ def main():
     # - remove "<...>"
     args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-    # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments --------------------------------------
 
     # check that the TeX files exist
     for fname in args["tex"]:
@@ -89,7 +89,7 @@ def main():
         if os.path.isdir(args["output"]):
             args["output"] = os.path.join(args["output"], os.path.split(args["bib"])[-1])
 
-    # -------------------------------------- get citation keys ---------------------------------------
+    # -------------------------------------- get citation keys -------------------------------------
 
     # initialize
     keys = []
@@ -105,7 +105,7 @@ def main():
     if not args["bib"] and not args["output"]:
         print("\n".join(keys))
 
-    # ------------------------------------- select from bib-file -------------------------------------
+    # ------------------------------------- select from bib-file -----------------------------------
 
     # read BibTeX file
     bib = bibtexparser.load(open(args["bib"]), parser=bibtexparser.bparser.BibTexParser())

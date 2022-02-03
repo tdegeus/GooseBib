@@ -183,24 +183,26 @@ class Test_journals(unittest.TestCase):
 
     def test_load(self):
 
+        variations = [
+            "Proc. Nat. Acad. Sci.",
+            "Proc. Nat. Acad. Sci. U. S. A",
+            "Proc. Nat. Acad. Sci. U.S.A",
+            "Proc. Nat. Acad. Sci. U.S.A.",
+            "Proc. Nat. Acad. Sci. USA",
+            "Proc. Natl. Acad. Sci. U. S. A",
+            "Proc. Natl. Acad. Sci. U.S.A",
+            "Proc. Natl. Acad. Sci. U.S.A.",
+            "Proc. Natl. Acad. Sci. USA",
+            "Proceedings of the National Academy of Sciences of the United States of America",
+            "Proceedings of the National academy of Sciences of the United States of America",
+        ]
+
         expect = [
             {
                 "name": "Proceedings of the National Academy of Sciences",
                 "abbreviation": "Proc. Natl. Acad. Sci.",
                 "acronym": "PNAS",
-                "variations": [
-                    "Proc. Nat. Acad. Sci.",
-                    "Proc. Nat. Acad. Sci. U. S. A",
-                    "Proc. Nat. Acad. Sci. U.S.A",
-                    "Proc. Nat. Acad. Sci. U.S.A.",
-                    "Proc. Nat. Acad. Sci. USA",
-                    "Proc. Natl. Acad. Sci. U. S. A",
-                    "Proc. Natl. Acad. Sci. U.S.A",
-                    "Proc. Natl. Acad. Sci. U.S.A.",
-                    "Proc. Natl. Acad. Sci. USA",
-                    "Proceedings of the National Academy of Sciences of the United States of America",
-                    "Proceedings of the National academy of Sciences of the United States of America",
-                ],
+                "variations": variations,
             }
         ]
         read = bib.journals.load("pnas")
