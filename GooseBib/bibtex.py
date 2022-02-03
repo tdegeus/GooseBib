@@ -481,6 +481,7 @@ def GbibClean():
             If ``<output>`` is a directory, it is appended with the (first) filename of ``<input>``.
             Multiple input files are combined to a single output file, in every way they are
             considered as concatenated.
+            See ``--in-place`` for different behaviour.
 
     :options:
 
@@ -530,6 +531,9 @@ def GbibClean():
         --diff-keys=STR
             Limit diff to certain keys separated by spaces (e.g. "author,journal,doi").
 
+        --in-place
+            If specified, each input file is separately treated and formatted in-place.
+
         -f, --force
             Force overwrite of existing files.
 
@@ -558,6 +562,7 @@ def GbibClean():
     parser.add_argument("--ignore-case", action="store_true")
     parser.add_argument("--ignore-math", action="store_true")
     parser.add_argument("--ignore-unicode", action="store_true")
+    parser.add_argument("--in-place", action="store_true")
     parser.add_argument("--journal-sep", type=str, default="")
     parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
@@ -567,90 +572,115 @@ def GbibClean():
     parser.add_argument("files", nargs="*", type=str)
     args = parser.parse_args()
 
-    if len(args.files) < 2:
-        raise OSError("Specify <input> and <output>")
+    # read input/output filepaths
 
-    sources = args.files[:-1]
-    output = args.files[-1]
-    source = ""
+    if args.in_place:
 
-    for filepath in sources:
-        if not os.path.isfile(filepath):
-            raise OSError(f'"{filepath}" does not exist')
-        with open(filepath) as file:
-            source += file.read()
+        assert not args.diff
+        assert not args.force
 
-    if os.path.isdir(output):
-        output = os.path.join(output, os.path.split(sources[0])[-1])
+        sourcepaths = args.files
+        outpaths = sourcepaths
+        assert all([os.path.isfile(i) for i in sourcepaths])
 
-    if not args.force:
+    else:
 
-        overwrite = []
+        if len(args.files) < 2:
+            raise OSError("Specify <input> and <output>")
 
-        if os.path.isfile(output):
-            overwrite += [os.path.normpath(output)]
+        output = args.files[-1]
+        sources = args.files[:-1]
+        source = ""
 
-        if args.diff:
-            if os.path.isfile(args.diff):
-                overwrite += [os.path.normpath(args.diff)]
+        if os.path.isdir(output):
+            output = os.path.join(output, os.path.split(sources[0])[-1])
 
-        if len(overwrite) > 0:
-            files = ", ".join(overwrite)
-            if not click.confirm(f'Overwrite "{files}"?'):
-                raise OSError("Cancelled")
+        sourcepaths = [None]
+        outpaths = [output]
 
-    data = clean(
-        source,
-        journal_type=args.journal_type,
-        journal_database=args.journals.split(","),
-        sep_name=args.author_sep,
-        sep_journal=args.journal_sep,
-        title=not args.no_title,
-        protect_math=not args.ignore_math,
-        rm_unicode=not args.ignore_unicode,
-    )
+        for filepath in sources:
+            if not os.path.isfile(filepath):
+                raise OSError(f'"{filepath}" does not exist')
+            with open(filepath) as file:
+                source += file.read()
 
-    if data != bibtexparser.dumps(bibtexparser.loads(data)):
-        warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
+        if not args.force:
 
-    if args.arxiv:
-        data = format_journal_arxiv(data, args.arxiv)
+            overwrite = []
 
-    with open(output, "w") as file:
-        file.write(data)
+            for outpath in outpaths:
+                if os.path.isfile(outpath):
+                    overwrite += [os.path.normpath(outpath)]
 
-    if args.diff:
+            if args.diff:
+                if os.path.isfile(args.diff):
+                    overwrite += [os.path.normpath(args.diff)]
 
-        if args.diff_type.lower() == "raw":
-            simple = source
-        elif args.diff_type.lower() == "plain":
-            simple = bibtexparser.dumps(_parse_plain(source))
-        elif args.diff_type.lower() == "select":
-            simple = bibtexparser.dumps(select(_parse_plain(source)))
-        else:
-            raise OSError("Unknown option for --diff-type")
+            if len(overwrite) > 0:
+                files = ", ".join(overwrite)
+                if not click.confirm(f'Overwrite "{files}"?'):
+                    raise OSError("Cancelled")
 
-        if args.diff_keys:
-            simple = bibtexparser.dumps(
-                select(
-                    _parse_plain(simple),
-                    fields=args.diff_keys.split(","),
-                    ensure_link=False,
-                    remove_url=False,
-                )
-            )
-            data = bibtexparser.dumps(
-                select(
-                    bibtexparser.loads(data),
-                    fields=args.diff_keys.split(","),
-                    ensure_link=False,
-                    remove_url=False,
-                )
-            )
+    # formatting
 
-        diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
-            simple.splitlines(keepends=True), data.splitlines(keepends=True)
+    for sourcepath, outpath in zip(sourcepaths, outpaths):
+
+        if sourcepath is not None:
+            with open(sourcepath) as file:
+                source = file.read()
+
+        data = clean(
+            source,
+            journal_type=args.journal_type,
+            journal_database=args.journals.split(","),
+            sep_name=args.author_sep,
+            sep_journal=args.journal_sep,
+            title=not args.no_title,
+            protect_math=not args.ignore_math,
+            rm_unicode=not args.ignore_unicode,
         )
 
-        with open(args.diff, "w") as file:
-            file.write(diff)
+        if data != bibtexparser.dumps(bibtexparser.loads(data)):
+            warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
+
+        if args.arxiv:
+            data = format_journal_arxiv(data, args.arxiv)
+
+        with open(outpath, "w") as file:
+            file.write(data)
+
+        if args.diff:
+
+            if args.diff_type.lower() == "raw":
+                simple = source
+            elif args.diff_type.lower() == "plain":
+                simple = bibtexparser.dumps(_parse_plain(source))
+            elif args.diff_type.lower() == "select":
+                simple = bibtexparser.dumps(select(_parse_plain(source)))
+            else:
+                raise OSError("Unknown option for --diff-type")
+
+            if args.diff_keys:
+                simple = bibtexparser.dumps(
+                    select(
+                        _parse_plain(simple),
+                        fields=args.diff_keys.split(","),
+                        ensure_link=False,
+                        remove_url=False,
+                    )
+                )
+                data = bibtexparser.dumps(
+                    select(
+                        bibtexparser.loads(data),
+                        fields=args.diff_keys.split(","),
+                        ensure_link=False,
+                        remove_url=False,
+                    )
+                )
+
+            diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
+                simple.splitlines(keepends=True), data.splitlines(keepends=True)
+            )
+
+            with open(args.diff, "w") as file:
+                file.write(diff)
