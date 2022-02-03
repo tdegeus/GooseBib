@@ -51,7 +51,7 @@ def urlExists(url):
 
 def main():
 
-    # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
     args = docopt.docopt(__doc__, version=version)
@@ -64,14 +64,14 @@ def main():
     # - remove "<...>"
     args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-    # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments --------------------------------------
 
     # check that the BibTeX file exists
     if args["bibfile"]:
         if not os.path.isfile(args["bibfile"]):
             Error('"{:s}" does not exist'.format(args["bibfile"]))
 
-    # ------------------------------------------ check file ------------------------------------------
+    # ------------------------------------------ check file ----------------------------------------
 
     # read BibTeX file
     with open(args["bibfile"]) as file:
@@ -113,7 +113,7 @@ def main():
             if "doi" not in entry and "arxivid" not in entry and "url" not in entry:
                 nolink += [entry["ID"]]
 
-    # ---------------------------------------- print diagnosis -----------------------------------------
+    # ---------------------------------------- print diagnosis -------------------------------------
 
     diag = {}
 

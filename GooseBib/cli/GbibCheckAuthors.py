@@ -98,7 +98,7 @@ def replaceUnicode(text):
 
 def main():
 
-    # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
     args = docopt.docopt(__doc__, version=version)
@@ -111,14 +111,14 @@ def main():
     # - remove "<...>"
     args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-    # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments --------------------------------------
 
     # check that the BibTeX file exists
     if not os.path.isfile(args["input"]):
         print('"{input:s}" does not exist'.format(**args))
         sys.exit(1)
 
-    # ---------------------------------------- parse bib-file ----------------------------------------
+    # ---------------------------------------- parse bib-file --------------------------------------
 
     # read
     # ----

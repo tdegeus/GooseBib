@@ -40,7 +40,7 @@ def Error(msg, exit_code=1):
 
 def main():
 
-    # --------------------------------- parse command line arguments ---------------------------------
+    # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
     args = docopt.docopt(__doc__, version=version)
@@ -53,7 +53,7 @@ def main():
     # - remove "<...>"
     args = {re.sub(r"(<)(.*)(>)", r"\2", key): args[key] for key in args}
 
-    # --------------------------------------- check arguments ----------------------------------------
+    # --------------------------------------- check arguments --------------------------------------
 
     # check that the BibTeX file exists
     if not os.path.isfile(args["input"]):
@@ -63,7 +63,7 @@ def main():
     if os.path.isdir(args["output"]):
         args["output"] = os.path.join(args["output"], os.path.split(args["input"])[-1])
 
-    # ---------------------------------------- parse bib-file ----------------------------------------
+    # ---------------------------------------- parse bib-file --------------------------------------
 
     # read
     with open(args["input"]) as file:
