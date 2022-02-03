@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import unittest
 
@@ -12,6 +13,32 @@ class Test_GooseBib(unittest.TestCase):
     """
     GooseBib
     """
+
+    def test_inplace(self):
+
+        source = os.path.join(dirname, "library_mendeley.bib")
+        output = os.path.join(dirname, "output.bib")
+        shutil.copy2(source, output)
+        data = os.path.join(dirname, "library.yaml")
+        subprocess.check_output(["GbibClean", "--in-place", output])
+
+        with open(output) as file:
+            bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+
+        with open(data) as file:
+            data = yaml.load(file.read(), Loader=yaml.FullLoader)
+
+        for entry in bib.entries:
+
+            d = data[entry["ID"]]
+
+            for key in d:
+                if entry[key][0] == "{":
+                    self.assertEqual("{" + str(d[key]) + "}", entry[key])
+                else:
+                    self.assertEqual(str(d[key]), entry[key])
+
+        os.remove(output)
 
     def test_mendeley(self):
 
