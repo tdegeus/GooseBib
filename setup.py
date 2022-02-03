@@ -18,7 +18,9 @@ setup(
         "bibtexparser",
         "click",
         "docopt",
+        "GitPython",
         "numpy",
+        "PyYAML",
         "requests",
     ],
     entry_points={

@@ -1,0 +1,7 @@
+- id: GbibClean
+  name: GbibClean
+  description: Run GbibClean
+  minimum_pre_commit_version: 2.1.0
+  entry: GbibClean --in-place
+  language: python
+  types: [bib]
