@@ -285,11 +285,9 @@ def clean(
         # fix author abbreviations
         for key in ["author", "editor"]:
             if key in entry:
-                if re.match(r"(\{)(.*)(\})", entry[key]):
-                    ignored_authors.append(entry["ID"])
-                    continue
                 names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
-                names = bibtexparser.customization.getnames(names)
+                if not re.match(r"(\{)(.*)(\})", entry[key]):
+                    names = bibtexparser.customization.getnames(names)
                 names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
                 entry[key] = " and ".join(names)
 
