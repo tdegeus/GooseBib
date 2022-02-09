@@ -1148,6 +1148,10 @@ def generate_default(domain: str):
         db[key].add_variation("Materials Science and Engineering: A")
         db[key].set_abbreviation("Mater. Sci. Eng. A")
 
+        db["Procedia Materials Science"] = Journal(
+            name="Procedia Materials Science", abbreviation="Procedia Mater. Sci."
+        )
+
     elif domain == "pnas":
 
         db = generate_default("physics")
