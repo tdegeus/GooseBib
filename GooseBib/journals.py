@@ -262,7 +262,9 @@ class JournalList:
         for j, s in zip(self.index[v_index], s_index):
             sel = self.index == j
             n = np.argmin(field[sel])
-            ret[s] = str(self.names[sel][n])
+            r = str(self.names[sel][n])
+            for i in np.argwhere(np.array(ret) == ret[s]).ravel():
+                ret[i] = r
 
         return ret
 
