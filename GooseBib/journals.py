@@ -251,13 +251,13 @@ class JournalList:
         ret = [i for i in journals]
 
         if case_sensitive:
-            varations = self.names
+            variations = self.names
             search = journals
         else:
-            varations = [str(i).lower() for i in self.names]
+            variations = [str(i).lower() for i in self.names]
             search = [i.lower() for i in journals]
 
-        _, v_index, s_index = np.intersect1d(varations, search, return_indices=True)
+        _, v_index, s_index = np.intersect1d(variations, search, return_indices=True)
 
         for j, s in zip(self.index[v_index], s_index):
             sel = self.index == j
