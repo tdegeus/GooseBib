@@ -134,6 +134,7 @@ class Test_GooseBib(unittest.TestCase):
             data[key]["author"] = data[key]["author"].replace("T.W.J.", "T. W. J.")
             data[key]["author"] = data[key]["author"].replace("R.H.J.", "R. H. J.")
             data[key]["author"] = data[key]["author"].replace("M.G.D.", "M. G. D.")
+            data[key]["author"] = data[key]["author"].replace("C.B.", "C. B.")
 
         for entry in bib.entries:
 
@@ -163,31 +164,53 @@ class Test_GooseBib(unittest.TestCase):
 
     def test_journalrename(self):
 
-        source = os.path.join(dirname, "library_mendeley.bib")
-        output = os.path.join(dirname, "output.bib")
-        data = os.path.join(dirname, "library.yaml")
-        subprocess.check_output(["GbibClean", "-f", "-j", "acro", source, output])
+        lookup = dict(
+            official={
+                "IJSS": "International Journal of Solids and Structures",
+                "PNAS": "Proceedings of the National Academy of Sciences",
+                "MRS": "Mechanics Research Communications",
+            },
+            abbreviation={
+                "IJSS": "Int. J. Solids Struct.",
+                "PNAS": "Proc. Natl. Acad. Sci.",
+                "MRS": "Mech. Res. Commun.",
+            },
+            acronym={
+                "IJSS": "IJSS",
+                "PNAS": "PNAS",
+                "MRS": "Mech. Res. Commun.",
+            },
+        )
 
-        with open(output) as file:
-            bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+        for key in lookup:
 
-        with open(data) as file:
-            data = yaml.load(file.read(), Loader=yaml.FullLoader)
+            source = os.path.join(dirname, "library_mendeley.bib")
+            output = os.path.join(dirname, "output.bib")
+            data = os.path.join(dirname, "library.yaml")
+            subprocess.check_output(["GbibClean", "-f", "-j", key, source, output])
 
-        data["DeGeus2015a"]["journal"] = "IJSS"
-        data["DeGeus2019"]["journal"] = "PNAS"
+            with open(output) as file:
+                bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
 
-        for entry in bib.entries:
+            with open(data) as file:
+                data = yaml.load(file.read(), Loader=yaml.FullLoader)
 
-            d = data[entry["ID"]]
+            data["DeGeus2015a"]["journal"] = lookup[key]["IJSS"]
+            data["DeGeus2015b"]["journal"] = lookup[key]["IJSS"]
+            data["DeGeus2019"]["journal"] = lookup[key]["PNAS"]
+            data["DeGeus2013"]["journal"] = lookup[key]["MRS"]
 
-            for key in d:
-                if entry[key][0] == "{":
-                    self.assertEqual("{" + str(d[key]) + "}", entry[key])
-                else:
-                    self.assertEqual(str(d[key]), entry[key])
+            for entry in bib.entries:
 
-        os.remove(output)
+                d = data[entry["ID"]]
+
+                for key in d:
+                    if entry[key][0] == "{":
+                        self.assertEqual("{" + str(d[key]) + "}", entry[key])
+                    else:
+                        self.assertEqual(str(d[key]), entry[key])
+
+            os.remove(output)
 
 
 if __name__ == "__main__":

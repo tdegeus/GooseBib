@@ -485,6 +485,7 @@ def GbibClean():
 
         -j, --journal-type=STR (title, abbreviation, acronym)
             Unify journal titles (if recognised).
+            If "acronym" is selected, "abbreviation" is used for journals without an "acronym".
             Default: abbreviation.
 
         --journals=STR (physics, mechanics, arxiv, pnas, pnas-usa, ...)

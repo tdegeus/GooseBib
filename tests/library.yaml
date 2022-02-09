@@ -1,4 +1,24 @@
+DeGeus2013:
+  arxivid: 1604.02848
+  author: de Geus, T.W.J. and Peerlings, R.H.J. and Hirschberger, C.B.
+  doi: 10.1016/j.mechrescom.2013.08.010
+  journal: Mech. Res. Commun.
+  pages: 7--13
+  title: An analysis of the pile-up of infinite periodic walls of edge dislocations
+  volume: 54
+  year: 2013
+
 DeGeus2015a:
+  arxivid: 1604.02858
+  author: de Geus, T.W.J. and Peerlings, R.H.J. and Geers, M.G.D.
+  doi: 10.1016/j.ijsolstr.2015.04.035
+  journal: Int. J. Solids Struct.
+  pages: 326--339
+  title: Microstructural topology effects on the onset of ductile failure in multi-phase materials -- A systematic computational approach
+  volume: 67-68
+  year: 2015
+
+DeGeus2015b:
   arxivid: 1604.02858
   author: de Geus, T.W.J. and Peerlings, R.H.J. and Geers, M.G.D.
   doi: 10.1016/j.ijsolstr.2015.04.035

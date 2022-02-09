@@ -35,6 +35,8 @@ class Journal:
         ``index`` than indicates the indices in this list corresponding to
         ``[name, abbreviation, acronym]`` (the same index may be use multiple times if there is no
         abbreviation or acronym).
+
+    :param abbreviation_is_acronym: Use abbreviation as acronym if no acronym is specified.
     """
 
     def __init__(
@@ -44,6 +46,7 @@ class Journal:
         acronym: str = None,
         variations: list[str] = None,
         index: list[int] = None,
+        abbreviation_is_acronym: bool = False,
     ):
 
         if index:
@@ -67,7 +70,7 @@ class Journal:
             self.set_name(name)
 
         if abbreviation:
-            self.set_abbreviation(abbreviation)
+            self.set_abbreviation(abbreviation, abbreviation_is_acronym and acronym is None)
 
         if acronym:
             self.set_acronym(acronym)
@@ -88,12 +91,16 @@ class Journal:
         self.name = n
         self.data.append(arg)
 
-    def set_abbreviation(self, arg: str):
+    def set_abbreviation(self, arg: str, also_acronym: bool = False):
         """
         (Over)write the abbreviation of the journal's name.
         :param arg: Name.
+        :param also_acronym: Use also as acronym.
         """
-        self.abbr = len(self.data)
+        n = len(self.data)
+        if also_acronym:
+            self.acro = n
+        self.abbr = n
         self.data.append(arg)
 
     def set_acronym(self, arg: str):
@@ -474,11 +481,12 @@ def dump(
         yaml.dump(_database_tolist(data), file, allow_unicode=True, width=200)
 
 
-def read(filepath: str) -> JournalList:
+def read(filepath: str, abbreviation_is_acronym: bool = True) -> JournalList:
     """
     Load a database.
 
     :param filepath: Filename.
+    :param abbreviation_is_acronym: Use abbreviation for missing acronym (otherwise title is used).
     """
 
     if not os.path.isfile(filepath):
@@ -487,7 +495,9 @@ def read(filepath: str) -> JournalList:
     with open(filepath) as file:
         ret = yaml.load(file.read(), Loader=yaml.FullLoader)
 
-    return JournalList([Journal(**entry) for entry in ret])
+    return JournalList(
+        [Journal(abbreviation_is_acronym=abbreviation_is_acronym, **entry) for entry in ret]
+    )
 
 
 def generate_jabref(*domains):
