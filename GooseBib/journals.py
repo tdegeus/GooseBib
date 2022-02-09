@@ -1144,6 +1144,10 @@ def generate_default(domain: str):
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
 
+        key = "Materials Science and Engineering A"
+        db[key].add_variation("Materials Science and Engineering: A")
+        db[key].set_abbreviation("Mater. Sci. Eng. A")
+
     elif domain == "pnas":
 
         db = generate_default("physics")

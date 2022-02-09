@@ -6734,8 +6734,11 @@
   name: Materials Science Forum
 - abbreviation: Mater. Sci. Res. Int.
   name: Materials Science Research International
-- abbreviation: Mater. Sci. Eng., A
+- abbreviation: Mater. Sci. Eng. A
   name: Materials Science and Engineering A
+  variations:
+  - Mater. Sci. Eng., A
+  - 'Materials Science and Engineering: A'
 - abbreviation: Mater. Sci. Eng., B
   name: Materials Science and Engineering B
 - abbreviation: Mater. Sci. Eng., C
