@@ -119,61 +119,45 @@ def select(
 @select.register(str)
 def _(data, *args, **kwargs):
 
-    return bibtexparser.dumps(
-        select(
-            bibtexparser.loads(
-                data,
-                parser=bibtexparser.bparser.BibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ),
-            ),
-            *args,
-            **kwargs,
-        )
+    parser = bibtexparser.bparser.BibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
     )
+
+    return bibtexparser.dumps(select(bibtexparser.loads(data, parser=parser), *args, **kwargs))
 
 
 @select.register(io.IOBase)
 def _(data, *args, **kwargs):
 
-    return bibtexparser.dumps(
-        select(
-            bibtexparser.load(
-                data,
-                parser=bibtexparser.bparser.BibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ),
-            ),
-            *args,
-            **kwargs,
-        )
+    parser = bibtexparser.bparser.BibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
     )
+
+    return bibtexparser.dumps(select(bibtexparser.load(data, parser=parser), *args, **kwargs))
 
 
 def _parse_plain(string: str) -> bibtexparser.bibdatabase.BibDatabase:
     """
     Parse with as little as fixes possible
     """
+    parser = bibtexparser.bparser.BibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
+    )
 
     try:
         return bibtexparser.loads(string)
     except:
         warnings.warn("Light parsing for diff failed, trying aggressive parsing", Warning)
-        return bibtexparser.loads(
-            string,
-            parser=bibtexparser.bparser.BibTexParser(
-                homogenize_fields=True,
-                ignore_nonstandard_types=True,
-                add_missing_from_crossref=True,
-                common_strings=True,
-            ),
-        )
+        return bibtexparser.loads(string, parser=parser)
 
 
 def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
@@ -362,41 +346,27 @@ def clean(
 @clean.register(str)
 def _(data, *args, **kwargs):
 
-    return bibtexparser.dumps(
-        clean(
-            bibtexparser.loads(
-                data,
-                parser=bibtexparser.bparser.BibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ),
-            ),
-            *args,
-            **kwargs,
-        )
+    parser = bibtexparser.bparser.BibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
     )
+
+    return bibtexparser.dumps(clean(bibtexparser.loads(data, parser=parser), *args, **kwargs))
 
 
 @clean.register(io.IOBase)
 def _(data, *args, **kwargs):
 
-    return bibtexparser.dumps(
-        clean(
-            bibtexparser.load(
-                data,
-                parser=bibtexparser.bparser.BibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ),
-            ),
-            *args,
-            **kwargs,
-        )
+    parser = bibtexparser.bparser.BibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
     )
+
+    return bibtexparser.dumps(clean(bibtexparser.load(data, parser=parser), *args, **kwargs))
 
 
 @singledispatch
