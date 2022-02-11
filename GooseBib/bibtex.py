@@ -20,15 +20,18 @@ from . import reformat
 from ._version import version
 
 
-def read_display_order(bibtex_str: str) -> dict:
+def read_display_order(bibtex_str: str) -> (dict, int):
     """
     Read order of fields of all entries.
 
     :param bibtex_str: A BibTeX 'file'.
-    :return: A dictionary with a list of fields per key.
+    :return:
+        A dictionary with a list of fields per key.
+        The typical indentation.
     """
 
     ret = {}
+    indent = []
 
     matches = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
 
@@ -48,37 +51,41 @@ def read_display_order(bibtex_str: str) -> dict:
             continue
 
         key, data = components[3].split(",", 1)
-        ret[key] = [i[1] for i in re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)]
+        find = re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)
+        ret[key] = [i[1] for i in find]
+        indent += [len(''.join(i[0].splitlines())) for i in find]
 
-    return ret
+    return ret, int(np.mean(indent))
 
 
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
     """
     Overload of ``bibtexparser.bwriter.BibTexWriter`` acting on an extra internal field
-    "display_order" to preserve the order of each item.
+    "DISPLAY_ORDER" to preserve the order of each item.
     """
 
     def _entry_to_bibtex(self, entry):
-        self.display_order = entry.pop("display_order", [])
+        self.display_order = entry.pop("DISPLAY_ORDER", [])
+        self.indent = entry.pop("INDENT", " ")
         return bibtexparser.bwriter.BibTexWriter._entry_to_bibtex(self, entry)
 
 
 class MyBibTexParser(bibtexparser.bparser.BibTexParser):
     """
     Overload of ``bibtexparser.bparser.BibTexParser`` adding an extra internal field
-    "display_order" to preserve the order of each item.
+    "DISPLAY_ORDER" to preserve the order of each item.
     """
 
     def parse(self, bibtex_str, *args, **kwargs):
 
-        order = read_display_order(bibtex_str)
+        order, indent = read_display_order(bibtex_str)
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
 
         for entry in data.entries:
             display_order = order.get(entry["ID"], [])
             if all([i in entry for i in display_order]):
-                entry["display_order"] = display_order
+                entry["DISPLAY_ORDER"] = display_order
+                entry["INDENT"] = " " * indent
 
         return data
 
@@ -130,7 +137,7 @@ def selection(use_bibtexparser: bool = False):
     base = []
 
     if use_bibtexparser:
-        base += ["ID", "ENTRYTYPE", "display_order"]
+        base += ["ID", "ENTRYTYPE", "DISPLAY_ORDER", "INDENT"]
 
     base += ["author", "title", "year", "doi", "arxivid"]
 
@@ -178,7 +185,7 @@ def select(
         ret = {}
         for entry in data.entries:
             if entry["ENTRYTYPE"] not in ret:
-                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "display_order"] + fields
+                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "DISPLAY_ORDER"] + fields
         fields = ret
 
     for entry in data.entries:
@@ -326,7 +333,7 @@ def clean(
                 *[
                     val
                     for key, val in entry.items()
-                    if key not in ["arxivid", "eprint", "display_order"]
+                    if key not in ["arxivid", "eprint", "DISPLAY_ORDER", "INDENT"]
                 ]
             )
             if doi:
@@ -335,7 +342,7 @@ def clean(
         # find arXiv-id
         if "arxivid" not in entry:
             arxivid = recognise.arxivid(
-                *[val for key, val in entry.items() if key not in ["doi", "display_order"]]
+                *[val for key, val in entry.items() if key not in ["doi", "DISPLAY_ORDER", "INDENT"]]
             )
             if arxivid:
                 entry["arxivid"] = arxivid
