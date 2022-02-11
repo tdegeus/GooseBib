@@ -1019,6 +1019,12 @@ def generate_default(domain: str):
             abbreviation="K. Dan. Vidensk. Selsk. Mat. Fys. Medd.",
         )
 
+        _database_merge(
+            db=db,
+            name="Modelling and Simulation in Materials Science and Engineering",
+            abbreviation="Model. Simul. Mater. Sci. Eng.",
+        )
+
         db["Physical Review Letters"].set_acronym("PRL")
         db["Physical Review X"].set_acronym("PRX")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
