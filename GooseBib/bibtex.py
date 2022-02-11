@@ -47,6 +47,26 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
         return bibtexparser.bwriter.BibTexWriter._entry_to_bibtex(self, entry)
 
 
+def parse(raw, display_order: bool = True):
+    """
+    Parse a BibTeX string once.
+
+    :param display_order: Preserve the order of field in the input file.
+    """
+
+    writer = MyBibTexWriter()
+    parser = bibtexparser.bparser.BibTexParser()
+    data = parser.parse(raw)
+
+    if display_order:
+        for entry in data.entries:
+            display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], raw)
+            if all([i in entry for i in display_order]):
+                entry["display_order"] = display_order
+
+    return writer.write(data)
+
+
 def _subr(pattern, repl, string):
     """
     Recursive replacement: apply ``re.subn`` until no more replacement is made.
@@ -167,7 +187,7 @@ def _(data, *args, **kwargs):
         common_strings=True,
     )
 
-    return writer.write(select(bibtexparser.load(data, parser=parser), *args, **kwargs))
+    return writer.write(select(parser.parse(data), *args, **kwargs))
 
 
 def _parse_plain(string: str) -> bibtexparser.bibdatabase.BibDatabase:
@@ -402,9 +422,7 @@ def _(data, *args, **kwargs):
         add_missing_from_crossref=True,
         common_strings=True,
     )
-    return writer.write(
-        clean(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read())
-    )
+    return writer.write(clean(parser.parse(data), *args, **kwargs, raw=data.read()))
 
 
 @singledispatch
@@ -448,9 +466,7 @@ def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
     parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(
-        format_journal_arxiv(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data)
-    )
+    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs, raw=data))
 
 
 @format_journal_arxiv.register(io.IOBase)
@@ -458,11 +474,7 @@ def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
     parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(
-        format_journal_arxiv(
-            bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read()
-        )
-    )
+    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs, raw=data.read()))
 
 
 def GbibClean():
@@ -645,11 +657,7 @@ def GbibClean():
             rm_unicode=not args.ignore_unicode,
         )
 
-        print(data)
-        print("---")
-        print(bibtexparser.dumps(bibtexparser.loads(data)))
-
-        if data != bibtexparser.dumps(bibtexparser.loads(data)):
+        if data != parse(data, display_order=True):
             warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
 
         if args.arxiv:
