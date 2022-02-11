@@ -12,6 +12,7 @@ from typing import Union
 
 import bibtexparser
 import click
+import tqdm
 import numpy as np
 
 from . import journals
@@ -20,20 +21,34 @@ from . import reformat
 from ._version import version
 
 
-def read_display_order(bibtype: str, key: str, string: str) -> list[str]:
+def read_display_order(bibtex_str: str) -> dict:
     """
-    Read order of fields of an entry.
-    Currently matching ignores cases, this should lead to erroneous results if only case is used
-    to distinguish entries (not sure if that is legal in BibTeX).
+    Read order of fields of all entries.
 
-    :param bibtype: "article", "book", "misc", etc.
-    :param key: The citation key.
-    :param string: A BibTeX file.
+    :param bibtex_str: A BibTeX 'file'.
+    :return: A dictionary with a list of fields per key.
     """
 
-    data = re.compile(r"\@" + bibtype + r"\{" + key + r".*", flags=re.IGNORECASE).split(string)[1]
-    data = re.split(r"(.*)(\n\@\w*\{)", data)[0]
-    return [i[1] for i in re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)]
+    ret = {}
+
+    it = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
+
+    for i in range(len(it)):
+
+        if i < len(it) - 1:
+            e = bibtex_str[it[i].start(): it[i + 1].start()]
+        else:
+            e = bibtex_str[it[-1].start():]
+
+        sp = re.split(r"(.*)(\@\w*\{)", e)
+
+        if sp[2].lower() in ["@string{", "@comment{", "@preamble{"]:
+            continue
+
+        key, data = sp[3].split(",", 1)
+        ret[key] = [i[1] for i in re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)]
+
+    return ret
 
 
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
@@ -55,23 +70,12 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
 
     def parse(self, bibtex_str, *args, **kwargs):
 
+        order = read_display_order(bibtex_str)
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
-        key = [entry["ID"] for entry in data.entries]
-        message = "{0:s} are case-sensitive, order preserving might not always work"
-        check = False
 
-        if np.unique(key).size != len(key):
-            warnings.warn(message.format("BibTeX keys"), Warning)
-            check = True
-
-        if check:
-            for entry in data.entries:
-                display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], bibtex_str)
-                if all([i in entry for i in display_order]):
-                    entry["display_order"] = display_order
-        else:
-            for entry in data.entries:
-                display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], bibtex_str)
+        for entry in data.entries:
+            display_order = order.get(entry["ID"], [])
+            if all([i in entry for i in display_order]):
                 entry["display_order"] = display_order
 
         return data
