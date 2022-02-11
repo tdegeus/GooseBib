@@ -47,24 +47,56 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
         return bibtexparser.bwriter.BibTexWriter._entry_to_bibtex(self, entry)
 
 
-def parse(raw, display_order: bool = True):
+class MyBibTexParser(bibtexparser.bparser.BibTexParser):
+    """
+    Overload of ``bibtexparser.bparser.BibTexParser`` adding an extra internal field
+    "display_order" to preserve the order of each item.
+    """
+
+    def parse(self, bibtex_str, *args, **kwargs):
+
+        data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
+        key = [entry["ID"] for entry in data.entries]
+        message = "{0:s} are case-sensitive, order preserving might not always work"
+        check = False
+
+        if np.unique(key).size != len(key):
+            warnings.warn(message.format("BibTeX keys"), Warning)
+            check = True
+
+        if check:
+            for entry in data.entries:
+                display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], bibtex_str)
+                if all([i in entry for i in display_order]):
+                    entry["display_order"] = display_order
+        else:
+            for entry in data.entries:
+                display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], bibtex_str)
+                entry["display_order"] = display_order
+
+        return data
+
+
+def parse(bibtex_str: str, aggresive: bool = False) -> str:
     """
     Parse a BibTeX string once.
 
-    :param display_order: Preserve the order of field in the input file.
+    :param aggresive: Use aggressive interpretation strategy.
     """
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser()
-    data = parser.parse(raw)
 
-    if display_order:
-        for entry in data.entries:
-            display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], raw)
-            if all([i in entry for i in display_order]):
-                entry["display_order"] = display_order
+    if aggresive:
+        parser = MyBibTexParser(
+            homogenize_fields=True,
+            ignore_nonstandard_types=True,
+            add_missing_from_crossref=True,
+            common_strings=True,
+        )
+    else:
+        parser = MyBibTexParser()
 
-    return writer.write(data)
+    return writer.write(parser.parse(bibtex_str))
 
 
 def _subr(pattern, repl, string):
@@ -92,7 +124,7 @@ def selection(use_bibtexparser: bool = False):
     base = []
 
     if use_bibtexparser:
-        base += ["ID", "ENTRYTYPE"]
+        base += ["ID", "ENTRYTYPE", "display_order"]
 
     base += ["author", "title", "year", "doi", "arxivid"]
 
@@ -140,12 +172,12 @@ def select(
         ret = {}
         for entry in data.entries:
             if entry["ENTRYTYPE"] not in ret:
-                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE"] + fields
+                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "display_order"] + fields
         fields = ret
 
     for entry in data.entries:
 
-        select = fields[entry["ENTRYTYPE"]] + ["display_order"]
+        select = fields[entry["ENTRYTYPE"]]
 
         if ensure_link:
             if "url" not in select:
@@ -167,20 +199,20 @@ def select(
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser(
+    parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
         add_missing_from_crossref=True,
         common_strings=True,
     )
-    return writer.write(select(bibtexparser.loads(data, parser=parser), *args, **kwargs))
+    return writer.write(select(parser.parse(data), *args, **kwargs))
 
 
 @select.register(io.IOBase)
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser(
+    parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
         add_missing_from_crossref=True,
@@ -188,24 +220,6 @@ def _(data, *args, **kwargs):
     )
 
     return writer.write(select(parser.parse(data), *args, **kwargs))
-
-
-def _parse_plain(string: str) -> bibtexparser.bibdatabase.BibDatabase:
-    """
-    Parse with as little as fixes possible
-    """
-    parser = bibtexparser.bparser.BibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
-
-    try:
-        return bibtexparser.loads(string)
-    except:
-        warnings.warn("Light parsing for diff failed, trying aggressive parsing", Warning)
-        return bibtexparser.loads(string, parser=parser)
 
 
 def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
@@ -258,7 +272,6 @@ def clean(
     rm_unicode: bool = True,
     rm_comment: bool = True,
     rm_string: bool = True,
-    raw: str = None,
 ):
     r"""
     Clean a BibTeX database:
@@ -304,14 +317,14 @@ def clean(
         # find doi
         if "doi" not in entry:
             doi = recognise.doi(
-                *[val for key, val in entry.items() if key not in ["arxivid", "eprint"]]
+                *[val for key, val in entry.items() if key not in ["arxivid", "eprint", "display_order"]]
             )
             if doi:
                 entry["doi"] = doi
 
         # find arXiv-id
         if "arxivid" not in entry:
-            arxivid = recognise.arxivid(*[val for key, val in entry.items() if key not in ["doi"]])
+            arxivid = recognise.arxivid(*[val for key, val in entry.items() if key not in ["doi", "display_order"]])
             if arxivid:
                 entry["arxivid"] = arxivid
 
@@ -363,13 +376,6 @@ def clean(
         if "url" in entry:
             entry["url"] = _subr(re.compile(r"({)([^}])(})", re.UNICODE), r"\2", entry["url"])
 
-        # add internal display order to preserve order in output
-        # (add test just in case something went wrong)
-        if raw is not None:
-            display_order = read_display_order(entry["ENTRYTYPE"], entry["ID"], raw)
-            if all([i in entry for i in display_order]):
-                entry["display_order"] = display_order
-
     if len(ignored_authors) > 0:
         ignored_authors = "- " + "\n- ".join([str(i) for i in np.unique(ignored_authors)])
         warnings.warn(f"Protected authors found, please check:\n{ignored_authors}", Warning)
@@ -403,26 +409,26 @@ def clean(
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser(
+    parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
         add_missing_from_crossref=True,
         common_strings=True,
     )
-    return writer.write(clean(bibtexparser.loads(data, parser=parser), *args, **kwargs, raw=data))
+    return writer.write(clean(parser.parse(data), *args, **kwargs))
 
 
 @clean.register(io.IOBase)
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser(
+    parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
         add_missing_from_crossref=True,
         common_strings=True,
     )
-    return writer.write(clean(parser.parse(data), *args, **kwargs, raw=data.read()))
+    return writer.write(clean(parser.parse(data), *args, **kwargs))
 
 
 @singledispatch
@@ -465,16 +471,16 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs, raw=data))
+    parser = MyBibTexParser()
+    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs))
 
 
 @format_journal_arxiv.register(io.IOBase)
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
-    parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs, raw=data.read()))
+    parser = MyBibTexParser()
+    return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs))
 
 
 def GbibClean():
@@ -657,7 +663,7 @@ def GbibClean():
             rm_unicode=not args.ignore_unicode,
         )
 
-        if data != parse(data, display_order=True):
+        if data != parse(data):
             warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
 
         if args.arxiv:
@@ -671,28 +677,28 @@ def GbibClean():
             if args.diff_type.lower() == "raw":
                 simple = source
             elif args.diff_type.lower() == "plain":
-                simple = bibtexparser.dumps(_parse_plain(source))
+                try:
+                    simple = parse(source)
+                except:
+                    simple = parse(source, aggresive=True)
+                    warnings.warn("Light parsing for diff failed", Warning)
             elif args.diff_type.lower() == "select":
-                simple = bibtexparser.dumps(select(_parse_plain(source)))
+                simple = select(source)
             else:
                 raise OSError("Unknown option for --diff-type")
 
             if args.diff_keys:
-                simple = bibtexparser.dumps(
-                    select(
-                        _parse_plain(simple),
+                simple = select(
+                        simple,
                         fields=args.diff_keys.split(","),
                         ensure_link=False,
                         remove_url=False,
-                    )
                 )
-                data = bibtexparser.dumps(
-                    select(
-                        bibtexparser.loads(data),
+                data = select(
+                        data,
                         fields=args.diff_keys.split(","),
                         ensure_link=False,
                         remove_url=False,
-                    )
                 )
 
             diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
