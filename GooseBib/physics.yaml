@@ -1776,8 +1776,10 @@
   name: Mining Magazine
 - abbreviation: Min. Sci. Press
   name: Mining and Scientific Press
-- abbreviation: Modelling Simul. Mater. Sci. Eng.
+- abbreviation: Model. Simul. Mater. Sci. Eng.
   name: Modelling and Simulation in Materials Science and Engineering
+  variations:
+  - Modelling Simul. Mater. Sci. Eng.
 - abbreviation: Mod. Phys. Lett. A
   name: Modern Physics Letters A
 - abbreviation: Mod. Phys. Lett. B
