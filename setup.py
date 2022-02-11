@@ -26,13 +26,14 @@ setup(
     entry_points={
         "console_scripts": [
             "GbibCheckAuthors = GooseBib.cli.GbibCheckAuthors:main",
-            "GbibCheckLink = GooseBib.cli.GbibCheckLink:main",
             "GbibCheckKeys = GooseBib.cli.GbibCheckKeys:main",
+            "GbibCheckLink = GooseBib.cli.GbibCheckLink:main",
             "GbibClean = GooseBib.bibtex:GbibClean",
             "GbibList = GooseBib.cli.GbibList:main",
             "GbibParse = GooseBib.cli.GbibParse:main",
             "GbibSelect = GooseBib.cli.GbibSelect:main",
             "GbibSelectAlias = GooseBib.cli.GbibSelectAlias:main",
+            "GbibShowAuthorRename = GooseBib.bibtex:GbibShowAuthorRename",
         ]
     },
 )
