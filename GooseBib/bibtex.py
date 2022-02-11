@@ -498,8 +498,9 @@ def _(data, *args, **kwargs):
 def GbibClean():
     r"""
     Clean a BibTeX database, stripping it from unnecessary fields,
-    unifying the formatting of authors, and ensuring the proper special characters and
-    math mode settings.
+    unifying the formatting of authors,
+    and ensuring the proper special characters and math mode settings.
+    This script preserves order to help tracking changes.
 
     :usage:
 
