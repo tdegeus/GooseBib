@@ -31,21 +31,21 @@ def read_display_order(bibtex_str: str) -> dict:
 
     ret = {}
 
-    it = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
+    matches = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
 
-    for i in range(len(it)):
+    for i in range(len(matches)):
 
-        if i < len(it) - 1:
-            e = bibtex_str[it[i].start(): it[i + 1].start()]
+        if i < len(matches) - 1:
+            entry = bibtex_str[matches[i].start(): matches[i + 1].start()]
         else:
-            e = bibtex_str[it[-1].start():]
+            entry = bibtex_str[matches[-1].start():]
 
-        sp = re.split(r"(.*)(\@\w*\{)", e)
+        components = re.split(r"(.*)(\@\w*\{)", entry)
 
-        if sp[2].lower() in ["@string{", "@comment{", "@preamble{"]:
+        if components[2].lower() in ["@string{", "@comment{", "@preamble{"]:
             continue
 
-        key, data = sp[3].split(",", 1)
+        key, data = components[3].split(",", 1)
         ret[key] = [i[1] for i in re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)]
 
     return ret
