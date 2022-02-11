@@ -382,15 +382,11 @@ def clean(
         # -
         if "doi" in entry:
             entry["doi"] = entry["doi"].replace("_", r"\_")
-            entry["doi"] = entry["doi"].replace("\\_", r"\_")
-            entry["doi"] = entry["doi"].replace("{\\\\_}", r"\_")
-            entry["doi"] = entry["doi"].replace("{\\_}", r"\_")
-            entry["doi"] = entry["doi"].replace(r"{\_}", r"\_")
+            entry["doi"] = re.sub(r"[\{}]?[\\]+\_[\}]?", r"\\_", entry["doi"])
         # -
         if "url" in entry:
             entry["url"] = entry["url"].replace(r"{\_}", r"\_")
-            entry["url"] = entry["url"].replace("\\_", r"\_")
-            entry["url"] = entry["url"].replace("{\\_}", r"\_")
+            entry["url"] = re.sub(r"[\{}]?[\\]+\_[\}]?", r"\\_", entry["url"])
             entry["url"] = entry["url"].replace("{~}", "~")
             entry["url"] = entry["url"].replace(r"\&", "&")
         # -
