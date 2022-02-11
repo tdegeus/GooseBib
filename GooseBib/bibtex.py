@@ -19,6 +19,7 @@ from . import recognise
 from . import reformat
 from ._version import version
 
+
 def read_display_order(bibtype: str, key: str, string: str) -> list[str]:
     """
     Read order of fields of an entry.
@@ -401,7 +402,9 @@ def _(data, *args, **kwargs):
         add_missing_from_crossref=True,
         common_strings=True,
     )
-    return writer.write(clean(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read()))
+    return writer.write(
+        clean(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read())
+    )
 
 
 @singledispatch
@@ -445,14 +448,21 @@ def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
     parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(format_journal_arxiv(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data))
+    return writer.write(
+        format_journal_arxiv(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data)
+    )
+
 
 @format_journal_arxiv.register(io.IOBase)
 def _(data, *args, **kwargs):
 
     writer = MyBibTexWriter()
     parser = bibtexparser.bparser.BibTexParser()
-    return writer.write(format_journal_arxiv(bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read()))
+    return writer.write(
+        format_journal_arxiv(
+            bibtexparser.load(data, parser=parser), *args, **kwargs, raw=data.read()
+        )
+    )
 
 
 def GbibClean():
