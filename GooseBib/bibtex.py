@@ -547,6 +547,14 @@ def GbibClean():
 
         --diff=STR
             Write diff to HTML file which shows the old and the reformatted file side-by-side.
+            See ``difflib.HtmlDiff.make_file``.
+
+        --diff-context=BOOL
+            Show contextual differences.
+            See ``difflib.HtmlDiff.make_file``.
+
+        --diff-numlines=BOOL
+            Controls the number of context lines which surround the difference highlights.
 
         --diff-type=STR (raw, plain, all, select)
             Show difference between ``<output>`` and compared to ``<input>`` that is:
@@ -586,6 +594,8 @@ def GbibClean():
     parser.add_argument("--diff", type=str)
     parser.add_argument("--diff-type", type=str, default="select")
     parser.add_argument("--diff-keys", type=str)
+    parser.add_argument("--diff-context", type=bool, default=False)
+    parser.add_argument("--diff-numlines", type=int, default=5)
     parser.add_argument("--ignore-case", action="store_true")
     parser.add_argument("--ignore-math", action="store_true")
     parser.add_argument("--ignore-unicode", action="store_true")
@@ -706,7 +716,7 @@ def GbibClean():
                 )
 
             diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
-                simple.splitlines(keepends=True), data.splitlines(keepends=True)
+                simple.splitlines(keepends=True), data.splitlines(keepends=True), numlines=args.diff_numlines, context=args.diff_context,
             )
 
             with open(args.diff, "w") as file:
