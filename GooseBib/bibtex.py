@@ -55,7 +55,7 @@ def read_display_order(bibtex_str: str) -> (dict, int):
         ret[key] = [i[1] for i in find]
         indent += [len(''.join(i[0].splitlines())) for i in find]
 
-    return ret, int(np.mean(indent))
+    return ret, int(np.ceil(np.mean(indent)))
 
 
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
@@ -82,10 +82,10 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
 
         for entry in data.entries:
+            entry["INDENT"] = " " * indent
             display_order = order.get(entry["ID"], [])
             if all([i in entry for i in display_order]):
                 entry["DISPLAY_ORDER"] = display_order
-                entry["INDENT"] = " " * indent
 
         return data
 
@@ -185,7 +185,7 @@ def select(
         ret = {}
         for entry in data.entries:
             if entry["ENTRYTYPE"] not in ret:
-                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "DISPLAY_ORDER"] + fields
+                ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "DISPLAY_ORDER", "INDENT"] + fields
         fields = ret
 
     for entry in data.entries:
