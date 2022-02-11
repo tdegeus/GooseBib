@@ -16,8 +16,38 @@ class Test_reformat(unittest.TestCase):
         )
 
         self.assertEqual(
-            bib.reformat.abbreviate_firstname("de Geus, Thomas Willem Jan", sep=""),
-            "de Geus, T.W.J.",
+            bib.reformat.abbreviate_firstname("de Geus, Thomas Willem Jan", sep="   "),
+            "de Geus, T.   W.   J.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname("de Geus, Thomas W. J.", sep="   "),
+            "de Geus, T.   W.   J.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname("de Geus, Thomas W.J.", sep="   "),
+            "de Geus, T.   W.   J.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Molinari, Jean-Fran{\c c}ois", sep="   "),
+            "Molinari, J.-   F.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Temizer, \.{I}.", sep="   "),
+            r"Temizer, \.{I}.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Temizer, \.{I}.\.{I}.", sep="   "),
+            r"Temizer, \.{I}.   \.{I}.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Temizer, \.{I}.\.{I}zemer", sep="   "),
+            r"Temizer, \.{I}.   \.{I}.",
         )
 
     def test_protect_math(self):

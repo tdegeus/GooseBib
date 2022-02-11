@@ -45,35 +45,25 @@ def abbreviate_firstname(name: str, sep: str = " "):
     if len(name.split(",")) > 2:
         raise OSError(f'Unable to interpret name "{name}"')
 
-    if re.match(r"\w*\, \{\\\w\w\}\.", name):
-        return name
-
-    if re.match(r"\w*\, \\.\{\w\}\.", name):
-        return name
-
     match = [
         (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),
         (
-            re.compile(r"([A-Za-z][\}]*)([\w0-9\{\}\`\'\"\\\.\^\{]*)", re.UNICODE),
+            re.compile(r"([\w][\}]*)([\w0-9\{\}\`\'\"\\\.\^\{]*)", re.UNICODE),
             r"\1.",
         ),
-        (re.compile(r"([A-Za-z\.][\-]?)([\ ]*)", re.UNICODE), r"\1"),
-        (
-            re.compile(r"([A-Za-z\.][\-]?)([A-Za-z])", re.UNICODE),
-            r"\1" + sep + r"\2",
-        ),
+        (re.compile(r"([\w\.][\-]?)([\ ]*)", re.UNICODE), r"\1"),
     ]
 
     last, first = name.split(",")
-    first = first.replace(".", ". ")
     first = latex_to_unicode(first)
+    first = first.replace(".", ". ").replace("-", "- ").replace(r"\. ", r"\.") + " "
+    names = [latex_to_unicode(i[0]) for i in re.findall(r"([^\s]*)(\s+)", first)][1:]
 
-    for regex, sub in match:
-        first = re.sub(regex, sub, first)
+    for i in range(len(names)):
+        for regex, sub in match:
+            names[i] = re.sub(regex, sub, names[i])
 
-    first = first.strip()
-
-    return last + ", " + rm_unicode(first.upper())
+    return last + ", " + sep.join([rm_unicode(i) for i in names]).upper()
 
 
 def name2key(name: str):
