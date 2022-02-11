@@ -53,7 +53,7 @@ def read_display_order(bibtex_str: str) -> (dict, int):
         key, data = components[3].split(",", 1)
         find = re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)
         ret[key] = [i[1] for i in find]
-        indent += [len(''.join(i[0].splitlines())) for i in find]
+        indent += [len("".join(i[0].splitlines())) for i in find]
 
     return ret, int(np.ceil(np.mean(indent)))
 
@@ -342,7 +342,11 @@ def clean(
         # find arXiv-id
         if "arxivid" not in entry:
             arxivid = recognise.arxivid(
-                *[val for key, val in entry.items() if key not in ["doi", "DISPLAY_ORDER", "INDENT"]]
+                *[
+                    val
+                    for key, val in entry.items()
+                    if key not in ["doi", "DISPLAY_ORDER", "INDENT"]
+                ]
             )
             if arxivid:
                 entry["arxivid"] = arxivid
