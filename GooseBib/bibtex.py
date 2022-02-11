@@ -742,3 +742,69 @@ def GbibClean():
 
             with open(args.diff, "w") as file:
                 file.write(diff)
+
+
+def GbibShowAuthorRename():
+    r"""
+    Show author rename if ``GbibClean`` is applied.
+    """
+
+    funcname = inspect.getframeinfo(inspect.currentframe()).function
+    doc = textwrap.dedent(inspect.getdoc(globals()[funcname]))
+
+    class Parser(argparse.ArgumentParser):
+        def print_help(self):
+            print(doc)
+
+    parser = Parser()
+    parser.add_argument("-o", "--output", type=str)
+    parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--all", action="store_true")
+    parser.add_argument("files", nargs="+", type=str)
+    args = parser.parse_args()
+
+    assert all([os.path.isfile(i) for i in args.files])
+
+    sources = args.files[:-1]
+    source = ""
+
+    for filepath in args.files:
+        with open(filepath) as file:
+            source += file.read()
+
+    parser = MyBibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
+    )
+
+    data = parser.parse(source)
+    old = []
+    new = []
+
+    for entry in data.entries:
+        for key in ["author", "editor"]:
+            if key in entry:
+                names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
+                old += names
+                if not re.match(r"(\{)(.*)(\})", entry[key]):
+                    names = bibtexparser.customization.getnames(names)
+                new += [reformat.abbreviate_firstname(i, args.author_sep) for i in names]
+
+    _, index = np.unique(old, return_index=True)
+    old = [old[i] for i in index]
+    new = [new[i] for i in index]
+
+    if args.all:
+        opts = dict(context=False, numlines=1)
+    else:
+        opts = dict(context=True, numlines=0)
+
+    diff = difflib.HtmlDiff(wrapcolumn=100).make_file(old, new, **opts)
+
+    if args.output:
+        with open(args.output, "w") as file:
+            file.write(diff)
+    else:
+        print(diff)
