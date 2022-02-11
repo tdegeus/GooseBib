@@ -12,7 +12,6 @@ from typing import Union
 
 import bibtexparser
 import click
-import tqdm
 import numpy as np
 
 from . import journals
@@ -33,12 +32,15 @@ def read_display_order(bibtex_str: str) -> dict:
 
     matches = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
 
-    for i in range(len(matches)):
+    for m in range(len(matches)):
 
-        if i < len(matches) - 1:
-            entry = bibtex_str[matches[i].start(): matches[i + 1].start()]
+        i = matches[m].start()
+
+        if m < len(matches) - 1:
+            j = matches[m + 1].start()
+            entry = bibtex_str[i:j]
         else:
-            entry = bibtex_str[matches[-1].start():]
+            entry = bibtex_str[i:]
 
         components = re.split(r"(.*)(\@\w*\{)", entry)
 
@@ -321,14 +323,20 @@ def clean(
         # find doi
         if "doi" not in entry:
             doi = recognise.doi(
-                *[val for key, val in entry.items() if key not in ["arxivid", "eprint", "display_order"]]
+                *[
+                    val
+                    for key, val in entry.items()
+                    if key not in ["arxivid", "eprint", "display_order"]
+                ]
             )
             if doi:
                 entry["doi"] = doi
 
         # find arXiv-id
         if "arxivid" not in entry:
-            arxivid = recognise.arxivid(*[val for key, val in entry.items() if key not in ["doi", "display_order"]])
+            arxivid = recognise.arxivid(
+                *[val for key, val in entry.items() if key not in ["doi", "display_order"]]
+            )
             if arxivid:
                 entry["arxivid"] = arxivid
 
@@ -703,20 +711,23 @@ def GbibClean():
 
             if args.diff_keys:
                 simple = select(
-                        simple,
-                        fields=args.diff_keys.split(","),
-                        ensure_link=False,
-                        remove_url=False,
+                    simple,
+                    fields=args.diff_keys.split(","),
+                    ensure_link=False,
+                    remove_url=False,
                 )
                 data = select(
-                        data,
-                        fields=args.diff_keys.split(","),
-                        ensure_link=False,
-                        remove_url=False,
+                    data,
+                    fields=args.diff_keys.split(","),
+                    ensure_link=False,
+                    remove_url=False,
                 )
 
             diff = difflib.HtmlDiff(wrapcolumn=100).make_file(
-                simple.splitlines(keepends=True), data.splitlines(keepends=True), numlines=args.diff_numlines, context=args.diff_context,
+                simple.splitlines(keepends=True),
+                data.splitlines(keepends=True),
+                numlines=args.diff_numlines,
+                context=args.diff_context,
             )
 
             with open(args.diff, "w") as file:
