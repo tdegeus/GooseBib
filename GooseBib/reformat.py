@@ -45,7 +45,10 @@ def abbreviate_firstname(name: str, sep: str = " "):
     if len(name.split(",")) > 2:
         raise OSError(f'Unable to interpret name "{name}"')
 
-    if re.match(r"\w*\, \{.*\}\.", name):
+    if re.match(r"\w*\, \{\\\w\w\}\.", name):
+        return name
+
+    if re.match(r"\w*\, \\.\{\w\}\.", name):
         return name
 
     match = [
