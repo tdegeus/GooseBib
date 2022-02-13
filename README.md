@@ -7,7 +7,8 @@
     - [Using PyPi](#using-pypi)
     - [From source](#from-source)
 - [Overview](#overview)
-- [Zotero](#zotero)
+- [Tips](#tips)
+    - [Zotero](#zotero)
 
 <!-- /MarkdownTOC -->
 
@@ -72,12 +73,21 @@ Some simple command-line tools to clean-up BibTeX files. The following tools are
 
     Check that the "doi", "arxivid", and "url" of the entries are valid links (slow!). Note that this function only checks the links to be valid. It does not check if they refer to the correct reference.
 
-# Zotero
+# Tips
 
-```
+## Zotero
+
+[Better BibTeX](https://retorque.re/zotero-better-bibtex/) is a great tool to export BibTeX-files
+from Zetero.
+A tip to get even cleaner BibTeX-files is to add the following postscript code.
+
+```js
 if (Translator.BetterBibTeX) {
     if (reference.has.abstract) {
         reference.remove('abstract');
+    }
+    if (reference.has.note) {
+        reference.remove('note');
     }
     if (reference.has.month) {
         reference.remove('month');
@@ -91,14 +101,6 @@ if (Translator.BetterBibTeX) {
     if (item.arXiv.id) {
         reference.add({name: 'arxivid', value: item.arXiv.id});
         if (!reference.has.journal) {
-            reference.add({
-                name: 'journal',
-                bibtex: `{arXiv preprint: ${item.arXiv.id}}`
-            });
-        }
-        else {
-            const regex_a = /arxiv/i;
-            const regex_b = /preprint/i;
             reference.add({
                 name: 'journal',
                 bibtex: `{arXiv preprint: ${item.arXiv.id}}`
