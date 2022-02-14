@@ -92,11 +92,12 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
         order, indent = read_display_order(bibtex_str, kwargs.pop("tabsize", 2))
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
 
+        for key in order:
+            order[key] = list(map(self.alt_dict.get, order[key], order[key]))
+
         for entry in data.entries:
             entry["INDENT"] = " " * indent
-            display_order = order.get(entry["ID"], [])
-            if all([i in entry for i in display_order]):
-                entry["DISPLAY_ORDER"] = display_order
+            entry["DISPLAY_ORDER"] = order.get(entry["ID"], [])
 
         return data
 
