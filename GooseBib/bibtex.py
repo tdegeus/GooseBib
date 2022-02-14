@@ -75,6 +75,10 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
         self.indent = entry.pop("INDENT", " ")
         return bibtexparser.bwriter.BibTexWriter._entry_to_bibtex(self, entry)
 
+    def write(self, *args, **kwargs):
+        ret = bibtexparser.bwriter.BibTexWriter.write(self, *args, **kwargs)
+        return ret.rstrip() + "\n"
+
 
 class MyBibTexParser(bibtexparser.bparser.BibTexParser):
     """
