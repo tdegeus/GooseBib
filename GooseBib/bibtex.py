@@ -64,6 +64,12 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
     "DISPLAY_ORDER" to preserve the order of each item.
     """
 
+    def __init__(self, *args, **kwargs):
+        sort = kwargs.pop("sort_entries", False)
+        super().__init__(self, *args, **kwargs)
+        if not sort:
+            self.order_entries_by = []
+
     def _entry_to_bibtex(self, entry):
         self.display_order = entry.pop("DISPLAY_ORDER", [])
         self.indent = entry.pop("INDENT", " ")
@@ -275,7 +281,7 @@ def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
 
 @singledispatch
 def clean(
-    data,
+    data: bibtexparser.bibdatabase.BibDatabase,
     journal_type: str = "abbreviation",
     journal_database: list[str] = ["pnas", "physics", "mechanics"],
     sep_name: str = "",
@@ -285,7 +291,7 @@ def clean(
     rm_unicode: bool = True,
     rm_comment: bool = True,
     rm_string: bool = True,
-):
+) -> bibtexparser.bibdatabase.BibDatabase:
     r"""
     Clean a BibTeX database:
     *   Remove unnecessary fields (see :py:func:`GooseBib.bibtex.select`).
@@ -305,6 +311,7 @@ def clean(
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
     :param rm_comment: Remove @comment.
     :param rm_string: Remove @string (as it is interpreted by the parser).
+    :param sort_entries: Sort entries in output (only for string or file input).
     """
 
     data = unique(data, merge=True)
@@ -427,9 +434,9 @@ def clean(
 
 
 @clean.register(str)
-def _(data, *args, **kwargs):
+def _(data: str, *args, **kwargs) -> str:
 
-    writer = MyBibTexWriter()
+    writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
     parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
@@ -440,9 +447,9 @@ def _(data, *args, **kwargs):
 
 
 @clean.register(io.IOBase)
-def _(data, *args, **kwargs):
+def _(data: io.IOBase, *args, **kwargs) -> str:
 
-    writer = MyBibTexWriter()
+    writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
     parser = MyBibTexParser(
         homogenize_fields=True,
         ignore_nonstandard_types=True,
@@ -563,6 +570,9 @@ def GbibClean():
         --ignore-unicode
             Do not apply unicode fix.
 
+        --sort-entries
+            Sort output by entries.
+
         --diff=STR
             Write diff to HTML file which shows the old and the reformatted file side-by-side.
             See ``difflib.HtmlDiff.make_file``.
@@ -609,6 +619,7 @@ def GbibClean():
     parser = Parser()
     parser.add_argument("--arxiv", type=str)
     parser.add_argument("--author-sep", type=str, default="")
+    parser.add_argument("--sort-entries", action="store_true")
     parser.add_argument("--diff", type=str)
     parser.add_argument("--diff-type", type=str, default="select")
     parser.add_argument("--diff-keys", type=str)
@@ -693,6 +704,7 @@ def GbibClean():
             title=not args.no_title,
             protect_math=not args.ignore_math,
             rm_unicode=not args.ignore_unicode,
+            sort_entries=args.sort_entries,
         )
 
         if data != parse(data):
