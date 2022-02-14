@@ -20,11 +20,12 @@ from . import reformat
 from ._version import version
 
 
-def read_display_order(bibtex_str: str) -> (dict, int):
+def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
     """
     Read order of fields of all entries.
 
     :param bibtex_str: A BibTeX 'file'.
+    :param tabsize: Replace "\t" by a number of spaces.
     :return:
         A dictionary with a list of fields per key.
         The typical indentation.
@@ -53,7 +54,7 @@ def read_display_order(bibtex_str: str) -> (dict, int):
         key, data = components[3].split(",", 1)
         find = re.findall(r"([\n\t\ ]*)([\w\_\-]*)([\ ]?=)(.*)", data)
         ret[key] = [i[1] for i in find]
-        indent += [len("".join(i[0].splitlines())) for i in find]
+        indent += [len("".join(i[0].replace("\t", tabsize * " ").splitlines())) for i in find]
 
     return ret, int(np.ceil(np.mean(indent)))
 
@@ -88,7 +89,7 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
 
     def parse(self, bibtex_str, *args, **kwargs):
 
-        order, indent = read_display_order(bibtex_str)
+        order, indent = read_display_order(bibtex_str, kwargs.pop("tabsize", 2))
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
 
         for entry in data.entries:
