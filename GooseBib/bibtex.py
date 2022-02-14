@@ -777,7 +777,6 @@ def GbibShowAuthorRename():
 
     assert all([os.path.isfile(i) for i in args.files])
 
-    sources = args.files[:-1]
     source = ""
 
     for filepath in args.files:
