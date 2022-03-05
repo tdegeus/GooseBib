@@ -56,7 +56,12 @@ def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
         ret[key] = [i[1] for i in find]
         indent += [len("".join(i[0].replace("\t", tabsize * " ").splitlines())) for i in find]
 
-    return ret, int(np.ceil(np.mean(indent)))
+    if len(indent) == 0:
+        indent = 0
+    else:
+        indent = int(np.ceil(np.mean(indent)))
+
+    return ret, indent
 
 
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
