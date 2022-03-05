@@ -3,6 +3,7 @@
 [![ci](https://github.com/tdegeus/GooseBib/workflows/CI/badge.svg)](https://github.com/tdegeus/GooseBib/actions)
 [![pre-commit](https://github.com/tdegeus/GooseBib/workflows/pre-commit/badge.svg)](https://github.com/tdegeus/GooseBib/actions)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/goosebib.svg)](https://anaconda.org/conda-forge/goosebib)
 
 <!-- MarkdownTOC -->
 
