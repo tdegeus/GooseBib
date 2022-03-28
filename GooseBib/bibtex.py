@@ -372,9 +372,9 @@ def clean(
         # apply arXiv's doi
         if "arxivid" in entry:
             if "doi" not in entry:
-                entry["doi"] = "https://doi.org/10.48550/arXiv." + entry.pop("arxivid")
+                entry["doi"] = "10.48550/arXiv." + entry.pop("arxivid")
             elif entry["doi"] == "https://doi.org/10.48550/arXiv." + entry["arxivid"]:
-                del entry["arxiv"]
+                del entry["doi"]
 
         # fix author abbreviations
         for key in ["author", "editor"]:
@@ -488,12 +488,32 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
     :param journal_database: Database(s) with known arXiv variants.
     """
 
+    search = r"(" + re.escape("10.48550/arXiv.") + r")(.*)"
+    pattern = ["arxiv", "preprint", "submitted", "in preparation"]
+
     for entry in data.entries:
-        if "arxivid" in entry and "doi" not in entry:
-            if "journal" not in entry:
-                entry["journal"] = fmt.format(entry["arxivid"])
-            elif "arxiv" in entry["journal"].lower() or "preprint" in entry["journal"].lower():
-                entry["journal"] = fmt.format(entry["arxivid"])
+
+        if "doi" in entry:
+            if not re.match(search, entry["doi"]):
+                continue
+
+        if "arxivid" in entry:
+            arxivid = entry["arxivid"]
+        elif "doi" in entry:
+            arxivid = re.split(search, entry["doi"])
+            if len(arxivid) != 4:
+                continue
+            arxivid = arxivid[2]
+        else:
+            continue
+
+        if "journal" not in entry:
+            entry["journal"] = fmt.format(arxivid)
+        else:
+            for i in pattern:
+                if i in entry["journal"].lower():
+                    entry["journal"] = fmt.format(arxivid)
+                    break
 
     if len(journal_database) > 0:
 
@@ -507,8 +527,11 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
         mapping = {o: n for o, n in zip(revus, new)}
 
         for entry in data.entries:
-            if "journal" in mapping and "arxivid" in entry and "doi" not in entry:
-                entry["journal"] = fmt.format(entry["arxivid"])
+            if "journal" in mapping and "arxivid" in entry:
+                if "doi" in entry:
+                    if not re.match(search, entry["doi"]):
+                        continue
+                entry["journal"] = fmt.format(arxivid)
 
     return data
 
