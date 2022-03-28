@@ -370,9 +370,11 @@ def clean(
                 entry["arxivid"] = arxivid
 
         # apply arXiv's doi
-        if "doi" not in entry:
-            if "arxivid" in entry:
-                entry["doi"] = "https://doi.org/10.48550/arXiv." + entry["arxivid"]
+        if "arxivid" in entry:
+            if "doi" not in entry:
+                entry["doi"] = "https://doi.org/10.48550/arXiv." + entry.pop("arxivid")
+            elif entry["doi"] == "https://doi.org/10.48550/arXiv." + entry["arxivid"]:
+                del entry["arxiv"]
 
         # fix author abbreviations
         for key in ["author", "editor"]:
