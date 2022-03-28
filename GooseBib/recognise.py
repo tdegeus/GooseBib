@@ -73,6 +73,13 @@ def _(*args):
         ),
         (re.compile(r"(.*)(arxiv)([^:]*)([:]?)([\s]*)([^\s]*)(.*)", re.IGNORECASE), 6),
         (re.compile(r"([0-9]*\.[0-9]*[v]?[0-9]*)", re.IGNORECASE), 1),
+        (
+            re.compile(
+                r"(.*)(http)(s?)(://doi.org/10.48550/arXiv.)([^\s]*)(.*)",
+                re.IGNORECASE,
+            ),
+            5,
+        ),
     ]
 
     for regex, index in match:
@@ -92,7 +99,7 @@ def _(entry):
         if key in entry:
             return arxivid(entry[key])
 
-    return arxivid(*[val for key, val in entry.items() if key not in ["doi"]])
+    return arxivid(*[val for key, val in entry.items()])
 
 
 if __name__ == "__main__":
