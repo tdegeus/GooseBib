@@ -369,6 +369,11 @@ def clean(
             if arxivid:
                 entry["arxivid"] = arxivid
 
+        # apply arXiv's doi
+        if "doi" not in entry:
+            if "arxivid" in entry:
+                entry["doi"] = "https://doi.org/10.48550/arXiv." + entry["arxivid"]
+
         # fix author abbreviations
         for key in ["author", "editor"]:
             if key in entry:
