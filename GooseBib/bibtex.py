@@ -577,6 +577,10 @@ def GbibClean():
 
     :options:
 
+        -o, --output=STR
+            Specify output file. In this case all arguments are interpreted as input files
+            (i.e. also the last argument).
+
         -j, --journal-type=STR (title, abbreviation, acronym)
             Unify journal titles (if recognised).
             If "acronym" is selected, "abbreviation" is used for journals without an "acronym".
@@ -673,6 +677,7 @@ def GbibClean():
     parser.add_argument("--journal-sep", type=str, default="")
     parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
     parser.add_argument("--no-title", action="store_true")
+    parser.add_argument("-o", "--output", type=str)
     parser.add_argument("-f", "--force", action="store_true")
     parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
     parser.add_argument("-v", "--version", action="version", version=version)
@@ -683,6 +688,7 @@ def GbibClean():
 
     if args.in_place:
 
+        assert args.output is None
         assert not args.diff
         assert not args.force
 
@@ -692,11 +698,17 @@ def GbibClean():
 
     else:
 
-        if len(args.files) < 2:
-            raise OSError("Specify <input> and <output>")
+        if args.output is not None:
+            if len(args.files) < 1:
+                raise OSError("Specify <input>")
+            output = args.output
+            sources = args.files
+        else:
+            if len(args.files) < 2:
+                raise OSError("Specify <input> and <output>")
+            output = args.files[-1]
+            sources = args.files[:-1]
 
-        output = args.files[-1]
-        sources = args.files[:-1]
         source = ""
 
         if os.path.isdir(output):
