@@ -754,10 +754,13 @@ def GbibClean():
         if args.arxiv:
             data = format_journal_arxiv(data, args.arxiv)
 
+        if data == source:
+            return 0
+
         with open(outpath, "w") as file:
             file.write(data)
 
-        if args.diff:
+        if args.diff is not None:
 
             if args.diff_type.lower() == "raw":
                 simple = source
