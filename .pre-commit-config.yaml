@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/psf/black
-  rev: 22.1.0
+  rev: 22.3.0
   hooks:
   - id: black
     args: [--safe, --quiet, --line-length=100]
@@ -36,7 +36,7 @@ repos:
   - id: flake8
     args: ['--ignore=E722,W503', --max-line-length=100, '--per-file-ignores=*/__init__.py:F401']
 - repo: https://github.com/asottile/setup-cfg-fmt
-  rev: v1.20.0
+  rev: v1.20.1
   hooks:
   - id: setup-cfg-fmt
 # check docstrings
