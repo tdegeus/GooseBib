@@ -45,7 +45,8 @@ def _(*args):
             if re.match(regex, arg):
                 match = re.split(regex, arg)[index].strip()
                 if not re.match(r"(.*)([\s])(.*)", match):
-                    return match
+                    if len(match) > 0:
+                        return match
 
     return None
 
@@ -82,7 +83,6 @@ def _(*args):
             7,
         ),
         (re.compile(r"(.*)(arxiv)([^:]*)([:]?)([\s]*)([^\s]*)(.*)", re.IGNORECASE), 6),
-        (re.compile(r"([0-9]*\.[0-9]*[v]?[0-9]*)", re.IGNORECASE), 1),
         (
             re.compile(
                 r"(.*)(http)(s?)(://doi.org/10.48550/arXiv.)([^\s]*)(.*)",
@@ -90,6 +90,7 @@ def _(*args):
             ),
             5,
         ),
+        (re.compile(r"([0-9]*\.[0-9]*[v]?[0-9]*)", re.IGNORECASE), 1),
     ]
 
     for regex, index in match:
@@ -97,7 +98,8 @@ def _(*args):
             if re.match(regex, arg):
                 match = re.split(regex, arg)[index].strip()
                 if not re.match(r"(.*)([\s])(.*)", match):
-                    return match
+                    if len(match) > 0:
+                        return match
 
     return None
 

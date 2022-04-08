@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import subprocess
 import unittest
@@ -87,6 +88,36 @@ class Test_GooseBib(unittest.TestCase):
                     self.assertEqual("{" + str(d[key]) + "}", entry[key])
                 else:
                     self.assertEqual(str(d[key]), entry[key])
+
+        os.remove(output)
+
+    def test_missing_doi_arxiv(self):
+
+        source = os.path.join(dirname, "library_missing_doi_arxiv.bib")
+        output = os.path.join(dirname, "output.yaml")
+        data = os.path.join(dirname, "library.yaml")
+        subprocess.check_output(["GbibDiscover", "--arxiv", "-s", "-f", "-o", output, source])
+
+        with open(output) as file:
+            discover = yaml.load(file.read(), Loader=yaml.FullLoader)
+
+        with open(data) as file:
+            data = yaml.load(file.read(), Loader=yaml.FullLoader)
+
+        self.assertTrue("DeGeus2015a" in discover)
+        self.assertTrue("DeGeus2019" in discover)
+        self.assertEqual(len(discover), 2)
+        self.assertEqual(len(discover["DeGeus2015a"]), 1)
+        self.assertEqual(len(discover["DeGeus2019"]), 1)
+        self.assertEqual(len(discover["DeGeus2015a"]["doi"]), 1)
+        self.assertEqual(len(discover["DeGeus2019"]["arxivid"]), 1)
+        self.assertEqual(data["DeGeus2015a"]["doi"], discover["DeGeus2015a"]["doi"][0])
+        self.assertTrue(
+            re.match(
+                "(" + str(data["DeGeus2019"]["arxivid"]) + ")([v]?)([0-9]*)",
+                discover["DeGeus2019"]["arxivid"][0],
+            )
+        )
 
         os.remove(output)
 
