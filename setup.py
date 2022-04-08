@@ -15,6 +15,7 @@ setup(
     use_scm_version={"write_to": "GooseBib/_version.py"},
     setup_requires=["setuptools_scm"],
     install_requires=[
+        "arxiv",
         "bibtexparser",
         "click",
         "docopt",
@@ -22,6 +23,7 @@ setup(
         "numpy",
         "PyYAML",
         "requests",
+        "tqdm",
     ],
     entry_points={
         "console_scripts": [
@@ -34,6 +36,7 @@ setup(
             "GbibSelect = GooseBib.cli.GbibSelect:main",
             "GbibSelectAlias = GooseBib.cli.GbibSelectAlias:main",
             "GbibShowAuthorRename = GooseBib.bibtex:GbibShowAuthorRename",
+            "GbibDiscover = GooseBib.bibtex:GbibDiscover",
         ]
     },
 )

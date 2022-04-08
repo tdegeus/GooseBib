@@ -6,18 +6,53 @@ import os
 import re
 import textwrap
 import warnings
+from collections import defaultdict
 from collections import OrderedDict
 from functools import singledispatch
 from typing import Union
 
+import arxiv
 import bibtexparser
 import click
 import numpy as np
+import tqdm
+import yaml
 
 from . import journals
 from . import recognise
 from . import reformat
 from ._version import version
+
+
+def yaml_dump(filename, data, force=False):
+    r"""
+    Dump data to YAML file.
+
+    :type filename: str
+    :param filename: The output filename.
+
+    :type data: list, dict
+    :param data: The data to dump.
+
+    :type force: bool, optional
+    :param force: Do not prompt to overwrite file.
+    """
+
+    dirname = os.path.dirname(filename)
+
+    if not force:
+        if os.path.isfile(filename):
+            if not click.confirm(f'Overwrite "{filename:s}"?'):
+                raise OSError("Cancelled")
+        elif not os.path.isdir(dirname) and len(dirname) > 0:
+            if not click.confirm(f'Create "{os.path.dirname(filename):s}"?'):
+                raise OSError("Cancelled")
+
+    if not os.path.isdir(dirname) and len(dirname) > 0:
+        os.makedirs(os.path.dirname(filename))
+
+    with open(filename, "w") as file:
+        yaml.dump(data, file)
 
 
 def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
@@ -62,6 +97,70 @@ def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
         indent = int(np.ceil(np.mean(indent)))
 
     return ret, indent
+
+
+def get_doi(entry: dict) -> str:
+    """
+    Get the doi from an entry. Returns ``None`` if no doi was found.
+
+    :param entry: The bib-entry.
+    :return: The doi or ``None``.
+    """
+
+    if "doi" in entry:
+        return entry["doi"]
+
+    return recognise.doi(
+        *[
+            val
+            for key, val in entry.items()
+            if key not in ["arxivid", "eprint", "DISPLAY_ORDER", "INDENT"]
+        ]
+    )
+
+
+def get_arxivid(entry: dict) -> str:
+    """
+    Get the arxivid from an entry. Returns ``None`` if no arxivid was found.
+
+    :param entry: The bib-entry.
+    :return: The arxivid or ``None``.
+    """
+
+    if "arxivid" in entry:
+        return entry["arxivid"]
+
+    return recognise.arxivid(
+        *[val for key, val in entry.items() if key not in ["doi", "DISPLAY_ORDER", "INDENT"]]
+    )
+
+
+def get_identifiers(entry: dict) -> dict:
+    """
+    Get entry's identifiers.
+
+    :param entry: The bib-entry.
+    :return: The identifiers found.
+    """
+
+    ret = {}
+
+    doi = get_doi(entry)
+    arxivid = get_arxivid(entry)
+
+    if doi is not None:
+        if arxivid is None:
+            pattern = re.compile(r"(10.48550/arXiv.)([^\s]*)(.*)", re.IGNORECASE)
+            if re.match(pattern, doi):
+                arxivid = re.split(pattern, doi)[1].strip()
+
+    if doi is not None:
+        ret["doi"] = doi
+
+    if arxivid is not None:
+        ret["arxivid"] = arxivid
+
+    return ret
 
 
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
@@ -345,29 +444,11 @@ def clean(
         if "journal" in entry:
             revus.append(entry["journal"])
 
-        # find doi
-        if "doi" not in entry:
-            doi = recognise.doi(
-                *[
-                    val
-                    for key, val in entry.items()
-                    if key not in ["arxivid", "eprint", "DISPLAY_ORDER", "INDENT"]
-                ]
-            )
-            if doi:
-                entry["doi"] = doi
-
-        # find arXiv-id
-        if "arxivid" not in entry:
-            arxivid = recognise.arxivid(
-                *[
-                    val
-                    for key, val in entry.items()
-                    if key not in ["doi", "DISPLAY_ORDER", "INDENT"]
-                ]
-            )
-            if arxivid:
-                entry["arxivid"] = arxivid
+        # find identifiers
+        iden = get_identifiers(entry)
+        for key in iden:
+            if key not in entry:
+                entry[key] = iden[key]
 
         # apply arXiv's doi
         if "arxivid" in entry:
@@ -875,3 +956,121 @@ def GbibShowAuthorRename():
             file.write(diff)
     else:
         print(diff)
+
+
+def dbsearch_arxiv(
+    data: bibtexparser.bibdatabase.BibDatabase,
+    silent: bool = False,
+) -> dict:
+    """
+    Check online databases (can be slow!).
+    :param silent: Hide status bar.
+    :return: Dictionary with discovered items.
+    """
+
+    output = defaultdict(lambda: defaultdict(list))
+
+    # find arxivid based on journal doi
+
+    for entry in tqdm.tqdm(data.entries, disable=silent):
+        iden = get_identifiers(entry)
+        if "arxivid" in iden:
+            continue
+        if "doi" not in iden:
+            continue
+        doi = iden["doi"]
+        ret = []
+        for result in arxiv.Search(query=f'"{doi}"').results():
+            ret.append(re.sub(r"(http)(s?)(://arxiv.org/abs/)(.*)", r"\4", result.entry_id))
+        for i in ret:
+            output[entry["ID"]]["arxivid"].append(i)
+
+    # arXiv preprint: check if journal id is present
+    # possible optimisation: can be made faster to bluntly skip all entries that have a doi
+
+    for entry in tqdm.tqdm(data.entries, disable=silent):
+        iden = get_identifiers(entry)
+        if "arxivid" not in iden:
+            continue
+        ret = []
+        for result in arxiv.Search(id_list=[iden["arxivid"]]).results():
+            ret.append(result.doi)
+        if "doi" in iden:
+            ret = [i for i in ret if i != iden["doi"]]
+        for i in ret:
+            output[entry["ID"]]["doi"].append(i)
+
+    for key in output:
+        output[key] = dict(output[key])
+
+    return dict(output)
+
+
+def GbibDiscover():
+    """
+    Check online databases (can be slow!).
+
+    :usage:
+
+        GbibDiscover [options] -o STR <input>...
+
+    :arguments:
+
+        <input>
+            Input BibTeX-file(s).
+
+    :options:
+
+        -o, --output=STR
+            Specify output file.
+
+        -s, --silent
+            Run without status bars.
+
+        -f, --force
+            Force overwrite output file.
+
+        --arxiv
+            Check arXiv as follows:
+            1.  If the item is an arXiv preprint: check if a journal doi was registered at arXiv.
+            2.  If the item is a journal article: try to find the arxivid based on the journal doi.
+    """
+
+    funcname = inspect.getframeinfo(inspect.currentframe()).function
+    doc = textwrap.dedent(inspect.getdoc(globals()[funcname]))
+
+    class Parser(argparse.ArgumentParser):
+        def print_help(self):
+            print(doc)
+
+    parser = Parser()
+    parser.add_argument("--arxiv", action="store_true")
+    parser.add_argument("-o", "--output", required=True, type=str)
+    parser.add_argument("-f", "--force", action="store_true")
+    parser.add_argument("-s", "--silent", action="store_true")
+    parser.add_argument("files", nargs="*", type=str)
+    args = parser.parse_args()
+
+    source = ""
+
+    for filepath in args.files:
+        if not os.path.isfile(filepath):
+            raise OSError(f'"{filepath}" does not exist')
+        with open(filepath) as file:
+            source += file.read()
+
+    parser = MyBibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
+    )
+
+    data = parser.parse(source)
+    output = {}
+
+    if args.arxiv:
+        output = dbsearch_arxiv(data, silent=args.silent)
+
+    if len(output) > 0:
+        yaml_dump(args.output, output, force=args.force)
