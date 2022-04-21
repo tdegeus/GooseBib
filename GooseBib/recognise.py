@@ -32,6 +32,12 @@ def _(*args):
             ),
             7,
         ),
+        (
+            re.compile(
+                r"(.*)(http)(s?)(://www.annualreviews.org/doi/abs/)([^\s]*)(.*)", re.IGNORECASE
+            ),
+            5,
+        ),
     ]
 
     for regex, index in match:
