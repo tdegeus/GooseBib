@@ -23,9 +23,7 @@ def _(*args):
         (re.compile(r"(.*)(doi/abs/)([^\s]*)(.*)", re.IGNORECASE), 3),
         (re.compile(r"(.*)(doi)([^0-9]*)([^\s]*)(.*)", re.IGNORECASE), 4),
         (
-            re.compile(
-                r"(.*)(http)(s?)(://link.aps.org/doi/)([^\s]*)(.*)", re.IGNORECASE
-            ),
+            re.compile(r"(.*)(http)(s?)(://link.aps.org/doi/)([^\s]*)(.*)", re.IGNORECASE),
             5,
         ),
         (
