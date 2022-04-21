@@ -15,6 +15,8 @@ class Test_recognise(unittest.TestCase):
         self.assertEqual(doi, bib.recognise.doi(f"https://dx.doi.org/{doi}"))
         self.assertEqual(doi, bib.recognise.doi(*[f"https://doi.org/{doi}"]))
         self.assertEqual(doi, bib.recognise.doi(dict(doi=f"https://doi.org/{doi}")))
+        self.assertEqual(doi, bib.recognise.doi(dict(doi=f"https://journals.aps.org/pre/abstract/{doi}")))
+        self.assertEqual(doi, bib.recognise.doi(dict(doi=f"https://link.aps.org/doi/{doi}")))
 
         self.assertEqual(doi, bib.recognise.doi(f"doi: {doi}"))
         self.assertEqual(doi, bib.recognise.doi(f"doi:{doi}"))
