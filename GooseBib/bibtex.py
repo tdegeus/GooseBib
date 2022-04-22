@@ -779,26 +779,18 @@ def GbibClean():
 
     else:
 
-        if args.output is not None:
-            if len(args.files) < 1:
-                raise OSError("Specify <input>")
-            output = args.output
-            sources = args.files
-        else:
-            if len(args.files) < 2:
-                raise OSError("Specify <input> and <output>")
-            output = args.files[-1]
-            sources = args.files[:-1]
+        if args.output is None:
+            raise OSError("Specify --output STR")
 
         source = ""
 
-        if os.path.isdir(output):
-            output = os.path.join(output, os.path.split(sources[0])[-1])
+        if os.path.isdir(args.output):
+            args.output = os.path.join(args.output, os.path.split(args.files[0])[-1])
 
         sourcepaths = [None]
-        outpaths = [output]
+        outpaths = [args.output]
 
-        for filepath in sources:
+        for filepath in args.files:
             if not os.path.isfile(filepath):
                 raise OSError(f'"{filepath}" does not exist')
             with open(filepath) as file:
