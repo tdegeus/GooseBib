@@ -46,7 +46,7 @@ class Test_GooseBib(unittest.TestCase):
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
-        subprocess.check_output(["GbibClean", "-f", source, output])
+        subprocess.check_output(["GbibClean", "-f", "-o", output, source])
 
         with open(output) as file:
             bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
@@ -71,7 +71,7 @@ class Test_GooseBib(unittest.TestCase):
         source = os.path.join(dirname, "library_hidden_doi_arxiv.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
-        subprocess.check_output(["GbibClean", "-f", source, output])
+        subprocess.check_output(["GbibClean", "-f", "-o", output, source])
 
         with open(output) as file:
             bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
@@ -127,7 +127,7 @@ class Test_GooseBib(unittest.TestCase):
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library_arxiv_preprint.yaml")
         subprocess.check_output(
-            ["GbibClean", "-f", "--arxiv", "arXiv preprint: {}", source, output]
+            ["GbibClean", "-f", "--arxiv", "arXiv preprint: {}", "-o", output, source]
         )
 
         with open(output) as file:
@@ -153,7 +153,7 @@ class Test_GooseBib(unittest.TestCase):
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
-        subprocess.check_output(["GbibClean", "-f", "--author-sep", " ", source, output])
+        subprocess.check_output(["GbibClean", "-f", "--author-sep", " ", "-o", output, source])
 
         with open(output) as file:
             bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
@@ -183,7 +183,7 @@ class Test_GooseBib(unittest.TestCase):
 
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
-        subprocess.check_output(["GbibClean", "-f", "--no-title", source, output])
+        subprocess.check_output(["GbibClean", "-f", "--no-title", "-o", output, source])
 
         with open(output) as file:
             bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
@@ -218,7 +218,7 @@ class Test_GooseBib(unittest.TestCase):
             source = os.path.join(dirname, "library_mendeley.bib")
             output = os.path.join(dirname, "output.bib")
             data = os.path.join(dirname, "library.yaml")
-            subprocess.check_output(["GbibClean", "-f", "-j", key, source, output])
+            subprocess.check_output(["GbibClean", "-f", "-j", key, "-o", output, source])
 
             with open(output) as file:
                 bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
