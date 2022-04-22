@@ -781,12 +781,10 @@ def GbibClean():
 
         if args.output is None:
             raise OSError("Specify --output STR")
+        if os.path.isdir(args.output):
+            raise OSError("--output cannot be a directory name")
 
         source = ""
-
-        if os.path.isdir(args.output):
-            args.output = os.path.join(args.output, os.path.split(args.files[0])[-1])
-
         sourcepaths = [None]
         outpaths = [args.output]
 
