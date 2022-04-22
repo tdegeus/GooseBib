@@ -1,4 +1,5 @@
 [![ci](https://github.com/tdegeus/GooseBib/workflows/CI/badge.svg)](https://github.com/tdegeus/GooseBib/actions)
+[![Documentation Status](https://readthedocs.org/projects/goosebib/badge/?version=latest)](https://goosebib.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit](https://github.com/tdegeus/GooseBib/workflows/pre-commit/badge.svg)](https://github.com/tdegeus/GooseBib/actions)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/goosebib.svg)](https://anaconda.org/conda-forge/goosebib)
@@ -7,7 +8,10 @@
 
 <!-- MarkdownTOC -->
 
-- [Overview](#overview)
+- [Usage](#usage)
+    - [pre-commit](#pre-commit)
+    - [From the command-line](#from-the-command-line)
+    - [From Python](#from-python)
 - [Disclaimer](#disclaimer)
 - [Getting GooseBib](#getting-goosebib)
     - [Using conda](#using-conda)
@@ -16,19 +20,38 @@
 
 <!-- /MarkdownTOC -->
 
-# Overview
+# Usage
 
 Clean-up and correct BibTeX files.
-From the command-line you can use:
 
-*   `GbibClean`:
+## pre-commit
+
+For example:
+
+```yaml
+repos:
+- repo: https://github.com/tdegeus/GooseBib
+  rev: v0.6.0
+  hooks:
+  - id: GbibClean
+    args: ['--arxiv=arXiv preprint: {}']
+
+```
+
+## From the command-line
+
+*   [`GbibClean`](https://goosebib.readthedocs.io/en/latest/tools.html#GbibClean)
     Clean-up a BibTeX file, removing it from unnecessary fields and applying several fixes,
     including abbreviating authors.
 
-*   `GbibDiscover`:
+*   [`GbibDiscover`](https://goosebib.readthedocs.io/en/latest/tools.html#GbibDiscover)
     Check online databases to see if entries in a BibTeX file went out-to-data.
 
-**Documentation: [https://goosebib.readthedocs.io](goosebib.readthedocs.io)**
+## From Python
+
+All of these tools wrap around a
+[Python module](https://texplain.readthedocs.io/en/latest/module.html)
+that you can use just as well!
 
 # Disclaimer
 
@@ -60,7 +83,7 @@ conda install -c conda-forge goosebib
 ## Using PyPi
 
 ```bash
-pip install GooseBib
+python -m pip install GooseBib
 ```
 
 ## From source
