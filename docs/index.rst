@@ -1,7 +1,3 @@
-********
-GooseBib
-********
-
 .. note::
 
   This library is free to use under the
@@ -28,6 +24,7 @@ Contents
    :maxdepth: 1
 
    install.rst
+   usage.rst
    tools.rst
    module.rst
    zotero.rst

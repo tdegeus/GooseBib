@@ -11,7 +11,13 @@ author = "Tom de Geus"
 
 # General configuration
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.autosummary", "sphinx.ext.todo", "sphinxarg.ext"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.todo",
+    "sphinxarg.ext",
+    "sphinx.ext.autosectionlabel",
+]
 
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
