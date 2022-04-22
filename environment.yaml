@@ -1,6 +1,7 @@
 channels:
 - conda-forge
 dependencies:
+- arxiv
 - bibtexparser
 - click
 - docopt
@@ -10,3 +11,4 @@ dependencies:
 - pyyaml
 - requests
 - setuptools_scm
+- tqdm
