@@ -3,7 +3,7 @@ from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
-project_name = "texplain"
+project_name = "GooseBib"
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
