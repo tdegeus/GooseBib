@@ -284,7 +284,7 @@ def select(
         The BibTeX database (file, string, or bibtexparser instance).
 
     :param fields:
-        Fields to keep per entry type (default from :py:fund:`selection`).
+        Fields to keep per entry type (default from :py:func:`selection`).
         If a list is specified all entry types are treated the same.
 
     :param ensure_link:
@@ -408,8 +408,7 @@ def clean(
     *   Unify the formatting of authors (see :py:func:`GooseBib.reformat.abbreviate_firstname`).
     *   Ensure proper math formatting (see :py:func:`GooseBib.reformat.protect_math`).
     *   Convert unicode to TeX (see :py:func:`GooseBib.reformat.rm_unicode`).
-    *   Fill digital identifier if it is not present by can be found from a different field
-        (see :py:func:`GooseBib.recognise.doi` and :py:func:`GooseBib.recognise.arxivid`).
+    *   Fill digital identifier if it is not present by can be found from a different field.
 
     :param data: The BibTeX database (file, string, or bibtexparser instance).
     :param journal_type: Use journal: "title", "abbreviation", or "acronym".
@@ -633,136 +632,205 @@ def _(data, *args, **kwargs):
     return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs))
 
 
-def GbibClean():
-    r"""
-    Clean a BibTeX database, stripping it from unnecessary fields,
-    unifying the formatting of authors,
-    and ensuring the proper special characters and math mode settings.
-    This script preserves order to help tracking changes.
+def _GbibClean_parser():
+    """
+    Return parser for :py:func:`GbibClean`.
+    """
 
-    :usage:
+    class BlankLinesHelpFormatter(argparse.RawTextHelpFormatter):
+        def _split_lines(self, text, width):
+            return super()._split_lines(text, width) + [""]
 
-        GbibClean [options] <input>... <output>
+    parser = argparse.ArgumentParser(
+        formatter_class=BlankLinesHelpFormatter,
+        description=textwrap.dedent(
+            """\
+            Clean a BibTeX database:
+            *   Stripping it from unnecessary fields.
+            *   Unifying the formatting of authors.
+            *   Ensuring the proper special characters and math mode settings.
+            *   Removing duplicates.
+            *   Finding/unifying arxivid and doi.
 
-    :arguments:
+            This script preserves order to help tracking changes.
+            """
+        ),
+    )
 
-        <input>
-            Input BibTeX-file(s).
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=str,
+        help="Output file (required unless ``--in-place`` is used).",
+    )
 
-        <output>
-            Output file.
-            If ``<output>`` is a directory, it is appended with the (first) filename of ``<input>``.
-            Multiple input files are combined to a single output file, in every way they are
-            considered as concatenated.
-            See ``--in-place`` for different behaviour.
+    parser.add_argument(
+        "--in-place",
+        action="store_true",
+        help="If specified, each input file is separately treated and formatted in-place.",
+    )
 
-    :options:
-
-        -o, --output=STR
-            Specify output file. In this case all arguments are interpreted as input files
-            (i.e. also the last argument).
-
-        -j, --journal-type=STR (title, abbreviation, acronym)
+    parser.add_argument(
+        "-j",
+        "--journal-type",
+        type=str,
+        default="abbreviation",
+        help=textwrap.dedent(
+            """\
             Unify journal titles (if recognised).
             If "acronym" is selected, "abbreviation" is used for journals without an "acronym".
-            Default: abbreviation.
+            """
+        ),
+    )
 
-        --journals=STR (physics, mechanics, arxiv, pnas, pnas-usa, ...)
+    parser.add_argument(
+        "--journals",
+        type=str,
+        default="pnas,physics,mechanics",
+        help=textwrap.dedent(
+            """\
             Database(s) with official journal names, abbreviations, and acronyms.
             To make no modifications to journals use ``--journal=""``.
-            Default: "pnas,physics,mechanics".
+            """
+        ),
+    )
 
-        --arxiv=STR
+    parser.add_argument(
+        "--arxiv",
+        type=str,
+        help=textwrap.dedent(
+            """\
             Format arXiv preprints using a specific formatter.
             Use "{}" in the formatter to include the arxivid, e.g.: "arXiv preprint {}".
+            """
+        ),
+    )
 
-        --no-title
-            Remove title from BibTeX file.
+    parser.add_argument(
+        "--no-title",
+        action="store_true",
+        help="Remove title from BibTeX file.",
+    )
 
-        --author-sep=STR
-            Character to separate authors' initials.
-            Default: "".
+    parser.add_argument(
+        "--author-sep",
+        type=str,
+        default="",
+        help="Character to separate authors' initials.",
+    )
 
-        --journal-sep=<str>
-            Separate journal abbreviations by ".{sep} "
-            Default: "".
+    parser.add_argument(
+        "--journal-sep",
+        type=str,
+        default="",
+        help="Character to separate journal abbreviations.",
+    )
 
-        --ignore-case
-            Do not protect case of title.
+    parser.add_argument(
+        "--ignore-case",
+        action="store_true",
+        help="Do apply case protection of title.",
+    )
 
-        --ignore-math
-            Do not apply math-mode fix.
+    parser.add_argument(
+        "--ignore-math",
+        action="store_true",
+        help="Do not apply math-mode fix.",
+    )
 
-        --ignore-unicode
-            Do not apply unicode fix.
+    parser.add_argument(
+        "--ignore-unicode",
+        action="store_true",
+        help="Do not apply unicode fix.",
+    )
 
-        --sort-entries
-            Sort output by entries.
+    parser.add_argument(
+        "--sort-entries",
+        action="store_true",
+        help="Sort output by entries.",
+    )
 
-        --diff=STR
+    parser.add_argument(
+        "--diff",
+        type=str,
+        help=textwrap.dedent(
+            """\
             Write diff to HTML file which shows the old and the reformatted file side-by-side.
             See ``difflib.HtmlDiff.make_file``.
+            """
+        ),
+    )
 
-        --diff-context=BOOL
-            Show contextual differences.
-            See ``difflib.HtmlDiff.make_file``.
+    parser.add_argument(
+        "--diff-context",
+        type=bool,
+        default=False,
+        help="Show contextual differences. See ``difflib.HtmlDiff.make_file``.",
+    )
 
-        --diff-numlines=BOOL
-            Controls the number of context lines which surround the difference highlights.
+    parser.add_argument(
+        "--diff-numlines",
+        type=int,
+        default=5,
+        help="Controls the number of context lines which surround the difference highlights.",
+    )
 
-        --diff-type=STR (raw, plain, all, select)
+    parser.add_argument(
+        "--diff-type",
+        type=str,
+        default="select",
+        help=textwrap.dedent(
+            """\
             Show difference between ``<output>`` and compared to ``<input>`` that is:
             *   raw: not parsed at all (can lead to a mess because of sorting).
             *   plain: parsed as little as possible.
             *   select: parsed as little as possible, but with only selected output fields.
-            Default: select.
+            """
+        ),
+    )
 
-        --diff-keys=STR
-            Limit diff to certain keys separated by spaces (e.g. "author,journal,doi").
+    parser.add_argument(
+        "--diff-keys",
+        type=str,
+        help='Limit diff to certain keys separated by spaces (e.g. "author,journal,doi").',
+    )
 
-        --in-place
-            If specified, each input file is separately treated and formatted in-place.
+    parser.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        help="Force overwrite of existing output file.",
+    )
 
-        -f, --force
-            Force overwrite of existing files.
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version=version,
+    )
 
-        -v, --version
-            Show version.
+    parser.add_argument(
+        "files",
+        nargs="*",
+        type=str,
+        help=textwrap.dedent(
+            """\
+            Input files.
+            If using ``--in-place`` files are treated separately.
+            Otherwise they are merged to single output file.
+            """
+        ),
+    )
 
-        -h, --help
-            Show help.
+    return parser
 
-    (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
+
+def GbibClean():
+    """
+    Command-line tool to clean a BibTeX database, see ``--help``.
     """
 
-    funcname = inspect.getframeinfo(inspect.currentframe()).function
-    doc = textwrap.dedent(inspect.getdoc(globals()[funcname]))
-
-    class Parser(argparse.ArgumentParser):
-        def print_help(self):
-            print(doc)
-
-    parser = Parser()
-    parser.add_argument("--arxiv", type=str)
-    parser.add_argument("--author-sep", type=str, default="")
-    parser.add_argument("--sort-entries", action="store_true")
-    parser.add_argument("--diff", type=str)
-    parser.add_argument("--diff-type", type=str, default="select")
-    parser.add_argument("--diff-keys", type=str)
-    parser.add_argument("--diff-context", type=bool, default=False)
-    parser.add_argument("--diff-numlines", type=int, default=5)
-    parser.add_argument("--ignore-case", action="store_true")
-    parser.add_argument("--ignore-math", action="store_true")
-    parser.add_argument("--ignore-unicode", action="store_true")
-    parser.add_argument("--in-place", action="store_true")
-    parser.add_argument("--journal-sep", type=str, default="")
-    parser.add_argument("--journals", type=str, default="pnas,physics,mechanics")
-    parser.add_argument("--no-title", action="store_true")
-    parser.add_argument("-o", "--output", type=str)
-    parser.add_argument("-f", "--force", action="store_true")
-    parser.add_argument("-j", "--journal-type", type=str, default="abbreviation")
-    parser.add_argument("-v", "--version", action="version", version=version)
-    parser.add_argument("files", nargs="*", type=str)
+    parser = _GbibClean_parser()
     args = parser.parse_args()
 
     # read input/output filepaths
@@ -996,49 +1064,72 @@ def dbsearch_arxiv(
     return dict(output)
 
 
+def _GbibDiscover_parser():
+    """
+    Return parser for :py:func:`GbibDiscover`.
+    """
+
+    class BlankLinesHelpFormatter(argparse.RawTextHelpFormatter):
+        def _split_lines(self, text, width):
+            return super()._split_lines(text, width) + [""]
+
+    parser = argparse.ArgumentParser(
+        formatter_class=BlankLinesHelpFormatter,
+        description="Check online databases (can be slow!).",
+    )
+
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        type=str,
+        help="Output file (yaml).",
+    )
+
+    parser.add_argument(
+        "--arxiv",
+        action="store_true",
+        help=textwrap.dedent(
+            """\
+            Check arXiv as follows:
+
+            1.  If the item is an arXiv preprint: check if a journal doi was registered at arXiv.
+
+            2.  If the item is a journal article: try to find the arxivid based on the journal doi.
+            """
+        ),
+    )
+
+    parser.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        help="Force overwrite output file.",
+    )
+
+    parser.add_argument(
+        "-s",
+        "--silent",
+        action="store_true",
+        help="Run without status bars.",
+    )
+
+    parser.add_argument(
+        "files",
+        nargs="*",
+        type=str,
+        help="Bib-file(s) considered concatenated if more files are specified.",
+    )
+
+    return parser
+
+
 def GbibDiscover():
     """
-    Check online databases (can be slow!).
-
-    :usage:
-
-        GbibDiscover [options] -o STR <input>...
-
-    :arguments:
-
-        <input>
-            Input BibTeX-file(s).
-
-    :options:
-
-        -o, --output=STR
-            Specify output file.
-
-        -s, --silent
-            Run without status bars.
-
-        -f, --force
-            Force overwrite output file.
-
-        --arxiv
-            Check arXiv as follows:
-            1.  If the item is an arXiv preprint: check if a journal doi was registered at arXiv.
-            2.  If the item is a journal article: try to find the arxivid based on the journal doi.
+    Command-line tool to compare a BibTeX database for online databases, see ``--help``.
     """
 
-    funcname = inspect.getframeinfo(inspect.currentframe()).function
-    doc = textwrap.dedent(inspect.getdoc(globals()[funcname]))
-
-    class Parser(argparse.ArgumentParser):
-        def print_help(self):
-            print(doc)
-
-    parser = Parser()
-    parser.add_argument("--arxiv", action="store_true")
-    parser.add_argument("-o", "--output", required=True, type=str)
-    parser.add_argument("-f", "--force", action="store_true")
-    parser.add_argument("-s", "--silent", action="store_true")
-    parser.add_argument("files", nargs="*", type=str)
+    parser = _GbibDiscover_parser()
     args = parser.parse_args()
 
     source = ""
