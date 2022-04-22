@@ -1115,6 +1115,13 @@ def _GbibDiscover_parser():
     )
 
     parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version=version,
+    )
+
+    parser.add_argument(
         "files",
         nargs="*",
         type=str,
