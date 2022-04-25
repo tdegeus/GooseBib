@@ -275,16 +275,16 @@ def selection(use_bibtexparser: bool = False):
 
 @singledispatch
 def select(
-    data,
+    data: list[dict],
     fields: Union[dict[list[str]], list[str]] = None,
     ensure_link: bool = True,
     remove_url: bool = True,
-):
+) -> list[dict]:
     """
     Remove unnecessary fields for BibTex file.
 
     :param data:
-        The BibTeX database (file, string, or bibtexparser instance).
+        The BibTeX database.
 
     :param fields:
         Fields to keep per entry type (default from :py:func:`selection`).
@@ -302,12 +302,12 @@ def select(
 
     if isinstance(fields, list):
         ret = {}
-        for entry in data.entries:
+        for entry in data:
             if entry["ENTRYTYPE"] not in ret:
                 ret[entry["ENTRYTYPE"]] = ["ID", "ENTRYTYPE", "DISPLAY_ORDER", "INDENT"] + fields
         fields = ret
 
-    for entry in data.entries:
+    for entry in data:
 
         select = fields[entry["ENTRYTYPE"]]
 
@@ -327,8 +327,14 @@ def select(
     return data
 
 
+@select.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+    data.entries = select(data.entries, *args, **kwargs)
+    return data
+
+
 @select.register(str)
-def _(data, *args, **kwargs):
+def _(data, *args, **kwargs) -> str:
 
     writer = MyBibTexWriter()
     parser = MyBibTexParser(
@@ -354,7 +360,8 @@ def _(data, *args, **kwargs):
     return writer.write(select(parser.parse(data), *args, **kwargs))
 
 
-def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
+@singledispatch
+def unique(data: list[dict], merge: bool = True) -> list[dict]:
     """
     Remove duplicate keys.
     :param data: The BibTeX database.
@@ -362,7 +369,7 @@ def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
     :return: The BibTeX database.
     """
 
-    keys = [entry["ID"] for entry in data.entries]
+    keys = [entry["ID"] for entry in data]
     _, ifoward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
 
     if ifoward.size == len(keys):
@@ -373,18 +380,18 @@ def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
     old = index[index != renum]
     new = renum[index != renum]
 
-    entries = [data.entries[i] for i in ifoward]
+    entries = [data[i] for i in ifoward]
     merged = []
 
     for o, n in zip(old, new):
-        merged.append(data.entries[o]["ID"])
+        merged.append(data[o]["ID"])
         if merge:
-            for key in data.entries[o]:
-                if key not in data.entries[n]:
-                    entries[n][key] = data.entries[o][key]
+            for key in data[o]:
+                if key not in data[n]:
+                    entries[n][key] = data[o][key]
 
     sorter = np.argsort(ifoward)
-    data.entries = [entries[i] for i in sorter]
+    data = [entries[i] for i in sorter]
 
     merged = "- " + "\n- ".join([str(i) for i in np.unique(merged)])
     warnings.warn(f"Merging duplicates, please check:\n{merged}", Warning)
@@ -392,9 +399,15 @@ def unique(data: bibtexparser.bibdatabase.BibDatabase, merge: bool = True):
     return data
 
 
+@select.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+    data.entries = unique(data.entries, *args, **kwargs)
+    return data
+
+
 @singledispatch
 def clean(
-    data: bibtexparser.bibdatabase.BibDatabase,
+    data: list[dict],
     journal_type: str = "abbreviation",
     journal_database: list[str] = ["pnas", "physics", "mechanics"],
     sep_name: str = "",
@@ -402,9 +415,7 @@ def clean(
     title: bool = True,
     protect_math: bool = True,
     rm_unicode: bool = True,
-    rm_comment: bool = True,
-    rm_string: bool = True,
-) -> bibtexparser.bibdatabase.BibDatabase:
+) -> list[dict]:
     r"""
     Clean a BibTeX database:
     *   Remove unnecessary fields (see :py:func:`GooseBib.bibtex.select`).
@@ -421,18 +432,12 @@ def clean(
     :param title: Include title of relevant fields.
     :param protect_math: Apply fix of :py:func:`reformat.protect_math`.
     :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
-    :param rm_comment: Remove @comment.
-    :param rm_string: Remove @string (as it is interpreted by the parser).
     :param sort_entries: Sort entries in output (only for string or file input).
+    :param rm_comment: Input ``bibtexparser.bibdatabase.BibDatabase``: Remove @comment (``True``).
+    :param rm_string: Input ``bibtexparser.bibdatabase.BibDatabase``: Remove @string (``True``).
     """
 
     data = unique(data, merge=True)
-
-    if rm_comment:
-        data.comments = []
-
-    if rm_string:
-        data.strings = OrderedDict()
 
     journal_type = journal_type.lower()
     journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
@@ -440,7 +445,7 @@ def clean(
     revus = []
     ignored_authors = []
 
-    for entry in data.entries:
+    for entry in data:
 
         # prepare journal rename
         if "journal" in entry:
@@ -525,13 +530,26 @@ def clean(
 
         mapping = {o: n for o, n in zip(revus, new)}
 
-        for entry in data.entries:
+        for entry in data:
             if "journal" in entry:
                 entry["journal"] = mapping[entry["journal"]]
 
     # return selection of fields
 
     return select(data, fields=selection(use_bibtexparser=True))
+
+
+@clean.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+
+    if kwargs.pop("rm_comment", True):
+        data.comments = []
+
+    if kwargs.pop("rm_string", True):
+        data.strings = OrderedDict()
+
+    data.entries = clean(data.entries, *args, **kwargs)
+    return data
 
 
 @clean.register(str)
@@ -561,7 +579,9 @@ def _(data: io.IOBase, *args, **kwargs) -> str:
 
 
 @singledispatch
-def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]):
+def format_journal_arxiv(
+    data: list[dict], fmt: str, journal_database: list[str] = ["arxiv"]
+) -> list[dict]:
     """
     Format the journal entry for arXiv preprints.
     Use "{}" in the formatter to include the arxivid.
@@ -574,7 +594,7 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
     search = r"(" + re.escape("10.48550/arXiv.") + r")(.*)"
     pattern = ["arxiv", "preprint", "submitted", "in preparation"]
 
-    for entry in data.entries:
+    for entry in data:
 
         if "doi" in entry:
             if not re.match(search, entry["doi"]):
@@ -601,7 +621,7 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
     if len(journal_database) > 0:
 
         revus = []
-        for entry in data.entries:
+        for entry in data:
             if "journal" in entry:
                 revus.append(entry["journal"])
 
@@ -609,13 +629,20 @@ def format_journal_arxiv(data, fmt: str, journal_database: list[str] = ["arxiv"]
         new = db.map2name(revus)
         mapping = {o: n for o, n in zip(revus, new)}
 
-        for entry in data.entries:
+        for entry in data:
             if "journal" in mapping and "arxivid" in entry:
                 if "doi" in entry:
                     if not re.match(search, entry["doi"]):
                         continue
                 entry["journal"] = fmt.format(arxivid)
 
+    return data
+
+
+@format_journal_arxiv.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+
+    data.entries = format_journal_arxiv(data.entries, *args, **kwargs)
     return data
 
 
