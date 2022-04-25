@@ -167,6 +167,9 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
     """
     Overload of ``bibtexparser.bwriter.BibTexWriter`` acting on an extra internal field
     "DISPLAY_ORDER" to preserve the order of each item.
+    In addition, that is an extra parameter ``sort_entries`` that:
+    *   ``False`` (default): no sorting of entries.
+    *   ``True``: default sorting of entries.
     """
 
     def __init__(self, *args, **kwargs):
