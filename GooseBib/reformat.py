@@ -1,3 +1,6 @@
+"""
+Automatic formatting.
+"""
 import re
 
 from bibtexparser.latexenc import latex_to_unicode
@@ -18,7 +21,7 @@ def _subr(regex, sub, text):
     return text
 
 
-def remove_wrapping_braces(string: str):
+def remove_wrapping_braces(string: str) -> str:
     """
     Remove wrapping "{...}".
     :param string: A string.
@@ -27,14 +30,16 @@ def remove_wrapping_braces(string: str):
     return _subr(r"(\{)(.*)(\})", r"\2", string)
 
 
-def abbreviate_firstname(name: str, sep: str = " "):
+def abbreviate_firstname(name: str, sep: str = " ") -> str:
     """
-    Reformat a name such that first names are abbreviated to initials, for example::
+    Abbreviate first name(s) to initials.
+
+    For example::
 
         de Geus, Thomas Willem Jan ->
         de Geus, T. W. J.
 
-    :param name: The name formatted as "Lastname, firstname otherfirstname"
+    :param name: The name formatted as "Lastname, firstname secondname ...".
     :param sep: Separator to place between initials.
     :return: Formatted name.
     """
@@ -66,12 +71,18 @@ def abbreviate_firstname(name: str, sep: str = " "):
     return last + ", " + sep.join([rm_unicode(i) for i in names]).upper()
 
 
-def name2key(name: str):
+def name2key(name: str) -> str:
     """
-    Extract last name:
-    - Without accents.
-    - Without spaces.
-    - Starting with a capital letter.
+    Return last name as 'citation key'.
+
+    This returns the last name:
+
+    * Without accents.
+    * Without spaces.
+    * Starting with a capital letter.
+
+    :param name: The name formatted as "Lastname, firstname secondname ...".
+    :return: Formatted name.
     """
 
     assert len(name.split(",")) > 1
@@ -85,11 +96,12 @@ def name2key(name: str):
     return last
 
 
-def protect_math(text: str):
+def protect_math(text: str) -> str:
     """
     Protect math mode.
 
-    :param name: The name formatted as "Lastname, firstname otherfirstname"
+    :param text: Some text.
+    :return: Formatted text.
     """
 
     # skip text without any math
@@ -112,9 +124,12 @@ def protect_math(text: str):
     return text
 
 
-def rm_unicode(text: str):
+def rm_unicode(text: str) -> str:
     """
     Remove unicode.
+
+    :param text: Some text.
+    :return: Formatted text.
     """
 
     # NB list not exhaustive, please extend!
@@ -146,9 +161,12 @@ def rm_unicode(text: str):
     return text
 
 
-def rm_accents(text: str):
+def rm_accents(text: str) -> str:
     """
     Remove accents.
+
+    :param text: Some text.
+    :return: Formatted text.
     """
 
     text = rm_unicode(text)

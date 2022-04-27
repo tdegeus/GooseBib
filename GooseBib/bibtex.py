@@ -1,3 +1,10 @@
+"""
+For BibTeX files:
+
+*   Automatic formatting.
+*   Check if up-to-date.
+*   Compare.
+"""
 import argparse
 import difflib
 import inspect
@@ -99,9 +106,9 @@ def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
     return ret, indent
 
 
-def get_doi(entry: dict) -> str:
+def _get_doi(entry: dict) -> str:
     """
-    Get the doi from an entry. Returns ``None`` if no doi was found.
+    Get the doi from an entry. See :py:func:`GooseBib.recognise.doi`.
 
     :param entry: The bib-entry.
     :return: The doi or ``None``.
@@ -119,9 +126,9 @@ def get_doi(entry: dict) -> str:
     )
 
 
-def get_arxivid(entry: dict) -> str:
+def _get_arxivid(entry: dict) -> str:
     """
-    Get the arxivid from an entry. Returns ``None`` if no arxivid was found.
+    Get the arxivid from an entry.  See :py:func:`GooseBib.recognise.arxivid`.
 
     :param entry: The bib-entry.
     :return: The arxivid or ``None``.
@@ -137,16 +144,19 @@ def get_arxivid(entry: dict) -> str:
 
 def get_identifiers(entry: dict) -> dict:
     """
-    Get entry's identifiers.
+    Get entry's digital identifiers. The following identifiers are returned (if found):
+
+    *   ``"doi"``
+    *   ``"arxivid"``. Note that an arxivid as doi is returned (only) as arxivid.
 
     :param entry: The bib-entry.
-    :return: The identifiers found.
+    :return: Dictionary with the found identifiers.
     """
 
     ret = {}
 
-    doi = get_doi(entry)
-    arxivid = get_arxivid(entry)
+    doi = _get_doi(entry)
+    arxivid = _get_arxivid(entry)
 
     if doi is not None:
         if arxivid is None:
@@ -166,10 +176,9 @@ def get_identifiers(entry: dict) -> dict:
 class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
     """
     Overload of ``bibtexparser.bwriter.BibTexWriter`` acting on an extra internal field
-    "DISPLAY_ORDER" to preserve the order of each item.
-    In addition, that is an extra parameter ``sort_entries`` that:
-    *   ``False`` (default): no sorting of entries.
-    *   ``True``: default sorting of entries.
+    ``"DISPLAY_ORDER"`` to preserve the order of each item.
+    In addition, there is an extra parameter ``sort_entries = False`` that controls if entries will
+    by sorted based on the citation-key.
     """
 
     def __init__(self, *args, **kwargs):
@@ -191,7 +200,7 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
 class MyBibTexParser(bibtexparser.bparser.BibTexParser):
     """
     Overload of ``bibtexparser.bparser.BibTexParser`` adding an extra internal field
-    "DISPLAY_ORDER" to preserve the order of each item.
+    ``"DISPLAY_ORDER"`` to preserve the order of each item.
     """
 
     def parse(self, bibtex_str, *args, **kwargs):
@@ -244,11 +253,11 @@ def _subr(pattern, repl, string):
     return string
 
 
-def selection(use_bibtexparser: bool = False):
+def selection(use_bibtexparser: bool = False) -> dict:
     """
     List of fields to keep in a BibTeX file to get a useful list of references:
-    fields that are not in this selection may be useful for a database, but might only cloud
-    BibTeX output.
+    fields that are not in this selection may be useful for a database,
+    but might only cloud BibTeX output.
 
     :param use_bibtexparser: Add bibtexparser specific fields to select (not part of BibTeX output).
     """
@@ -281,7 +290,7 @@ def select(
     remove_url: bool = True,
 ) -> list[dict]:
     """
-    Remove unnecessary fields for BibTex file.
+    Remove unnecessary fields from BibTex database.
 
     :param data:
         The BibTeX database.
@@ -294,7 +303,7 @@ def select(
         Add URL to ``fields`` if no ``doi`` or ``arxivid`` is present.
 
     :param remove_url:
-        Remove URL with either a ``doi`` or an ``arxivid`` is present.
+        Remove URL when either a ``doi`` or an ``arxivid`` is present.
     """
 
     if fields is None:
@@ -363,7 +372,8 @@ def _(data, *args, **kwargs):
 @singledispatch
 def unique(data: list[dict], merge: bool = True) -> list[dict]:
     """
-    Remove duplicate keys.
+    Remove duplicate keys from BibTex database.
+
     :param data: The BibTeX database.
     :param merge: Try to keep as many keys as possible.
     :return: The BibTeX database.
@@ -417,24 +427,23 @@ def clean(
     rm_unicode: bool = True,
 ) -> list[dict]:
     r"""
-    Clean a BibTeX database:
+    Clean a BibTeX database.
+
     *   Remove unnecessary fields (see :py:func:`GooseBib.bibtex.select`).
     *   Unify the formatting of authors (see :py:func:`GooseBib.reformat.abbreviate_firstname`).
     *   Ensure proper math formatting (see :py:func:`GooseBib.reformat.protect_math`).
     *   Convert unicode to TeX (see :py:func:`GooseBib.reformat.rm_unicode`).
-    *   Fill digital identifier if it is not present by can be found from a different field.
+    *   Fill digital identifier if it is not present but can be recognised from a different field,
+        (see :py:func:`GooseBib.bibtex.get_identifiers`).
 
-    :param data: The BibTeX database (file, string, or bibtexparser instance).
-    :param journal_type: Use journal: "title", "abbreviation", or "acronym".
-    :param journal_database: Database(s) with official journal names, abbreviations, and acronym.
-    :param sep_name: Separate name initials (e.g. "", " ").
-    :param sep_journal: Separate abbreviations in journal: replace ". " e.g. by ". " or ".\ ".
-    :param title: Include title of relevant fields.
-    :param protect_math: Apply fix of :py:func:`reformat.protect_math`.
-    :param rm_unicode: Apply fix of :py:func:`reformat.rm_unicode`.
-    :param sort_entries: Sort entries in output (only for string or file input).
-    :param rm_comment: Input ``bibtexparser.bibdatabase.BibDatabase``: Remove @comment (``True``).
-    :param rm_string: Input ``bibtexparser.bibdatabase.BibDatabase``: Remove @string (``True``).
+    :param data: The BibTeX database.
+    :param journal_type: Rename journal to its ``"title"``, ``"abbreviation"``, or ``"acronym"``.
+    :param journal_database: Database(s) with official journal names/abbreviations/acronyms to use.
+    :param sep_name: Separator for name initials (e.g. "", " ").
+    :param sep_journal: Separator for journal abbreviations (e.g. "", " ").
+    :param title: Include title.
+    :param protect_math: Apply fix in :py:func:`GooseBib.reformat.protect_math`.
+    :param rm_unicode: Apply fix in :py:func:`GooseBib.reformat.rm_unicode`.
     """
 
     data = unique(data, merge=True)
@@ -541,6 +550,12 @@ def clean(
 
 @clean.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+    """
+    Extra options:
+
+    :param rm_comment: Remove @comment (default: ``True``).
+    :param rm_string: Remove @string (default: ``True``). NB: strings are interpreted by the parser.
+    """
 
     if kwargs.pop("rm_comment", True):
         data.comments = []
@@ -554,6 +569,11 @@ def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
 
 @clean.register(str)
 def _(data: str, *args, **kwargs) -> str:
+    """
+    Extra options (on top of those of the ``bibtexparser.bibdatabase.BibDatabase`` overload:
+
+    :param sort_entries: Sort entries in output.
+    """
 
     writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
     parser = MyBibTexParser(
@@ -567,6 +587,11 @@ def _(data: str, *args, **kwargs) -> str:
 
 @clean.register(io.IOBase)
 def _(data: io.IOBase, *args, **kwargs) -> str:
+    """
+    Extra options (on top of those of the ``bibtexparser.bibdatabase.BibDatabase`` overload:
+
+    :param sort_entries: Sort entries in output.
+    """
 
     writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
     parser = MyBibTexParser(
@@ -584,10 +609,10 @@ def format_journal_arxiv(
 ) -> list[dict]:
     """
     Format the journal entry for arXiv preprints.
-    Use "{}" in the formatter to include the arxivid.
+    Use ``"{}"`` in the formatter to include the arxivid.
 
-    :param data: The BibTeX database (file, string, or bibtexparser instance).
-    :param fmt: Formatter, e.g. "Preprint" or "Preprint: arXiv {}".
+    :param data: The BibTeX database.
+    :param fmt: Formatter, e.g. ``"Preprint"`` or ``"Preprint: arXiv {}"``.
     :param journal_database: Database(s) with known arXiv variants.
     """
 
@@ -676,6 +701,7 @@ def _GbibClean_parser():
         description=textwrap.dedent(
             """\
             Clean a BibTeX database:
+
             *   Stripping it from unnecessary fields.
             *   Unifying the formatting of authors.
             *   Ensuring the proper special characters and math mode settings.
@@ -983,7 +1009,7 @@ def GbibClean():
 
 def GbibShowAuthorRename():
     r"""
-    Show author rename if ``GbibClean`` is applied.
+    Show author rename if ``GbibClean`` is applied, see ``--help``.
     """
 
     funcname = inspect.getframeinfo(inspect.currentframe()).function
@@ -1046,12 +1072,14 @@ def GbibShowAuthorRename():
         print(diff)
 
 
+@singledispatch
 def dbsearch_arxiv(
-    data: bibtexparser.bibdatabase.BibDatabase,
+    data: list[dict],
     silent: bool = False,
 ) -> dict:
     """
     Check online databases (can be slow!).
+
     :param silent: Hide status bar.
     :return: Dictionary with discovered items.
     """
@@ -1060,7 +1088,7 @@ def dbsearch_arxiv(
 
     # find arxivid based on journal doi
 
-    for entry in tqdm.tqdm(data.entries, disable=silent):
+    for entry in tqdm.tqdm(data, disable=silent):
         iden = get_identifiers(entry)
         if "arxivid" in iden:
             continue
@@ -1076,7 +1104,7 @@ def dbsearch_arxiv(
     # arXiv preprint: check if journal id is present
     # possible optimisation: can be made faster to bluntly skip all entries that have a doi
 
-    for entry in tqdm.tqdm(data.entries, disable=silent):
+    for entry in tqdm.tqdm(data, disable=silent):
         iden = get_identifiers(entry)
         if "arxivid" not in iden:
             continue
@@ -1092,6 +1120,12 @@ def dbsearch_arxiv(
         output[key] = dict(output[key])
 
     return dict(output)
+
+
+@dbsearch_arxiv.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+
+    return dbsearch_arxiv(data.entries, *args, **kwargs)
 
 
 def _GbibDiscover_parser():
