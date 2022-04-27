@@ -1,6 +1,23 @@
 """
 Construct/apply journal database.
+
+In GooseBib, a journal database is stored as a YAML-file, for example:
+
+.. code-block:: yaml
+
+    - abbreviation: Proc. Natl. Acad. Sci.
+      acronym: PNAS
+      name: Proceedings of the National Academy of Sciences
+      variations:
+      - Proc. Nat. Acad. Sci.
+    - abbreviation: Phys. Rev. Lett.
+      acronym: PRL
+      name: Physical Review Letters
+
+Note that the minimal requirement is to store the ``name``, the ``abbreviation``, ``acronym``,
+and ``variations`` are optional.
 """
+
 import csv
 import io
 import os
@@ -467,7 +484,7 @@ def dump(
     force: bool = False,
 ):
     r"""
-    Dump database to YAML file.
+    Dump database to YAML-file (see :py:mod:`GooseBib.journals`).
 
     :param filepath: Filename.
     :param data: The database.
@@ -493,10 +510,23 @@ def dump(
 
 def read(filepath: str, abbreviation_is_acronym: bool = True) -> JournalList:
     """
-    Load a database.
+    Load a journal-database from a YAML-file (:py:mod:`GooseBib.journals`).
 
-    :param filepath: Filename.
+    .. tip::
+
+        To construct a :py:class:`JournalList` based on several YAML-files, proceed as follows::
+
+            db = GooseBib.journals.read("/path/to/first/name.yaml")
+            db += GooseBib.journals.read("/path/to/seconds/name.yaml")
+            db += GooseBib.journals.read("/path/to/third/name.yaml")
+            # ...
+
+        Note that the order matters: In case of duplicates the first found entry is leading in
+        determining the title, abbreviation, and acronym.
+
+    :param filepath: File-path.
     :param abbreviation_is_acronym: Use abbreviation for missing acronym (otherwise title is used).
+    :return: :py:class:`JournalList`
     """
 
     if not os.path.isfile(filepath):
@@ -510,32 +540,35 @@ def read(filepath: str, abbreviation_is_acronym: bool = True) -> JournalList:
     )
 
 
-def generate_jabref(*domains):
+def download_from_jabref(*domains) -> dict[Journal]:
     """
-    Generate a database entry from JabRef.
+    Generate a database from JabRef.
 
     :param domains:
         Domain(s) to include in the database. Choose from:
-        - acs
-        - ams
-        - annee-philologique
-        - dainst
-        - entrez
-        - general
-        - geology_physics
-        - geology_physics_variations
-        - ieee
-        - ieee_strings
-        - lifescience
-        - mathematics
-        - mechanical
-        - medicus
-        - meteorology
-        - sociology
-        - webofscience-dots
-        - webofscience
 
-    :return: tood
+        - ``"acs"``
+        - ``"ams"``
+        - ``"annee-philologique"``
+        - ``"dainst"``
+        - ``"entrez"``
+        - ``"general"``
+        - ``"geology_physics"``
+        - ``"geology_physics_variations"``
+        - ``"ieee"``
+        - ``"ieee_strings"``
+        - ``"lifescience"``
+        - ``"mathematics"``
+        - ``"mechanical"``
+        - ``"medicus"``
+        - ``"meteorology"``
+        - ``"sociology"``
+        - ``"webofscience-dots"``
+        - ``"webofscience"``
+
+    :return:
+        A dictionary of :py:class:`Journal`. The keys of the dictionary are the journal's names
+        extracted from JabRef's database.
     """
 
     alllowed = [
@@ -634,17 +667,20 @@ def _database_merge(
     return db
 
 
-def generate_default(domain: str):
+def generate_default(domain: str) -> dict[Journal]:
     """
-    Generate default database::
+    Generate (an up-to-date) version of one of the default databases shipped in GooseBib.
 
-        {
-            "Official Journal Name": ``Journal``
-            ...
-        }
+    :param domain:
+        Domain. Choose from:
 
-    :param domain: Domain (physics, mechanics, PNAS, PNAS-USA).
-    :return: Database.
+        *   ``"physics"``
+        *   ``"mechanics"``
+        *   ``"PNAS"``
+        *   ``"PNAS-USA"``
+
+    :return:
+        A dictionary of :py:class:`Journal`. The keys of the dictionary are the journal's names.
     """
 
     domain = domain.lower()
@@ -653,7 +689,7 @@ def generate_default(domain: str):
 
         # basic list from JabRef
 
-        db = generate_jabref("geology_physics", "geology_physics_variations")
+        db = download_from_jabref("geology_physics", "geology_physics_variations")
 
         # merge know aliases / set acronyms / add know variations
 
@@ -1044,7 +1080,7 @@ def generate_default(domain: str):
 
     elif domain == "mechanics":
 
-        db = generate_jabref("mechanical")
+        db = download_from_jabref("mechanical")
 
         _database_merge(
             db=db,
@@ -1244,6 +1280,12 @@ def generate_default(domain: str):
 def update_default():
     """
     Update the default databases shipped with GooseBib.
+    This updates the YAML-files (see :py:mod:`GooseBib.journals`) in the library directory.
+
+    .. tip::
+
+        To update the YAML-files in the repository, simple run this file from the repository,
+        as its main is adapted for this.
     """
 
     dirname = os.path.dirname(__file__)
@@ -1267,30 +1309,25 @@ def _get_yaml_files(dirname: str) -> list[str]:
 
 def load(*args: str) -> JournalList:
     """
-    Load database(s) from files (in default locations).
-    Note that the order matters: in case of duplicates the first match is leading.
+    Load database(s) from default locations.
+    Note that the order matters: In case of duplicates the first found entry is leading in
+    determining the title, abbreviation, and acronym.
 
-    Custom databases: Store a YAML file to::
+    To add custom databases, store a YAML-file to::
 
         dirname = GooseBib.get_configdir()
         stylename = "mystyle"
         filepath = os.path.join(dirname, f"{stylename}.yaml")
 
-    To file should have the following structure::
+    See :py:mod:`GooseBib.journals` for structure of the YAML-file.
 
-        - name: Proceedings of the National Academy of Sciences
-          abbreviation: Proc. Natl. Acad. Sci.
-          acronym: PNAS
-          variations:
-          - Proc. Nat. Acad. Sci. U.S.A.
-        - name: ...
+    .. note::
 
-    whereby all fields except "name" are optional.
-    Files stored in ``GooseBib.get_configdir()`` are prioritised over default files shipped
-    with the library.
+        Files stored in :py:func:`get_configdir()` are prioritised over default files shipped
+        with the library.
 
-    :param args: physics, mechanics, PNAS, PNAS-USA, ...
-    :return: JournalList
+    :param args: ``"physics"``, ``"mechanics"``, ``"PNAS"``, ``"PNAS-USA"``, ...
+    :return: :py:class:`JournalList`
     """
 
     assert len(args) > 0
