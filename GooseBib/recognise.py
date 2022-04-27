@@ -3,7 +3,7 @@ from functools import singledispatch
 
 
 @singledispatch
-def doi():
+def doi() -> str:
     """
     Try to match a doi, return the first match.
 
@@ -13,7 +13,7 @@ def doi():
 
 
 @doi.register(str)
-def _(*args):
+def _(*args) -> str:
 
     match = [
         (
@@ -52,7 +52,7 @@ def _(*args):
 
 
 @doi.register(dict)
-def _(entry):
+def _(entry) -> str:
 
     for key in ["doi"]:
         if key in entry:
@@ -62,7 +62,7 @@ def _(entry):
 
 
 @singledispatch
-def arxivid():
+def arxivid() -> str:
     """
     Try to match a arxiv-id, return the first match.
 
@@ -72,7 +72,7 @@ def arxivid():
 
 
 @arxivid.register(str)
-def _(*args):
+def _(*args) -> str:
 
     match = [
         (
@@ -105,7 +105,7 @@ def _(*args):
 
 
 @arxivid.register(dict)
-def _(entry):
+def _(entry) -> str:
 
     for key in ["arxivid", "eprint"]:
         if key in entry:

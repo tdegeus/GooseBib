@@ -1,10 +1,12 @@
+"""
+Construct/apply journal database.
+"""
 import csv
 import io
 import os
 import re
 import shutil
 import tempfile
-from typing import Union
 
 import click
 import git
@@ -27,14 +29,15 @@ class Journal:
     :param name: Journal's name.
     :param abbreviation: Abbreviation of the journal's name (optional).
     :param acronym: Acronym of the journal's name (optional).
-    :param variations: Known variation used for the journal's name, abbreviation, etc. (optional).
+    :param variations: Known variations used for the journal's name, abbreviation, etc. (optional).
 
     :param index:
         For internal use only. Construction can be simplified by specifying name, abbreviation,
-        acronym, and variations as a single list for the ``variations`` option.
-        ``index`` than indicates the indices in this list corresponding to
+        acronym, and variations as a single list using the ``variations`` option
+        (``name``, ``abbreviation``, and ``acronym`` should be left blank in that case).
+        ``index`` then indicates the indices in this list corresponding to
         ``[name, abbreviation, acronym]`` (the same index may be use multiple times if there is no
-        abbreviation or acronym).
+        abbreviation or acronym and for example the name is used instead).
 
     :param abbreviation_is_acronym: Use abbreviation as acronym if no acronym is specified.
     """
@@ -81,6 +84,7 @@ class Journal:
     def set_name(self, arg):
         """
         (Over)write the journal's name.
+
         :param arg: Name.
         """
         n = len(self.data)
@@ -94,6 +98,7 @@ class Journal:
     def set_abbreviation(self, arg: str, also_acronym: bool = False):
         """
         (Over)write the abbreviation of the journal's name.
+
         :param arg: Name.
         :param also_acronym: Use also as acronym.
         """
@@ -106,6 +111,7 @@ class Journal:
     def set_acronym(self, arg: str):
         """
         (Over)write the acronym of the journal's name.
+
         :param arg: Name.
         """
         self.acro = len(self.data)
@@ -114,6 +120,7 @@ class Journal:
     def add_variation(self, arg: str):
         """
         Add a variation (does not change the name, abbreviation, or acronym).
+
         :param arg: Name.
         """
         self.data.append(arg)
@@ -121,6 +128,7 @@ class Journal:
     def add_variations(self, arg: list[str]):
         """
         Add a list of variations (does not change the name, abbreviation, or acronym).
+
         :param arg: Names.
         """
         self.data += arg
@@ -197,10 +205,12 @@ class JournalList:
     """
     Store journal database as list of journals, which allows efficient handling.
 
-    :param data: Database to map.
+    :param data:
+        List of journals.
+        A ``dict`` input is interpreted as ``[value for (key, value) in sorted(data.items())]``.
     """
 
-    def __init__(self, data: Union[dict[Journal], list[Journal]] = None):
+    def __init__(self, data: dict[Journal] | list[Journal] = None):
 
         self.count = 0
 
@@ -431,7 +441,7 @@ class JournalList:
         return str([dict(i) for i in self.tolist()])
 
 
-def _database_tolist(data: Union[dict[Journal], list[Journal]]) -> list[dict]:
+def _database_tolist(data: dict[Journal] | list[Journal]) -> list[dict]:
     """
     Convert database to list of dictionaries.
 
@@ -453,7 +463,7 @@ def _database_tolist(data: Union[dict[Journal], list[Journal]]) -> list[dict]:
 
 def dump(
     filepath: str,
-    data: Union[dict[Journal], list[Journal], JournalList],
+    data: dict[Journal] | list[Journal] | JournalList,
     force: bool = False,
 ):
     r"""
@@ -626,7 +636,7 @@ def _database_merge(
 
 def generate_default(domain: str):
     """
-    Generate default database:
+    Generate default database::
 
         {
             "Official Journal Name": ``Journal``
