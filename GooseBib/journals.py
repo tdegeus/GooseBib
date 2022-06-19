@@ -17,6 +17,8 @@ In GooseBib, a journal database is stored as a YAML-file, for example:
 Note that the minimal requirement is to store the ``name``, the ``abbreviation``, ``acronym``,
 and ``variations`` are optional.
 """
+from __future__ import annotations
+
 import csv
 import io
 import os
