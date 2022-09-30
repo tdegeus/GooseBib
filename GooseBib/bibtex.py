@@ -609,7 +609,9 @@ def abbreviate_journal(
             try:
                 entry["journal"] = mapping[entry["journal"]]
             except KeyError:
-                warnings.warn(f'"{entry["journal"]}" in "{entry["ID"]}" not found in database', Warning)
+                warnings.warn(
+                    f'"{entry["journal"]}" in "{entry["ID"]}" not found in database', Warning
+                )
 
     return data
 
