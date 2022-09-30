@@ -383,28 +383,23 @@ def unique(data: list[dict], merge: bool = True) -> list[dict]:
     """
 
     keys = [entry["ID"] for entry in data]
-    _, ifoward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
+    _, iforward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
 
-    if ifoward.size == len(keys):
+    if iforward.size == len(keys):
         return data
 
-    index = np.arange(ibackward.size)
-    renum = index[ifoward][ibackward]
-    old = index[index != renum]
-    new = renum[index != renum]
-
-    entries = [data[i] for i in ifoward]
+    unique = [data[i] for i in iforward]
     merged = []
 
-    for o, n in zip(old, new):
+    for o, n in enumerate(ibackward):
         merged.append(data[o]["ID"])
         if merge:
             for key in data[o]:
-                if key not in data[n]:
-                    entries[n][key] = data[o][key]
+                if key not in unique[n]:
+                    unique[n][key] = data[o][key]
 
-    sorter = np.argsort(ifoward)
-    data = [entries[i] for i in sorter]
+    sorter = np.argsort(iforward)
+    data = [unique[i] for i in sorter]
 
     merged = "- " + "\n- ".join([str(i) for i in np.unique(merged)])
     warnings.warn(f"Merging duplicates, please check:\n{merged}", Warning)
