@@ -162,7 +162,7 @@ def get_identifiers(entry: dict) -> dict:
         if arxivid is None:
             pattern = re.compile(r"(10.48550/arXiv.)([^\s]*)(.*)", re.IGNORECASE)
             if re.match(pattern, doi):
-                arxivid = re.split(pattern, doi)[1].strip()
+                arxivid = re.split(pattern, doi)[2].strip()
 
     if doi is not None:
         ret["doi"] = doi
