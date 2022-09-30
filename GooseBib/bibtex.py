@@ -270,14 +270,15 @@ def selection(use_bibtexparser: bool = False) -> dict:
         base += ["ID", "ENTRYTYPE", "DISPLAY_ORDER", "INDENT"]
 
     base += ["author", "title", "year", "doi", "arxivid"]
+    book = ["booktitle", "editor", "publisher", "volume", "pages"]
 
     return dict(
         article=base + ["journal", "volume", "number", "pages"],
         unpublished=base,
-        inproceedings=base + ["booktitle", "editor", "publisher", "volume", "number", "pages"],
+        inproceedings=base + book + ["number"],
         book=base + ["edition", "editor", "publisher", "isbn", "volume", "pages"],
         inbook=base + ["edition", "editor", "publisher", "isbn", "volume", "pages"],
-        incollection=base + ["booktitle", "edition", "publisher", "isbn", "volume", "pages"],
+        incollection=base + book + ["edition", "isbn"],
         phdthesis=base + ["school", "isbn", "url"],
         techreport=base + ["institution", "isbn", "url"],
         misc=base + ["pages", "url"],
