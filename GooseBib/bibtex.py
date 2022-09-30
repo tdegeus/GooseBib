@@ -810,6 +810,13 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
+        "--raw-author",
+        type=str,
+        action="append",
+        help="List entries for which names are not abbreviated.",
+    )
+
+    parser.add_argument(
         "--journal-sep",
         type=str,
         default="",
@@ -853,8 +860,7 @@ def _GbibClean_parser():
 
     parser.add_argument(
         "--diff-context",
-        type=bool,
-        default=False,
+        action="store_true",
         help="Show contextual differences. See ``difflib.HtmlDiff.make_file``.",
     )
 
@@ -987,6 +993,7 @@ def GbibClean():
             protect_math=not args.ignore_math,
             rm_unicode=not args.ignore_unicode,
             sort_entries=args.sort_entries,
+            no_abbreviate=args.raw_author if args.raw_author else [],
         )
 
         if data != parse(data):
