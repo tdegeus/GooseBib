@@ -416,13 +416,12 @@ def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
 @singledispatch
 def clean(
     data: list[dict],
-    journal_type: str = "abbreviation",
-    journal_database: list[str] = ["pnas", "physics", "mechanics"],
     sep_name: str = "",
     sep_journal: str = "",
     title: bool = True,
     protect_math: bool = True,
     rm_unicode: bool = True,
+    no_abbreviate: list[str] = [],
 ) -> list[dict]:
     r"""
     Clean a BibTeX database.
@@ -435,28 +434,19 @@ def clean(
         (see :py:func:`GooseBib.bibtex.get_identifiers`).
 
     :param data: The BibTeX database.
-    :param journal_type: Rename journal to its ``"title"``, ``"abbreviation"``, or ``"acronym"``.
-    :param journal_database: Database(s) with official journal names/abbreviations/acronyms to use.
     :param sep_name: Separator for name initials (e.g. "", " ").
     :param sep_journal: Separator for journal abbreviations (e.g. "", " ").
     :param title: Include title.
     :param protect_math: Apply fix in :py:func:`GooseBib.reformat.protect_math`.
     :param rm_unicode: Apply fix in :py:func:`GooseBib.reformat.rm_unicode`.
+    :param no_abbreviate: List of entries for which to skip author abbreviation.
     """
 
     data = unique(data, merge=True)
 
-    journal_type = journal_type.lower()
-    journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
-
-    revus = []
     ignored_authors = []
 
     for entry in data:
-
-        # prepare journal rename
-        if "journal" in entry:
-            revus.append(entry["journal"])
 
         # find identifiers
         iden = get_identifiers(entry)
@@ -472,13 +462,14 @@ def clean(
                 del entry["arxivid"]
 
         # fix author abbreviations
-        for key in ["author", "editor"]:
-            if key in entry:
-                names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
-                if not re.match(r"(\{)(.*)(\})", entry[key]):
-                    names = bibtexparser.customization.getnames(names)
-                names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
-                entry[key] = " and ".join(names)
+        if entry["ID"] not in no_abbreviate:
+            for key in ["author", "editor"]:
+                if key in entry:
+                    names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
+                    if not re.match(r"(\{)(.*)(\})", entry[key]):
+                        names = bibtexparser.customization.getnames(names)
+                    names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
+                    entry[key] = " and ".join(names)
 
         # remove title
         if not title:
@@ -521,28 +512,7 @@ def clean(
         ignored_authors = "- " + "\n- ".join([str(i) for i in np.unique(ignored_authors)])
         warnings.warn(f"Protected authors found, please check:\n{ignored_authors}", Warning)
 
-    # rename journal
-
-    if len(journal_database) > 0:
-
-        db = journals.load(*journal_database)
-        if journal_type in ["title", "name", "official", "off"]:
-            new = db.map2name(revus)
-        elif journal_type in ["abbreviation", "abbr"]:
-            new = db.map2abbreviation(revus)
-        elif journal_type in ["acronym", "acro"]:
-            new = db.map2acronym(revus)
-        else:
-            raise OSError(f'Unknown journal type selection "{journal_type}"')
-
-        mapping = {o: n for o, n in zip(revus, new)}
-
-        for entry in data:
-            if "journal" in entry:
-                entry["journal"] = mapping[entry["journal"]]
-
     # return selection of fields
-
     return select(data, fields=selection(use_bibtexparser=True))
 
 
@@ -599,6 +569,72 @@ def _(data: io.IOBase, *args, **kwargs) -> str:
         common_strings=True,
     )
     return writer.write(clean(parser.parse(data), *args, **kwargs))
+
+
+@singledispatch
+def abbreviate_journal(
+    data: list[dict],
+    journal_type: str = "abbreviation",
+    journal_database: list[str] = ["pnas", "physics", "mechanics"],
+) -> list[dict]:
+    """
+    Abbreviate journals based on a standard library.
+
+    :param data: The BibTeX database.
+    :param journal_type: Rename journal to its ``"title"``, ``"abbreviation"``, or ``"acronym"``.
+    :param journal_database: Database(s) with official journal names/abbreviations/acronyms to use.
+    """
+
+    if len(journal_database) == 0:
+        return data
+
+    journal_type = journal_type.lower()
+    journal_database = [journal_database] if isinstance(journal_database, str) else journal_database
+    revus = [entry["journal"] for entry in data if "journal" in entry]
+
+    db = journals.load(*journal_database)
+    if journal_type in ["title", "name", "official", "off"]:
+        new = db.map2name(revus)
+    elif journal_type in ["abbreviation", "abbr"]:
+        new = db.map2abbreviation(revus)
+    elif journal_type in ["acronym", "acro"]:
+        new = db.map2acronym(revus)
+    else:
+        raise OSError(f'Unknown journal type selection "{journal_type}"')
+
+    mapping = {o: n for o, n in zip(revus, new)}
+
+    for entry in data:
+        if "journal" in entry:
+            try:
+                entry["journal"] = mapping[entry["journal"]]
+            except KeyError:
+                warnings.warn(f'"{entry["journal"]}" in "{entry["ID"]}" not found in database', Warning)
+
+    return data
+
+
+@abbreviate_journal.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+
+    data.entries = abbreviate_journal(data.entries, *args, **kwargs)
+    return data
+
+
+@abbreviate_journal.register(str)
+def _(data, *args, **kwargs):
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    return writer.write(abbreviate_journal(parser.parse(data), *args, **kwargs))
+
+
+@abbreviate_journal.register(io.IOBase)
+def _(data, *args, **kwargs):
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    return writer.write(abbreviate_journal(parser.parse(data), *args, **kwargs))
 
 
 @singledispatch
@@ -941,10 +977,10 @@ def GbibClean():
             with open(sourcepath) as file:
                 source = file.read()
 
+        # basic clean
+
         data = clean(
             source,
-            journal_type=args.journal_type,
-            journal_database=args.journals.split(","),
             sep_name=args.author_sep,
             sep_journal=args.journal_sep,
             title=not args.no_title,
@@ -956,8 +992,18 @@ def GbibClean():
         if data != parse(data):
             warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
 
+        # reformat arXiv entries
+
         if args.arxiv:
             data = format_journal_arxiv(data, args.arxiv)
+
+        # abbreviate journals
+
+        data = abbreviate_journal(
+            data,
+            journal_type=args.journal_type,
+            journal_database=args.journals.split(","),
+        )
 
         if data == source:
             return 0
