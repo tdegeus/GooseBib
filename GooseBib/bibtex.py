@@ -183,9 +183,11 @@ class MyBibTexWriter(bibtexparser.bwriter.BibTexWriter):
 
     def __init__(self, *args, **kwargs):
         sort = kwargs.pop("sort_entries", False)
+        common_strings = kwargs.pop("write_common_strings", False)
         super().__init__(self, *args, **kwargs)
         if not sort:
             self.order_entries_by = []
+        self.common_strings = common_strings
 
     def _entry_to_bibtex(self, entry):
         self.display_order = entry.pop("DISPLAY_ORDER", [])
