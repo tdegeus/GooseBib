@@ -85,6 +85,13 @@ def _(*args) -> str:
         (re.compile(r"(.*)(arxiv)([^:]*)([:]?)([\s]*)([^\s]*)(.*)", re.IGNORECASE), 6),
         (
             re.compile(
+                r"(.*)(arxiv pre)([a-zA-Z]*)([.]?)([:]?)([\s]*)([0-9]*\.[0-9]*[v]?[0-9]*)",
+                re.IGNORECASE,
+            ),
+            7,
+        ),
+        (
+            re.compile(
                 r"(.*)(http)(s?)(://doi.org/10.48550/arXiv.)([^\s]*)(.*)",
                 re.IGNORECASE,
             ),

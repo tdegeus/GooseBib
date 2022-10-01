@@ -37,6 +37,8 @@ class Test_recognise(unittest.TestCase):
             bib.recognise.arxivid(dict(arxivid=f"https://arxiv.org/abs/{arxivid}")),
         )
         self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv preprint: {arxivid}"))
+        self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv prep. {arxivid}"))
+        self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv Prep. {arxivid}"))
         self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv: {arxivid}"))
         self.assertEqual(arxivid, bib.recognise.arxivid(f"arXiv:{arxivid}"))
 
