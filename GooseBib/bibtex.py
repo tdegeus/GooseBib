@@ -452,6 +452,12 @@ def _merge(data: list[dict], iforward: ArrayLike, ibackward: ArrayLike, merge: b
             for key in data[o]:
                 if key not in unique[n]:
                     unique[n][key] = data[o][key]
+                elif not key.isupper():
+                    if (
+                        unique[n][key].strip("{").strip("}").lower()
+                        != data[o][key].strip("{").strip("}").lower()
+                    ):
+                        warnings.warn(f'"{n}:{key}" and "{o}:{key}" inconsistent', Warning)
 
     sorter = np.argsort(iforward)
     data = [unique[i] for i in sorter]
@@ -610,6 +616,53 @@ def _(data, *args, **kwargs):
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     data, merge = clever_merge(parser.parse(data), *args, **kwargs)
+    return writer.write(data), merge
+
+
+@singledispatch
+def manual_merge(data: list[dict], keys: list[Tuple[str, str]]) -> Tuple[list[dict], dict]:
+    """
+    Merge items.
+
+    :param data: The BibTeX database.
+    :param keys: List of keys for merge (`key[1]` merged into `key[0]`).
+    :return:
+        The BibTeX database.
+        A dictionary mapping the new keys to the old keys.
+    """
+    ids = [entry["ID"] for entry in data]
+
+    for key1, key2 in keys:
+        assert key1 in ids
+        assert key2 in ids
+        i = np.argmax(np.array(ids) == key2)
+        ids[i] = key1
+
+    _, iforward, ibackward = np.unique(ids, return_index=True, return_inverse=True)
+    return _merge(data, iforward, ibackward, True)
+
+
+@manual_merge.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> Tuple[bibtexparser.bibdatabase.BibDatabase, dict]:
+
+    d, merge = manual_merge(data.entries, *args, **kwargs)
+    data.entries = d
+    return data, merge
+
+
+@manual_merge.register(str)
+def _(data, *args, **kwargs) -> Tuple[str, dict]:
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    data, merge = manual_merge(parser.parse(data), *args, **kwargs)
+    return writer.write(data), merge
+
+
+@manual_merge.register(io.IOBase)
+def _(data, *args, **kwargs) -> Tuple[str, dict]:
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    data, merge = manual_merge(parser.parse(data), *args, **kwargs)
     return writer.write(data), merge
 
 
@@ -1026,9 +1079,11 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
-        "--keep-duplicates",
+        "--merge",
         type=str,
-        help="Rename entries with the same key.",
+        nargs=2,
+        action="append",
+        help="Force merging of items.",
     )
 
     parser.add_argument(
@@ -1119,6 +1174,7 @@ def GbibClean():
     parser = _GbibClean_parser()
     args = parser.parse_args()
     renamed = {}
+    merge = {}
 
     # read input/output filepaths
 
@@ -1214,11 +1270,19 @@ def GbibClean():
             journal_database=args.journals.split(","),
         )
 
+        # hand merge duplicates
+
+        if args.merge:
+
+            data, merge = manual_merge(data, args.merge)
+
         # clever merge duplicates
 
         if args.unique:
 
-            data, merge = clever_merge(data)
+            data, m = clever_merge(data)
+            merge = {**merge, **m}
+
             newnames = {k: v for k, v in renamed.items()}
 
             for key in merge:
