@@ -16,6 +16,7 @@ import warnings
 from collections import defaultdict
 from collections import OrderedDict
 from functools import singledispatch
+from typing import Tuple
 from typing import Union
 
 import arxiv
@@ -24,6 +25,7 @@ import click
 import numpy as np
 import tqdm
 import yaml
+from numpy.typing import ArrayLike
 
 from . import journals
 from . import recognise
@@ -219,6 +221,22 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
 
         return data
 
+    def __add__(self, other):
+
+        self.entries += other.entries
+        self.comments += other.comments
+        self.strings.update(other.strings)
+
+        assert self.expect_multiple_parse == other.expect_multiple_parse
+        assert self.common_strings == other.common_strings
+        assert self.customization == other.customization
+        assert self.ignore_nonstandard_types == other.ignore_nonstandard_types
+        assert self.homogenize_fields == other.homogenize_fields
+        assert self.interpolate_strings == other.interpolate_strings
+        assert self.encoding == other.encoding
+        assert self.add_missing_from_crossref == other.add_missing_from_crossref
+        return self
+
 
 def parse(bibtex_str: str, aggresive: bool = False) -> str:
     """
@@ -373,26 +391,73 @@ def _(data, *args, **kwargs):
 
 
 @singledispatch
-def unique(data: list[dict], merge: bool = True) -> list[dict]:
+def unique_keys(data: list[dict]) -> Tuple[list[dict], dict]:
     """
-    Remove duplicate keys from BibTex database.
+    Rename keys that occur more than once in the BibTeX database.
 
     :param data: The BibTeX database.
-    :param merge: Try to keep as many keys as possible.
-    :return: The BibTeX database.
+    :return:
+        The BibTeX database.
+        A dictionary mapping the new keys to the old keys.
     """
 
     keys = [entry["ID"] for entry in data]
-    _, iforward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
+    _, iforward = np.unique(keys, return_index=True)
 
-    if iforward.size == len(keys):
-        return data
+    if iforward.size == len(data):
+        return data, {}
+
+    iremove = np.setdiff1d(np.arange(len(data)), iforward)
+    renamed = {}
+
+    for i in iremove:
+        old_key = data[i]["ID"]
+        for j in range(100):
+            new_key = f"{old_key}_{j}"
+            if new_key not in keys:
+                data[i]["ID"] = new_key
+                renamed[new_key] = old_key
+                break
+            if j > 95:
+                raise OSError("Could not rename duplicate key.")
+
+    return data, renamed
+
+
+@unique_keys.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data, *args, **kwargs) -> Tuple[bibtexparser.bibdatabase.BibDatabase, dict]:
+    data, renamed = unique_keys(data.entries, *args, **kwargs)
+    data.entries = data
+    return data, renamed
+
+
+@unique_keys.register(str)
+def _(data, *args, **kwargs) -> Tuple[str, dict]:
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
+    )
+    data, renamed = unique_keys(parser.parse(data), *args, **kwargs)
+    return writer.write(data), renamed
+
+
+def _merge(data: list[dict], iforward: ArrayLike, ibackward: ArrayLike, merge: bool) -> list[dict]:
+
+    if iforward.size == len(data):
+        return data, {}
 
     unique = [data[i] for i in iforward]
-    merged = []
+    keys = [entry["ID"] for entry in unique]
+    merged = {keys[ibackward[i]]: [] for i in np.setdiff1d(np.arange(len(data)), iforward)}
 
     for o, n in enumerate(ibackward):
-        merged.append(data[o]["ID"])
+        if unique[n]["ID"] not in merged:
+            continue
+        merged[unique[n]["ID"]].append(data[o]["ID"])
         if merge:
             for key in data[o]:
                 if key not in unique[n]:
@@ -401,16 +466,169 @@ def unique(data: list[dict], merge: bool = True) -> list[dict]:
     sorter = np.argsort(iforward)
     data = [unique[i] for i in sorter]
 
-    merged = "- " + "\n- ".join([str(i) for i in np.unique(merged)])
-    warnings.warn(f"Merging duplicates, please check:\n{merged}", Warning)
+    return data, dict(merged)
 
+
+@singledispatch
+def unique(data: list[dict], merge: bool = True) -> list[dict]:
+    """
+    Merge items that have the same keys from BibTex database.
+
+    :param data: The BibTeX database.
+    :param merge: Add fields from duplicate entries to the first entry.
+    :return: The BibTeX database.
+    """
+
+    keys = [entry["ID"] for entry in data]
+    _, iforward, ibackward = np.unique(keys, return_index=True, return_inverse=True)
+
+    if iforward.size == len(data):
+        return data
+
+    data, merged = _merge(data, iforward, ibackward, merge)
+    merged = ", ".join([f'"{str(i)}"' for i in np.unique([i for i in merged])])
+    warnings.warn(f"Merging duplicates, please check:\n{merged}", Warning)
     return data
 
 
-@select.register(bibtexparser.bibdatabase.BibDatabase)
+@unique.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
     data.entries = unique(data.entries, *args, **kwargs)
     return data
+
+
+@unique.register(str)
+def _(data, *args, **kwargs) -> str:
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser(
+        homogenize_fields=True,
+        ignore_nonstandard_types=True,
+        add_missing_from_crossref=True,
+        common_strings=True,
+    )
+    return writer.write(unique(parser.parse(data), *args, **kwargs))
+
+
+@singledispatch
+def clever_merge(data: list[dict], merge: bool = True) -> list[dict]:
+    """
+    Try to merge the same entries.
+
+    :param data: The BibTeX database.
+    """
+
+    # first pass based on doi, arxivid, url, or title
+
+    selector = []
+
+    for i, entry in enumerate(data):
+        if "doi" in entry:
+            selector.append("doi: " + entry["doi"])
+        elif "arxivid" in entry:
+            selector.append("arxivid: " + entry["arxivid"])
+        elif "eprint" in entry:
+            selector.append("eprint: " + entry["eprint"])
+        elif "url" in entry:
+            selector.append("url: " + entry["url"])
+        elif "title" in entry and "journal" in entry:
+            selector.append(
+                "title: "
+                + entry["title"].lower().strip("{").strip("}")
+                + "journal: "
+                + entry["journal"].lower().strip("{").strip("}")
+            )
+        elif "title" in entry:
+            selector.append("title: " + entry["title"].lower().strip("{").strip("}"))
+        else:
+            selector.append(f"keep: {i:d}")
+
+    _, iforward, ibackward = np.unique(selector, return_index=True, return_inverse=True)
+    data, merged = _merge(data, iforward, ibackward, merge)
+
+    # second pass based on author, year, title, journal
+
+    selector = []
+
+    for i, entry in enumerate(data):
+        if "author" not in entry:
+            selector.append(f"keep: {i:d}")
+        elif "year" not in entry:
+            selector.append(f"keep: {i:d}")
+        elif "title" not in entry:
+            selector.append(f"keep: {i:d}")
+        elif "journal" in entry and "pages" in entry:
+            selector.append(
+                "year: "
+                + entry["year"].lower().strip("{").strip("}")
+                + "title: "
+                + entry["title"].lower().strip("{").strip("}")
+                + "journal: "
+                + entry["journal"].lower().strip("{").strip("}")
+                + "pages: "
+                + entry["pages"].lower().strip("{").strip("}").replace("--", "-")
+            )
+        elif "journal" in entry:
+            selector.append(
+                "author: "
+                + entry["author"].lower().strip("{").strip("}")
+                + "year: "
+                + entry["year"].lower().strip("{").strip("}")
+                + "title: "
+                + entry["title"].lower().strip("{").strip("}")
+                + "journal: "
+                + entry["journal"].lower().strip("{").strip("}")
+            )
+        else:
+            selector.append(
+                "author: "
+                + entry["author"].lower().strip("{").strip("}")
+                + "year: "
+                + entry["year"].lower().strip("{").strip("}")
+                + "title: "
+                + entry["title"].lower().strip("{").strip("}")
+            )
+
+    _, iforward, ibackward = np.unique(selector, return_index=True, return_inverse=True)
+    data, m = _merge(data, iforward, ibackward, merge)
+
+    for key in m:
+        if key not in merged:
+            merged[key] = m[key]
+        else:
+            merged[key] += m[key]
+
+    for key in merged:
+        if key in merged[key]:
+            merged[key].remove(key)
+
+    return data, merged
+
+
+@clever_merge.register(bibtexparser.bibdatabase.BibDatabase)
+def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
+
+    d, merge = clever_merge(data.entries, *args, **kwargs)
+    data.entries = d
+    return data, merge
+
+
+@clever_merge.register(str)
+def _(data, *args, **kwargs):
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    data, merge = clever_merge(parser.parse(data), *args, **kwargs)
+    return writer.write(data), merge
+
+
+@clever_merge.register(io.IOBase)
+def _(data, *args, **kwargs):
+
+    writer = MyBibTexWriter()
+    parser = MyBibTexParser()
+    data, merge = clever_merge(parser.parse(data), *args, **kwargs)
+    return writer.write(data), merge
 
 
 @singledispatch
@@ -441,8 +659,6 @@ def clean(
     :param rm_unicode: Apply fix in :py:func:`GooseBib.reformat.rm_unicode`.
     :param no_abbreviate: List of entries for which to skip author abbreviation.
     """
-
-    data = unique(data, merge=True)
 
     ignored_authors = []
 
@@ -850,6 +1066,18 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
+        "--keep-duplicates",
+        type=str,
+        help="Rename entries with the same key.",
+    )
+
+    parser.add_argument(
+        "--unique",
+        type=str,
+        help="Merge identical entries with different keys. Argument: output YAML file.",
+    )
+
+    parser.add_argument(
         "--diff",
         type=str,
         help=textwrap.dedent(
@@ -930,6 +1158,7 @@ def GbibClean():
 
     parser = _GbibClean_parser()
     args = parser.parse_args()
+    renamed = {}
 
     # read input/output filepaths
 
@@ -950,7 +1179,8 @@ def GbibClean():
         if os.path.isdir(args.output):
             raise OSError("--output cannot be a directory name")
 
-        source = ""
+        raw = ""
+        data = []
         sourcepaths = [None]
         outpaths = [args.output]
 
@@ -958,7 +1188,17 @@ def GbibClean():
             if not os.path.isfile(filepath):
                 raise OSError(f'"{filepath}" does not exist')
             with open(filepath) as file:
-                source += file.read()
+                text = file.read()
+                raw += text
+                parsed = MyBibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ).parse(text)
+                data += unique(parsed.entries)
+                data, r = unique_keys(data)
+                renamed = {**renamed, **r}
 
         if not args.force:
 
@@ -972,6 +1212,10 @@ def GbibClean():
                 if os.path.isfile(args.diff):
                     overwrite += [os.path.normpath(args.diff)]
 
+            if args.unique:
+                if os.path.isfile(args.unique):
+                    overwrite += [os.path.normpath(args.unique)]
+
             if len(overwrite) > 0:
                 files = ", ".join(overwrite)
                 if not click.confirm(f'Overwrite "{files}"?'):
@@ -983,23 +1227,29 @@ def GbibClean():
 
         if sourcepath is not None:
             with open(sourcepath) as file:
-                source = file.read()
+                raw = file.read()
+                parsed = MyBibTexParser(
+                    homogenize_fields=True,
+                    ignore_nonstandard_types=True,
+                    add_missing_from_crossref=True,
+                    common_strings=True,
+                ).parse(raw)
+                data = unique(parsed.entries)
 
         # basic clean
 
+        parsed.comments = []
+        parsed.strings = OrderedDict()
+
         data = clean(
-            source,
+            data,  # todo: parse first, concatenate parsed text
             sep_name=args.author_sep,
             sep_journal=args.journal_sep,
             title=not args.no_title,
             protect_math=not args.ignore_math,
             rm_unicode=not args.ignore_unicode,
-            sort_entries=args.sort_entries,
             no_abbreviate=args.raw_author if args.raw_author else [],
         )
-
-        if data != parse(data):
-            warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
 
         # reformat arXiv entries
 
@@ -1014,7 +1264,56 @@ def GbibClean():
             journal_database=args.journals.split(","),
         )
 
-        if data == source:
+        # clever merge duplicates
+
+        if args.unique:
+
+            data, merge = clever_merge(data)
+            newnames = {k: v for k, v in renamed.items()}
+
+            for key in merge:
+                for i, value in enumerate(merge[key]):
+                    if value in renamed:
+                        merge[key][i] = renamed[value]
+                        renamed.pop(value)
+
+            for key in renamed:
+                if key in merge:
+                    merge[key].append(renamed[key])
+                else:
+                    merge[key] = [renamed[key]]
+
+            for key in merge:
+                merge[key] = list(set(merge[key]))
+                for value in merge[key]:
+                    if value == key:
+                        merge[key].remove(value)
+
+            merge = {key: merge[key] for key in merge if len(merge[key]) > 0}
+
+            keys = [entry["ID"] for entry in data]
+            for i, key in enumerate(keys):
+                if key in newnames:
+                    if newnames[key] not in keys:
+                        data[i]["ID"] = newnames[key]
+                        merge[newnames[key]] = merge.pop(key)
+
+            yaml_dump(args.unique, merge, force=True)
+
+        elif len(renamed) > 0:
+
+            merged = ", ".join([f'"{i}" -> "{renamed[i]}"' for i in renamed])
+            warnings.warn(f"Renaming conflicts, please check:\n{merged}", Warning)
+
+        # write output
+
+        parsed.entries = data
+        data = MyBibTexWriter(sort_entries=args.sort_entries).write(parsed)
+
+        if data != parse(data):
+            warnings.warn("Re-parsing is failing, there might be dangling {}", Warning)
+
+        if data == raw:
             return 0
 
         with open(outpath, "w") as file:
@@ -1023,15 +1322,15 @@ def GbibClean():
         if args.diff is not None:
 
             if args.diff_type.lower() == "raw":
-                simple = source
+                simple = raw
             elif args.diff_type.lower() == "plain":
                 try:
-                    simple = parse(source)
+                    simple = parse(raw)
                 except:
-                    simple = parse(source, aggresive=True)
+                    simple = parse(raw, aggresive=True)
                     warnings.warn("Light parsing for diff failed", Warning)
             elif args.diff_type.lower() == "select":
-                simple = select(source)
+                simple = select(raw)
             else:
                 raise OSError("Unknown option for --diff-type")
 
