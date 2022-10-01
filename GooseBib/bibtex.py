@@ -207,6 +207,15 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
     ``"DISPLAY_ORDER"`` to preserve the order of each item.
     """
 
+    def __init__(self, *args, **kwargs):
+
+        kwargs.setdefault("homogenize_fields", True)
+        kwargs.setdefault("ignore_nonstandard_types", True)
+        kwargs.setdefault("add_missing_from_crossref", True)
+        kwargs.setdefault("common_strings", True)
+
+        super().__init__(self, *args, **kwargs)
+
     def parse(self, bibtex_str, *args, **kwargs):
 
         order, indent = read_display_order(bibtex_str, kwargs.pop("tabsize", 2))
@@ -248,14 +257,14 @@ def parse(bibtex_str: str, aggresive: bool = False) -> str:
     writer = MyBibTexWriter()
 
     if aggresive:
-        parser = MyBibTexParser(
-            homogenize_fields=True,
-            ignore_nonstandard_types=True,
-            add_missing_from_crossref=True,
-            common_strings=True,
-        )
-    else:
         parser = MyBibTexParser()
+    else:
+        parser = MyBibTexParser(
+            homogenize_fields=False,
+            ignore_nonstandard_types=False,
+            add_missing_from_crossref=False,
+            common_strings=False,
+        )
 
     return writer.write(parser.parse(bibtex_str))
 
@@ -365,28 +374,15 @@ def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
 
 @select.register(str)
 def _(data, *args, **kwargs) -> str:
-
     writer = MyBibTexWriter()
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
     return writer.write(select(parser.parse(data), *args, **kwargs))
 
 
 @select.register(io.IOBase)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
-
+    parser = MyBibTexParser()
     return writer.write(select(parser.parse(data), *args, **kwargs))
 
 
@@ -433,14 +429,8 @@ def _(data, *args, **kwargs) -> Tuple[bibtexparser.bibdatabase.BibDatabase, dict
 
 @unique_keys.register(str)
 def _(data, *args, **kwargs) -> Tuple[str, dict]:
-
     writer = MyBibTexWriter()
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
     data, renamed = unique_keys(parser.parse(data), *args, **kwargs)
     return writer.write(data), renamed
 
@@ -499,14 +489,8 @@ def _(data, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
 
 @unique.register(str)
 def _(data, *args, **kwargs) -> str:
-
     writer = MyBibTexWriter()
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
     return writer.write(unique(parser.parse(data), *args, **kwargs))
 
 
@@ -615,7 +599,6 @@ def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
 
 @clever_merge.register(str)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     data, merge = clever_merge(parser.parse(data), *args, **kwargs)
@@ -624,7 +607,6 @@ def _(data, *args, **kwargs):
 
 @clever_merge.register(io.IOBase)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     data, merge = clever_merge(parser.parse(data), *args, **kwargs)
@@ -758,14 +740,8 @@ def _(data: str, *args, **kwargs) -> str:
 
     :param sort_entries: Sort entries in output.
     """
-
     writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
     return writer.write(clean(parser.parse(data), *args, **kwargs))
 
 
@@ -776,14 +752,8 @@ def _(data: io.IOBase, *args, **kwargs) -> str:
 
     :param sort_entries: Sort entries in output.
     """
-
     writer = MyBibTexWriter(sort_entries=kwargs.pop("sort_entries", False))
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
     return writer.write(clean(parser.parse(data), *args, **kwargs))
 
 
@@ -834,14 +804,12 @@ def abbreviate_journal(
 
 @abbreviate_journal.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
-
     data.entries = abbreviate_journal(data.entries, *args, **kwargs)
     return data
 
 
 @abbreviate_journal.register(str)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     return writer.write(abbreviate_journal(parser.parse(data), *args, **kwargs))
@@ -849,7 +817,6 @@ def _(data, *args, **kwargs):
 
 @abbreviate_journal.register(io.IOBase)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     return writer.write(abbreviate_journal(parser.parse(data), *args, **kwargs))
@@ -918,14 +885,12 @@ def format_journal_arxiv(
 
 @format_journal_arxiv.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
-
     data.entries = format_journal_arxiv(data.entries, *args, **kwargs)
     return data
 
 
 @format_journal_arxiv.register(str)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs))
@@ -933,7 +898,6 @@ def _(data, *args, **kwargs):
 
 @format_journal_arxiv.register(io.IOBase)
 def _(data, *args, **kwargs):
-
     writer = MyBibTexWriter()
     parser = MyBibTexParser()
     return writer.write(format_journal_arxiv(parser.parse(data), *args, **kwargs))
@@ -1190,12 +1154,7 @@ def GbibClean():
             with open(filepath) as file:
                 text = file.read()
                 raw += text
-                parsed = MyBibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ).parse(text)
+                parsed = MyBibTexParser().parse(text)
                 data += unique(parsed.entries)
                 data, r = unique_keys(data)
                 renamed = {**renamed, **r}
@@ -1228,12 +1187,7 @@ def GbibClean():
         if sourcepath is not None:
             with open(sourcepath) as file:
                 raw = file.read()
-                parsed = MyBibTexParser(
-                    homogenize_fields=True,
-                    ignore_nonstandard_types=True,
-                    add_missing_from_crossref=True,
-                    common_strings=True,
-                ).parse(raw)
+                parsed = MyBibTexParser().parse(raw)
                 data = unique(parsed.entries)
 
         # basic clean
@@ -1386,12 +1340,7 @@ def GbibShowAuthorRename():
         with open(filepath) as file:
             source += file.read()
 
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
 
     data = parser.parse(source)
     old = []
@@ -1563,12 +1512,7 @@ def GbibDiscover():
         with open(filepath) as file:
             source += file.read()
 
-    parser = MyBibTexParser(
-        homogenize_fields=True,
-        ignore_nonstandard_types=True,
-        add_missing_from_crossref=True,
-        common_strings=True,
-    )
+    parser = MyBibTexParser()
 
     data = parser.parse(source)
     output = {}
