@@ -663,11 +663,7 @@ def clean(
         if entry["ID"] not in no_abbreviate:
             for key in ["author", "editor"]:
                 if key in entry:
-                    names = re.split(r"\ and\ ", entry[key].replace("\n", " "), flags=re.IGNORECASE)
-                    if not re.match(r"(\{)(.*)(\})", entry[key]):
-                        names = bibtexparser.customization.getnames(names)
-                    names = [reformat.abbreviate_firstname(i, sep_name) for i in names]
-                    entry[key] = " and ".join(names)
+                    entry[key] = reformat.autoformat_names(entry[key], sep_name)
 
         # remove title
         if not title:

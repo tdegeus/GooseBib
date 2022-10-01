@@ -3,6 +3,7 @@ Automatic formatting.
 """
 import re
 
+import bibtexparser
 from bibtexparser.latexenc import latex_to_unicode
 
 
@@ -30,6 +31,24 @@ def remove_wrapping_braces(string: str) -> str:
     return _subr(r"(\{)(.*)(\})", r"\2", string)
 
 
+def autoformat_names(names: str, sep: str = " ") -> str:
+    """
+    Automatically format names. E.g.::
+
+        de Geus, Thomas Willem Jan and Wyart, Matthieu
+        de Geus, T.W.J. and Wyart, M.
+
+    :param name: Names formatted as "lastname, firstname and lastname, firstname ...".
+    :param sep: Separator to place between initials.
+    :return: Formatted names.
+    """
+
+    ret = re.split(r"\ and\ ", names.replace("\n", " "), flags=re.IGNORECASE)
+    if not re.match(r"(\{)(.*)(\})", names):
+        ret = bibtexparser.customization.getnames(ret)
+    return " and ".join([abbreviate_firstname(i, sep) for i in ret])
+
+
 def abbreviate_firstname(name: str, sep: str = " ") -> str:
     """
     Abbreviate first name(s) to initials.
@@ -49,6 +68,20 @@ def abbreviate_firstname(name: str, sep: str = " ") -> str:
 
     if len(name.split(",")) > 2:
         raise OSError(f'Unable to interpret name "{name}"')
+
+    # convert illegal LaTeX that that places the accent on the sapce
+
+    match = [
+        (re.compile(r"(.*)(\")(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
+        (re.compile(r"(.*)(\')(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
+        (re.compile(r"(.*)(\^)(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
+    ]
+
+    for regex, sub in match:
+        if re.match(regex, name):
+            name = re.sub(regex, sub, name)
+
+    # do replacement
 
     match = [
         (re.compile(r"(.*)(\(.*\))", re.UNICODE), r"\1"),

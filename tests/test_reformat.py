@@ -50,6 +50,28 @@ class Test_reformat(unittest.TestCase):
             r"Temizer, \.{I}.   \.{I}.",
         )
 
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"{Ben Arous}, {G{\'{e}}rard}", sep="   "),
+            r"{Ben Arous}, G.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Lema{\^{i}}tre, Ana{\"{e}}l", sep="   "),
+            r"Lema{\^{i}}tre, A.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Lema{\^i}tre, Ana{\"e}l", sep="   "),
+            r"Lema{\^i}tre, A.",
+        )
+
+        self.assertEqual(
+            bib.reformat.autoformat_names(
+                r"Chattoraj, Joyjit and Caroli, Christiane and Lemaitre, Ana{\" e}l"
+            ),
+            r"Chattoraj, J. and Caroli, C. and Lemaitre, A.",
+        )
+
     def test_protect_math(self):
 
         simple = r"$\tau$"
