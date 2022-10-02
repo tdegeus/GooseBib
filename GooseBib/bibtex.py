@@ -25,6 +25,7 @@ import click
 import numpy as np
 import tqdm
 import yaml
+from bibtexparser.latexenc import latex_to_unicode
 from numpy.typing import ArrayLike
 
 from . import journals
@@ -453,11 +454,15 @@ def _merge(data: list[dict], iforward: ArrayLike, ibackward: ArrayLike, merge: b
                 if key not in unique[n]:
                     unique[n][key] = data[o][key]
                 elif not key.isupper():
-                    if (
+                    if latex_to_unicode(
                         unique[n][key].strip("{").strip("}").lower()
-                        != data[o][key].strip("{").strip("}").lower()
-                    ):
-                        warnings.warn(f'"{n}:{key}" and "{o}:{key}" inconsistent', Warning)
+                    ) != latex_to_unicode(data[o][key].strip("{").strip("}").lower()):
+                        nk = unique[n]["ID"]
+                        ok = data[o]["ID"]
+                        msg = f'"{nk}:{key}" and "{ok}:{key}" inconsistent'
+                        msg += f'\n"{unique[n][key]}"'
+                        msg += f'\n"{data[o][key]}"'
+                        warnings.warn(msg, Warning)
 
     sorter = np.argsort(iforward)
     data = [unique[i] for i in sorter]
@@ -528,8 +533,6 @@ def clever_merge(data: list[dict], merge: bool = True) -> list[dict]:
                 + "journal: "
                 + entry["journal"].lower().strip("{").strip("}")
             )
-        elif "title" in entry:
-            selector.append("title: " + entry["title"].lower().strip("{").strip("}"))
         else:
             selector.append(f"keep: {i:d}")
 
@@ -1180,6 +1183,7 @@ def GbibClean():
     args = parser.parse_args()
     renamed = {}
     merge = {}
+    is_unique = False
 
     # read input/output filepaths
 
@@ -1205,16 +1209,29 @@ def GbibClean():
         sourcepaths = [None]
         outpaths = [args.output]
 
-        for filepath in args.files:
+        if len(args.files) == 1:
+
+            filepath = args.files[0]
             if not os.path.isfile(filepath):
                 raise OSError(f'"{filepath}" does not exist')
             with open(filepath) as file:
                 text = file.read()
                 raw += text
                 parsed = MyBibTexParser().parse(text)
-                data += unique(parsed.entries)
-                data, r = unique_keys(data)
-                renamed = {**renamed, **r}
+                data = parsed.entries
+        else:
+
+            for filepath in args.files:
+                if not os.path.isfile(filepath):
+                    raise OSError(f'"{filepath}" does not exist')
+                with open(filepath) as file:
+                    text = file.read()
+                    raw += text
+                    parsed = MyBibTexParser().parse(text)
+                    data += unique(parsed.entries)
+                    data, r = unique_keys(data)
+                    renamed = {**renamed, **r}
+                    is_unique = True
 
         if not args.force:
 
@@ -1245,7 +1262,7 @@ def GbibClean():
             with open(sourcepath) as file:
                 raw = file.read()
                 parsed = MyBibTexParser().parse(raw)
-                data = unique(parsed.entries)
+                data = parsed.entries
 
         # basic clean
 
@@ -1261,6 +1278,9 @@ def GbibClean():
             rm_unicode=not args.ignore_unicode,
             no_abbreviate=args.raw_author if args.raw_author else [],
         )
+
+        if not is_unique:
+            data = unique(data)
 
         # reformat arXiv entries
 
