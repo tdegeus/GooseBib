@@ -1079,6 +1079,7 @@ def generate_default(domain: str) -> dict[Journal]:
         db["Science"].add_variation("Science (80-. ).")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhys. Lett.)")
+        db["Reports on Progress in Physics"].add_variation("Reports Prog. Phys.")
         db["Modelling and Simulation in Materials Science and Engineering"].add_variation(
             "Modelling Simul. Mater. Sci. Eng."
         )
