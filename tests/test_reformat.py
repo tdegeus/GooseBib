@@ -101,6 +101,12 @@ class Test_reformat(unittest.TestCase):
 
         self.assertEqual(bib.reformat.name2key("de Geus, Tom"), "DeGeus")
 
+    def test_page_range(self):
+
+        self.assertEqual(bib.reformat.number_range("1-6"), "1--6")
+        self.assertEqual(bib.reformat.number_range("47–58"), "47--58")
+        self.assertEqual(bib.reformat.number_range("100"), "100")
+
 
 if __name__ == "__main__":
 
