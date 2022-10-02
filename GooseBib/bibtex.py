@@ -544,7 +544,16 @@ def clever_merge(data: list[dict], merge: bool = True) -> list[dict]:
     selector = []
 
     for i, entry in enumerate(data):
-        if "author" not in entry:
+        if "editor" in entry and "author" not in entry and entry["ENTRYTYPE"] == "book":
+            selector.append(
+                "year: "
+                + entry["year"].lower().strip("{").strip("}")
+                + "title: "
+                + entry["title"].lower().strip("{").strip("}")
+                + "editor: "
+                + entry["editor"].lower().strip("{").strip("}")
+            )
+        elif "author" not in entry:
             selector.append(f"keep: {i:d}")
         elif "year" not in entry:
             selector.append(f"keep: {i:d}")
@@ -1049,17 +1058,17 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
-        "--raw-author",
-        type=str,
-        action="append",
-        help="List entries for which names are not abbreviated.",
-    )
-
-    parser.add_argument(
         "--journal-sep",
         type=str,
         default="",
         help="Character to separate journal abbreviations.",
+    )
+
+    parser.add_argument(
+        "--raw-author",
+        type=str,
+        action="append",
+        help="List entries for which names are not abbreviated.",
     )
 
     parser.add_argument(
@@ -1081,9 +1090,11 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
-        "--sort-entries",
-        action="store_true",
-        help="Sort output by entries.",
+        "--rename",
+        type=str,
+        nargs=2,
+        action="append",
+        help="Rename citation keys (applied after merging).",
     )
 
     parser.add_argument(
@@ -1092,6 +1103,12 @@ def _GbibClean_parser():
         nargs=2,
         action="append",
         help="Force merging of items.",
+    )
+
+    parser.add_argument(
+        "--sort-entries",
+        action="store_true",
+        help="Sort output by entries.",
     )
 
     parser.add_argument(
@@ -1182,7 +1199,7 @@ def GbibClean():
     parser = _GbibClean_parser()
     args = parser.parse_args()
     renamed = {}
-    merge = {}
+    merged = {}
     is_unique = False
 
     # read input/output filepaths
@@ -1270,7 +1287,7 @@ def GbibClean():
         parsed.strings = OrderedDict()
 
         data = clean(
-            data,  # todo: parse first, concatenate parsed text
+            data,
             sep_name=args.author_sep,
             sep_journal=args.journal_sep,
             title=not args.no_title,
@@ -1278,9 +1295,6 @@ def GbibClean():
             rm_unicode=not args.ignore_unicode,
             no_abbreviate=args.raw_author if args.raw_author else [],
         )
-
-        if not is_unique:
-            data = unique(data)
 
         # reformat arXiv entries
 
@@ -1295,49 +1309,74 @@ def GbibClean():
             journal_database=args.journals.split(","),
         )
 
+        # merge identical entries
+
+        if not is_unique:
+            data = unique(data)
+
         # hand merge duplicates
 
         if args.merge:
 
-            data, merge = manual_merge(data, args.merge)
+            data, merged = manual_merge(data, args.merge)
 
         # clever merge duplicates
 
         if args.unique:
 
             data, m = clever_merge(data)
-            merge = {**merge, **m}
+            merged = {**merged, **m}
+
+        # rename keys
+
+        if args.rename:
+
+            keys = [entry["ID"] for entry in data]
+
+            for oldkey, newkey in args.rename:
+                assert oldkey in keys
+                assert newkey not in keys
+                for i in np.argwhere(np.array(keys) == oldkey).ravel():
+                    data[i]["ID"] = newkey
+                    if oldkey in merged:
+                        merged[newkey] = merged.pop(oldkey)
+                    if oldkey in renamed:
+                        renamed[newkey] = renamed.pop(oldkey)
+
+        # write changed keys
+
+        if args.unique:
 
             newnames = {k: v for k, v in renamed.items()}
 
-            for key in merge:
-                for i, value in enumerate(merge[key]):
+            for key in merged:
+                for i, value in enumerate(merged[key]):
                     if value in renamed:
-                        merge[key][i] = renamed[value]
+                        merged[key][i] = renamed[value]
                         renamed.pop(value)
 
             for key in renamed:
-                if key in merge:
-                    merge[key].append(renamed[key])
+                if key in merged:
+                    merged[key].append(renamed[key])
                 else:
-                    merge[key] = [renamed[key]]
+                    merged[key] = [renamed[key]]
 
-            for key in merge:
-                merge[key] = list(set(merge[key]))
-                for value in merge[key]:
+            for key in merged:
+                merged[key] = list(set(merged[key]))
+                for value in merged[key]:
                     if value == key:
-                        merge[key].remove(value)
+                        merged[key].remove(value)
 
-            merge = {key: merge[key] for key in merge if len(merge[key]) > 0}
+            merged = {key: merged[key] for key in merged if len(merged[key]) > 0}
 
             keys = [entry["ID"] for entry in data]
             for i, key in enumerate(keys):
                 if key in newnames:
                     if newnames[key] not in keys:
                         data[i]["ID"] = newnames[key]
-                        merge[newnames[key]] = merge.pop(key)
+                        merged[newnames[key]] = merged.pop(key)
 
-            yaml_dump(args.unique, merge, force=True)
+            yaml_dump(args.unique, merged, force=True)
 
         elif len(renamed) > 0:
 
