@@ -26,6 +26,11 @@ class Test_reformat(unittest.TestCase):
         )
 
         self.assertEqual(
+            bib.reformat.abbreviate_firstname("de Geus, Thomas W. J.\\", sep="   "),
+            "de Geus, T.   W.   J.",
+        )
+
+        self.assertEqual(
             bib.reformat.abbreviate_firstname("de Geus, Thomas W.J.", sep="   "),
             "de Geus, T.   W.   J.",
         )
@@ -63,6 +68,11 @@ class Test_reformat(unittest.TestCase):
         self.assertEqual(
             bib.reformat.abbreviate_firstname(r"Lema{\^i}tre, Ana{\"e}l", sep="   "),
             r"Lema{\^i}tre, A.",
+        )
+
+        self.assertEqual(
+            bib.reformat.abbreviate_firstname(r"Manneville, S{\' e}bastien", sep="   "),
+            r"Manneville, S.",
         )
 
         self.assertEqual(

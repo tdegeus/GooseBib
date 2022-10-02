@@ -69,9 +69,12 @@ def abbreviate_firstname(name: str, sep: str = " ") -> str:
     if len(name.split(",")) > 2:
         raise OSError(f'Unable to interpret name "{name}"')
 
-    # convert illegal LaTeX that that places the accent on the sapce
+    # convert:
+    # - trailing ".\" to "."
+    # - 'illegal' LaTeX that that places the accent on the space
 
     match = [
+        (re.compile(r"^(.*)(\.\\)$"), r"\1."),
         (re.compile(r"(.*)(\")(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
         (re.compile(r"(.*)(\')(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
         (re.compile(r"(.*)(\^)(\ )([a-zA-Z])(.*)", re.UNICODE), r"\1\2\4\5"),
