@@ -2376,6 +2376,8 @@
   name: Renewable and Sustainable Energy Reviews
 - abbreviation: Rep. Prog. Phys.
   name: Reports on Progress in Physics
+  variations:
+  - Reports Prog. Phys.
 - abbreviation: Res. Notes AAS
   name: Research Notes of the AAS
 - abbreviation: Res. Astron. Astrophys.
