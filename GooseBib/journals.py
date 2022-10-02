@@ -1078,6 +1078,10 @@ def generate_default(domain: str) -> dict[Journal]:
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
         db["Science"].add_variation("Science (80-. ).")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
+        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhys. Lett.)")
+        db["Modelling and Simulation in Materials Science and Engineering"].add_variation(
+            "Modelling Simul. Mater. Sci. Eng."
+        )
 
     elif domain == "mechanics":
 
