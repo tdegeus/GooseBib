@@ -22,6 +22,27 @@ def _subr(regex, sub, text):
     return text
 
 
+def number_range(string: str) -> str:
+    """
+    Format page range.
+    This replaces "-" with "--".
+
+    :param string: A string.
+    :return: The reformatted string.
+    """
+
+    match = [
+        (re.compile(r"([0-9]*)(-)(-?)([0-9]*)"), r"\1--\4"),
+        (re.compile(r"([0-9]*)(–)(–?)([0-9]*)", re.UNICODE), r"\1--\4"),
+    ]
+
+    for regex, sub in match:
+        if re.match(regex, string):
+            string = re.sub(regex, sub, string)
+
+    return string
+
+
 def remove_wrapping_braces(string: str) -> str:
     """
     Remove wrapping "{...}".

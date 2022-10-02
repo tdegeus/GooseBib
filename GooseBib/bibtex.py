@@ -718,6 +718,11 @@ def clean(
                 if key in entry:
                     entry[key] = reformat.autoformat_names(entry[key], sep_name)
 
+        # uniform range 000--000
+        for key in ["pages", "number", "volume"]:
+            if key in entry:
+                entry[key] = reformat.number_range(entry[key])
+
         # remove title
         if not title:
             entry.pop("title", None)
