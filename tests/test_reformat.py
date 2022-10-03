@@ -82,6 +82,13 @@ class Test_reformat(unittest.TestCase):
             r"Chattoraj, J. and Caroli, C. and Lemaitre, A.",
         )
 
+        self.assertEqual(
+            bib.reformat.autoformat_names(
+                r"Sagun, Levent and {G\"uney}, V. {U\u{g}ur} and {G{\'{e}}rard} {Ben Arous}"
+            ),
+            r"Sagun, L. and {G\"uney}, V.U. and {Ben Arous}, G.",
+        )
+
     def test_protect_math(self):
 
         simple = r"$\tau$"

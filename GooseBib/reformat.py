@@ -63,10 +63,12 @@ def autoformat_names(names: str, sep: str = " ") -> str:
     :param sep: Separator to place between initials.
     :return: Formatted names.
     """
-
-    ret = re.split(r"\ and\ ", names.replace("\n", " "), flags=re.IGNORECASE)
     if not re.match(r"(\{)(.*)(\})", names):
+        ret = re.split(r"\ and\ ", names.replace("\n", " "), flags=re.IGNORECASE)
         ret = bibtexparser.customization.getnames(ret)
+    else:
+        ret = re.split(r"\ and\ ", names.replace("\n", " "), flags=re.IGNORECASE)
+
     return " and ".join([abbreviate_firstname(i, sep) for i in ret])
 
 
@@ -117,6 +119,7 @@ def abbreviate_firstname(name: str, sep: str = " ") -> str:
     ]
 
     last, first = name.split(",")
+
     first = latex_to_unicode(first)
     first = first.replace(".", ". ").replace("-", "- ").replace(r"\. ", r"\.") + " "
     names = [latex_to_unicode(i[0]) for i in re.findall(r"([^\s]*)(\s+)", first)][1:]
