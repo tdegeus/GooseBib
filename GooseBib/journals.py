@@ -1086,6 +1086,14 @@ def generate_default(domain: str) -> dict[Journal]:
             "Modelling Simul. Mater. Sci. Eng."
         )
 
+        if "Nature Communications" not in db:
+            db["Nature Communications"] = Journal(
+                name="Nature Communications",
+                abbreviation="Nat. Commun.",
+            )
+        else:
+            raise ValueError("Nature Communications already in database, please remove workaround")
+
     elif domain == "mechanics":
 
         db = download_from_jabref("mechanical")
