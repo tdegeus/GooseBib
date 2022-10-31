@@ -7183,6 +7183,9 @@
   name: Nature Photonics
 - abbreviation: Nat. Phys.
   name: Nature Physics
+  variations:
+  - Nature Phys
+  - Nature Phys.
 - abbreviation: Nat. Protoc.
   name: Nature Protocols
 - abbreviation: Nat. Rev. Cancer

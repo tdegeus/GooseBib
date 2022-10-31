@@ -1212,6 +1212,8 @@ def generate_default(domain: str) -> dict[Journal]:
             abbreviation="Proc. Inst. Mech. Eng. Part I",
         )
 
+        db["Nature Physics"].add_variation("Nature Phys")
+        db["Nature Physics"].add_variation("Nature Phys.")
         db["International Journal for Numerical Methods in Engineering"].set_acronym("IJNME")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
