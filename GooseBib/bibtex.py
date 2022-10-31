@@ -974,7 +974,9 @@ def _GbibClean_parser():
     Return parser for :py:func:`GbibClean`.
     """
 
-    class BlankLinesHelpFormatter(argparse.RawTextHelpFormatter):
+    class BlankLinesHelpFormatter(
+        argparse.RawTextHelpFormatter, argparse.ArgumentDefaultsHelpFormatter
+    ):
         def _split_lines(self, text, width):
             return super()._split_lines(text, width) + [""]
 
