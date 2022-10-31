@@ -1072,14 +1072,6 @@ def generate_default(domain: str) -> dict[Journal]:
             abbreviation="Model. Simul. Mater. Sci. Eng.",
         )
 
-        if "Nature Communications" not in db:
-            db["Nature Communications"] = Journal(
-                name="Nature Communications",
-                abbreviation="Nat. Commun.",
-            )
-        else:
-            raise ValueError("Nature Communications already in database, please remove workaround")
-
         db["Physical Review Letters"].set_acronym("PRL")
         db["Physical Review X"].set_acronym("PRX")
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
