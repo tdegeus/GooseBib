@@ -1861,6 +1861,9 @@
   name: Nature Photonics
 - abbreviation: Nat. Phys.
   name: Nature Physics
+  variations:
+  - Nature Phys
+  - Nature Phys.
 - abbreviation: Nat. Rev. Mater.
   name: Nature Reviews Materials
 - abbreviation: Naturwissenschaften

@@ -1077,6 +1077,8 @@ def generate_default(domain: str) -> dict[Journal]:
         db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
         db["International Journal of Solids and Structures"].set_acronym("IJSS")
         db["Science"].add_variation("Science (80-. ).")
+        db["Nature Physics"].add_variation("Nature Phys")
+        db["Nature Physics"].add_variation("Nature Phys.")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
         db["EPL (Europhysics Letters)"].add_variation("EPL (Europhys. Lett.)")
         db["Reports on Progress in Physics"].add_variation("Reports Prog. Phys.")
