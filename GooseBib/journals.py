@@ -1072,20 +1072,6 @@ def generate_default(domain: str) -> dict[Journal]:
             abbreviation="Model. Simul. Mater. Sci. Eng.",
         )
 
-        db["Physical Review Letters"].set_acronym("PRL")
-        db["Physical Review X"].set_acronym("PRX")
-        db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
-        db["International Journal of Solids and Structures"].set_acronym("IJSS")
-        db["Science"].add_variation("Science (80-. ).")
-        db["Nature Physics"].add_variation("Nature Phys")
-        db["Nature Physics"].add_variation("Nature Phys.")
-        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
-        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhys. Lett.)")
-        db["Reports on Progress in Physics"].add_variation("Reports Prog. Phys.")
-        db["Modelling and Simulation in Materials Science and Engineering"].add_variation(
-            "Modelling Simul. Mater. Sci. Eng."
-        )
-
         if "Nature Communications" not in db:
             db["Nature Communications"] = Journal(
                 name="Nature Communications",
@@ -1093,6 +1079,21 @@ def generate_default(domain: str) -> dict[Journal]:
             )
         else:
             raise ValueError("Nature Communications already in database, please remove workaround")
+
+        db["Physical Review Letters"].set_acronym("PRL")
+        db["Physical Review X"].set_acronym("PRX")
+        db["Journal of the Mechanics and Physics of Solids"].set_acronym("JMPS")
+        db["International Journal of Solids and Structures"].set_acronym("IJSS")
+        db["Science"].add_variation("Science (80-. ).")
+        db["Nature Physics"].add_variation("Nature Phys")
+        db["Nature Physics"].add_variation("Nature Phys.")
+        db["Nature Communications"].add_variation("Nat Commun")
+        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhysics Lett.")
+        db["EPL (Europhysics Letters)"].add_variation("EPL (Europhys. Lett.)")
+        db["Reports on Progress in Physics"].add_variation("Reports Prog. Phys.")
+        db["Modelling and Simulation in Materials Science and Engineering"].add_variation(
+            "Modelling Simul. Mater. Sci. Eng."
+        )
 
     elif domain == "mechanics":
 

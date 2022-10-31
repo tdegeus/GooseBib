@@ -1851,6 +1851,8 @@
   name: Nature Catalysis
 - abbreviation: Nat. Commun.
   name: Nature Communications
+  variations:
+  - Nat Commun
 - abbreviation: Nat. Energy
   name: Nature Energy
 - abbreviation: Nat. Geosci.
