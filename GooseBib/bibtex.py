@@ -760,7 +760,6 @@ def clean(
         # fix underscore problems
         # -
         if "doi" in entry:
-            entry["doi"] = entry["doi"].replace("_", r"\_")
             entry["doi"] = re.sub(r"[\{}]?[\\]+\_[\}]?", r"\\_", entry["doi"])
         # -
         if "url" in entry:
