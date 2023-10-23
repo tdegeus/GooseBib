@@ -26,7 +26,6 @@ from .. import version
 
 
 def Error(msg, exit_code=1):
-
     print(msg)
 
     sys.exit(exit_code)
@@ -36,7 +35,6 @@ def Error(msg, exit_code=1):
 
 
 def tex2cite(tex):
-
     # extract keys from "cite"
     def extract(s):
         try:
@@ -58,7 +56,6 @@ def tex2cite(tex):
 
 
 def main():
-
     # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments

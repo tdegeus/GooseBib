@@ -11,7 +11,6 @@ class Test_journals(unittest.TestCase):
     """
 
     def test_Journal(self):
-
         name = "name"
         abbreviation = "abbr"
         acronym = "acro"
@@ -94,7 +93,6 @@ class Test_journals(unittest.TestCase):
         self.assertEqual(assume, dict(entry))
 
     def test_JournalList(self):
-
         lst = bib.journals.JournalList()
         lst.names = np.array(["a", "b", "c", "a", "d"])
         lst.index = np.array([0, 0, 3, 2, 2])
@@ -123,7 +121,6 @@ class Test_journals(unittest.TestCase):
         self.assertEqual(assume, [dict(i) for i in lst.tolist()])
 
     def test_JournalList_no_force_first(self):
-
         lst = bib.journals.JournalList()
         lst.names = np.array(["a", "b", "c", "a", "d"])
         lst.index = np.array([0, 0, 3, 2, 2])
@@ -152,7 +149,6 @@ class Test_journals(unittest.TestCase):
         self.assertEqual(assume, [dict(i) for i in lst.tolist()])
 
     def test_JournalList_map(self):
-
         lst = bib.journals.JournalList()
         lst.names = np.array(["a", "b", "c", "a", "d"])
         lst.index = np.array([0, 0, 3, 2, 2])
@@ -167,7 +163,6 @@ class Test_journals(unittest.TestCase):
         self.assertEqual(lst.map2acronym(["b", "foo", "d"]), ["a", "foo", "a"])
 
     def test_JournalList_map_no_force_first(self):
-
         lst = bib.journals.JournalList()
         lst.names = np.array(["a", "b", "c", "a", "d"])
         lst.index = np.array([0, 0, 3, 2, 2])
@@ -182,7 +177,6 @@ class Test_journals(unittest.TestCase):
         self.assertEqual(lst.map2acronym(["b", "foo", "d"]), ["d", "foo", "d"])
 
     def test_load(self):
-
         variations = [
             "Proc. Nat. Acad. Sci.",
             "Proc. Nat. Acad. Sci. U. S. A",
@@ -212,5 +206,4 @@ class Test_journals(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
     unittest.main()

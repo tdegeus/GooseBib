@@ -14,7 +14,6 @@ def doi() -> str:
 
 @doi.register(str)
 def _(*args) -> str:
-
     match = [
         (
             re.compile(r"(.*)(http)(s?)(://)([^\s]*)(doi.org/)([^\s]*)(.*)", re.IGNORECASE),
@@ -53,7 +52,6 @@ def _(*args) -> str:
 
 @doi.register(dict)
 def _(entry) -> str:
-
     for key in ["doi"]:
         if key in entry:
             return doi(entry[key])
@@ -73,7 +71,6 @@ def arxivid() -> str:
 
 @arxivid.register(str)
 def _(*args) -> str:
-
     match = [
         (
             re.compile(
@@ -113,7 +110,6 @@ def _(*args) -> str:
 
 @arxivid.register(dict)
 def _(entry) -> str:
-
     for key in ["arxivid", "eprint"]:
         if key in entry:
             return arxivid(entry[key])

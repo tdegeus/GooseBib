@@ -9,7 +9,6 @@ class Test_bibtex(unittest.TestCase):
     """
 
     def test_clever_merge(self):
-
         text = """
         @article{DeGeus2021,
             author = {De Geus, T.W.J},
@@ -79,5 +78,4 @@ class Test_bibtex(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
     unittest.main()

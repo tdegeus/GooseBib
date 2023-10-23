@@ -28,7 +28,6 @@ from .. import version
 
 
 def replaceUnicode(text):
-
     match = [
         ("ç", "c"),
         ("è", "e"),
@@ -79,7 +78,6 @@ def replaceUnicode(text):
 
 
 def getPlainLastName(full_name):
-
     last = full_name.split(",")[0]
 
     last = replaceUnicode(last)
@@ -94,7 +92,6 @@ def getPlainLastName(full_name):
 
 
 def main():
-
     # parse command-line options/arguments
     # change keys to simplify implementation:
     # - remove leading "-" and "--" from options
@@ -120,7 +117,6 @@ def main():
     keys = []
 
     for entry in bib.entries:
-
         old_key = entry["ID"]
         new_key = entry["ID"]
         generated = False
@@ -183,7 +179,6 @@ def main():
         ntimes[new_key] += 1
 
     for idx, (old_key, new_key, generated) in enumerate(keys):
-
         if not generated:
             continue
 

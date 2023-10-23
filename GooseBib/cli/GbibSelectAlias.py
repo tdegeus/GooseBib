@@ -35,7 +35,6 @@ from .. import version
 
 
 def Error(msg, exit_code=1):
-
     print(msg)
 
     sys.exit(exit_code)
