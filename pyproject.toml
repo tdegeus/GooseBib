@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+
+[project]
+authors = [{name = "Tom de Geus", email = "tom@geus.me"}]
+classifiers = ["License :: OSI Approved :: MIT License"]
+dependencies = ["arxiv", "bibtexparser", "click", "docopt", "GitPython", "numpy", "PyYAML", "requests", "tqdm"]
+description = "Reformat BibTeX files"
+dynamic = ["version"]
+name = "GooseBib"
+readme = "README.md"
+requires-python = ">=3.6"
+
+[project.scripts]
+GbibCheckAuthors = "GooseBib.cli.GbibCheckAuthors:main"
+GbibCheckKeys = "GooseBib.cli.GbibCheckKeys:main"
+GbibCheckLink = "GooseBib.cli.GbibCheckLink:main"
+GbibClean = "GooseBib.bibtex:GbibClean"
+GbibDiscover = "GooseBib.bibtex:GbibDiscover"
+GbibList = "GooseBib.cli.GbibList:main"
+GbibParse = "GooseBib.cli.GbibParse:main"
+GbibSelect = "GooseBib.cli.GbibSelect:main"
+GbibSelectAlias = "GooseBib.cli.GbibSelectAlias:main"
+GbibShowAuthorRename = "GooseBib.bibtex:GbibShowAuthorRename"
+
+[project.urls]
+Source = "https://github.com/tdegeus/GooseBib"
+
+[tool.setuptools.package-data]
+myModule = ["*.yaml"]
+
+[tool.setuptools_scm]
+write_to = "GooseBib/_version.py"
