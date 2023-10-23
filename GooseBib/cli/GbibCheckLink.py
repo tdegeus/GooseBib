@@ -27,7 +27,6 @@ from .. import version
 
 
 def Error(msg, exit_code=1):
-
     print(msg)
 
     sys.exit(exit_code)
@@ -37,7 +36,6 @@ def Error(msg, exit_code=1):
 
 
 def urlExists(url):
-
     request = requests.get(url)
 
     if request.status_code == 200:
@@ -50,7 +48,6 @@ def urlExists(url):
 
 
 def main():
-
     # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments

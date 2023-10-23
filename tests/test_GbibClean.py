@@ -16,7 +16,6 @@ class Test_GooseBib(unittest.TestCase):
     """
 
     def test_inplace(self):
-
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         shutil.copy2(source, output)
@@ -30,7 +29,6 @@ class Test_GooseBib(unittest.TestCase):
             data = yaml.load(file.read(), Loader=yaml.FullLoader)
 
         for entry in bib.entries:
-
             d = data[entry["ID"]]
 
             for key in d:
@@ -42,7 +40,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_mendeley(self):
-
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
@@ -55,7 +52,6 @@ class Test_GooseBib(unittest.TestCase):
             data = yaml.load(file.read(), Loader=yaml.FullLoader)
 
         for entry in bib.entries:
-
             d = data[entry["ID"]]
 
             for key in d:
@@ -67,7 +63,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_hidden_doi_arxiv(self):
-
         source = os.path.join(dirname, "library_hidden_doi_arxiv.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
@@ -80,7 +75,6 @@ class Test_GooseBib(unittest.TestCase):
             data = yaml.load(file.read(), Loader=yaml.FullLoader)
 
         for entry in bib.entries:
-
             d = data[entry["ID"]]
 
             for key in d:
@@ -92,7 +86,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_missing_doi_arxiv(self):
-
         source = os.path.join(dirname, "library_missing_doi_arxiv.bib")
         output = os.path.join(dirname, "output.yaml")
         data = os.path.join(dirname, "library.yaml")
@@ -122,7 +115,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_arxiv_preprint(self):
-
         source = os.path.join(dirname, "library_arxiv_preprint.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library_arxiv_preprint.yaml")
@@ -137,7 +129,6 @@ class Test_GooseBib(unittest.TestCase):
             data = yaml.load(file.read(), Loader=yaml.FullLoader)
 
         for entry in bib.entries:
-
             d = data[entry["ID"]]
 
             for key in d:
@@ -149,7 +140,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_authorsep(self):
-
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         data = os.path.join(dirname, "library.yaml")
@@ -168,7 +158,6 @@ class Test_GooseBib(unittest.TestCase):
             data[key]["author"] = data[key]["author"].replace("C.B.", "C. B.")
 
         for entry in bib.entries:
-
             d = data[entry["ID"]]
 
             for key in d:
@@ -180,7 +169,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_no_title(self):
-
         source = os.path.join(dirname, "library_mendeley.bib")
         output = os.path.join(dirname, "output.bib")
         subprocess.check_output(["GbibClean", "-f", "--no-title", "-o", output, source])
@@ -194,7 +182,6 @@ class Test_GooseBib(unittest.TestCase):
         os.remove(output)
 
     def test_journalrename(self):
-
         lookup = dict(
             official={
                 "IJSS": "International Journal of Solids and Structures",
@@ -214,7 +201,6 @@ class Test_GooseBib(unittest.TestCase):
         )
 
         for key in lookup:
-
             source = os.path.join(dirname, "library_mendeley.bib")
             output = os.path.join(dirname, "output.bib")
             data = os.path.join(dirname, "library.yaml")
@@ -232,7 +218,6 @@ class Test_GooseBib(unittest.TestCase):
             data["DeGeus2013"]["journal"] = lookup[key]["MRS"]
 
             for entry in bib.entries:
-
                 d = data[entry["ID"]]
 
                 for key in d:
@@ -245,5 +230,4 @@ class Test_GooseBib(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
     unittest.main()

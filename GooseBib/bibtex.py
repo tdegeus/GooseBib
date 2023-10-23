@@ -82,7 +82,6 @@ def read_display_order(bibtex_str: str, tabsize: int = 2) -> (dict, int):
     matches = list(re.finditer(r"(\@\w*\{)", bibtex_str, re.I))
 
     for m in range(len(matches)):
-
         i = matches[m].start()
 
         if m < len(matches) - 1:
@@ -209,7 +208,6 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
     """
 
     def __init__(self, *args, **kwargs):
-
         kwargs.setdefault("homogenize_fields", True)
         kwargs.setdefault("ignore_nonstandard_types", True)
         kwargs.setdefault("add_missing_from_crossref", True)
@@ -218,7 +216,6 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
         super().__init__(self, *args, **kwargs)
 
     def parse(self, bibtex_str, *args, **kwargs):
-
         order, indent = read_display_order(bibtex_str, kwargs.pop("tabsize", 2))
         data = bibtexparser.bparser.BibTexParser.parse(self, bibtex_str, *args, **kwargs)
 
@@ -232,7 +229,6 @@ class MyBibTexParser(bibtexparser.bparser.BibTexParser):
         return data
 
     def __add__(self, other):
-
         self.entries += other.entries
         self.comments += other.comments
         self.strings.update(other.strings)
@@ -348,7 +344,6 @@ def select(
         fields = ret
 
     for entry in data:
-
         select = fields[entry["ENTRYTYPE"]]
 
         if ensure_link:
@@ -437,7 +432,6 @@ def _(data, *args, **kwargs) -> Tuple[str, dict]:
 
 
 def _merge(data: list[dict], iforward: ArrayLike, ibackward: ArrayLike, merge: bool) -> list[dict]:
-
     if iforward.size == len(data):
         return data, {}
 
@@ -609,7 +603,6 @@ def clever_merge(data: list[dict], merge: bool = True) -> list[dict]:
 
 @clever_merge.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
-
     d, merge = clever_merge(data.entries, *args, **kwargs)
     data.entries = d
     return data, merge
@@ -656,7 +649,6 @@ def manual_merge(data: list[dict], keys: list[Tuple[str, str]]) -> Tuple[list[di
 
 @manual_merge.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> Tuple[bibtexparser.bibdatabase.BibDatabase, dict]:
-
     d, merge = manual_merge(data.entries, *args, **kwargs)
     data.entries = d
     return data, merge
@@ -710,7 +702,6 @@ def clean(
     ignored_authors = []
 
     for entry in data:
-
         # find identifiers
         iden = get_identifiers(entry)
         for key in iden:
@@ -904,7 +895,6 @@ def format_journal_arxiv(
     pattern = ["arxiv", "preprint", "submitted", "in preparation"]
 
     for entry in data:
-
         if "doi" in entry:
             if not re.match(search, entry["doi"]):
                 continue
@@ -928,7 +918,6 @@ def format_journal_arxiv(
                     break
 
     if len(journal_database) > 0:
-
         revus = []
         for entry in data:
             if "journal" in entry:
@@ -1206,7 +1195,6 @@ def GbibClean():
     # read input/output filepaths
 
     if args.in_place:
-
         assert args.output is None
         assert not args.diff
         assert not args.force
@@ -1216,7 +1204,6 @@ def GbibClean():
         assert all([os.path.isfile(i) for i in sourcepaths])
 
     else:
-
         if args.output is None:
             raise OSError("Specify --output STR")
         if os.path.isdir(args.output):
@@ -1228,7 +1215,6 @@ def GbibClean():
         outpaths = [args.output]
 
         if len(args.files) == 1:
-
             filepath = args.files[0]
             if not os.path.isfile(filepath):
                 raise OSError(f'"{filepath}" does not exist')
@@ -1238,7 +1224,6 @@ def GbibClean():
                 parsed = MyBibTexParser().parse(text)
                 data = parsed.entries
         else:
-
             for filepath in args.files:
                 if not os.path.isfile(filepath):
                     raise OSError(f'"{filepath}" does not exist')
@@ -1252,7 +1237,6 @@ def GbibClean():
                     is_unique = True
 
         if not args.force:
-
             overwrite = []
 
             for outpath in outpaths:
@@ -1275,7 +1259,6 @@ def GbibClean():
     # formatting
 
     for sourcepath, outpath in zip(sourcepaths, outpaths):
-
         if sourcepath is not None:
             with open(sourcepath) as file:
                 raw = file.read()
@@ -1318,20 +1301,17 @@ def GbibClean():
         # hand merge duplicates
 
         if args.merge:
-
             data, merged = manual_merge(data, args.merge)
 
         # clever merge duplicates
 
         if args.unique:
-
             data, m = clever_merge(data)
             merged = {**merged, **m}
 
         # rename keys
 
         if args.rename:
-
             keys = [entry["ID"] for entry in data]
 
             for oldkey, newkey in args.rename:
@@ -1347,7 +1327,6 @@ def GbibClean():
         # write changed keys
 
         if args.unique:
-
             newnames = {k: v for k, v in renamed.items()}
 
             for key in merged:
@@ -1380,7 +1359,6 @@ def GbibClean():
             yaml_dump(args.unique, merged, force=True)
 
         elif len(renamed) > 0:
-
             merged = ", ".join([f'"{i}" -> "{renamed[i]}"' for i in renamed])
             warnings.warn(f"Renaming conflicts, please check:\n{merged}", Warning)
 
@@ -1399,7 +1377,6 @@ def GbibClean():
             file.write(data)
 
         if args.diff is not None:
-
             if args.diff_type.lower() == "raw":
                 simple = raw
             elif args.diff_type.lower() == "plain":
@@ -1550,7 +1527,6 @@ def dbsearch_arxiv(
 
 @dbsearch_arxiv.register(bibtexparser.bibdatabase.BibDatabase)
 def _(data: str, *args, **kwargs) -> bibtexparser.bibdatabase.BibDatabase:
-
     return dbsearch_arxiv(data.entries, *args, **kwargs)
 
 

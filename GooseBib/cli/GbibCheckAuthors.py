@@ -29,7 +29,6 @@ from .. import version
 
 
 def reformatAuthor(text, sep=" "):
-
     # skip authors that cannot be split in first and last name
     if len(text.split(",")) <= 1:
         return text
@@ -63,7 +62,6 @@ def reformatAuthor(text, sep=" "):
 
 
 def replaceUnicode(text):
-
     # NB list not exhaustive, please extend!
     match = [
         ("ç", r"\c{c}"),
@@ -97,7 +95,6 @@ def replaceUnicode(text):
 
 
 def main():
-
     # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
@@ -132,7 +129,6 @@ def main():
     names = {}
 
     for entry in bib.entries:
-
         # set author separation
         sep = ""
 

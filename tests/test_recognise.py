@@ -9,7 +9,6 @@ class Test_recognise(unittest.TestCase):
     """
 
     def test_doi(self):
-
         doi = "10.1073/pnas.1906551116"
         self.assertEqual(doi, bib.recognise.doi(f"https://doi.org/{doi}"))
         self.assertEqual(doi, bib.recognise.doi(f"https://dx.doi.org/{doi}"))
@@ -24,7 +23,6 @@ class Test_recognise(unittest.TestCase):
         self.assertEqual(doi, bib.recognise.doi(f"doi:{doi}"))
 
     def test_arxiv(self):
-
         arxivid = "1904.07635"
         self.assertEqual(arxivid, bib.recognise.arxivid(f"https://arxiv.org/abs/{arxivid}"))
         self.assertEqual(arxivid, bib.recognise.arxivid(*[f"https://arxiv.org/abs/{arxivid}"]))
@@ -44,5 +42,4 @@ class Test_recognise(unittest.TestCase):
 
 
 if __name__ == "__main__":
-
     unittest.main()

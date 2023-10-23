@@ -27,7 +27,6 @@ from .. import version
 
 
 def main():
-
     # --------------------------------- parse command line arguments -------------------------------
 
     # parse command-line options/arguments
@@ -59,7 +58,6 @@ def main():
     # -------------
 
     if args["journal"]:
-
         out = []
 
         for entry in bib.entries:

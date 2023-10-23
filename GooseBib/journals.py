@@ -69,7 +69,6 @@ class Journal:
         index: list[int] = None,
         abbreviation_is_acronym: bool = False,
     ):
-
         if index:
             assert name is None
             assert abbreviation is None
@@ -229,7 +228,6 @@ class JournalList:
     """
 
     def __init__(self, data: dict[Journal] | list[Journal] = None):
-
         self.count = 0
 
         if data is None:
@@ -392,7 +390,6 @@ class JournalList:
         ret = []
 
         for i in range(np.max(self.index) + 1):
-
             i = self.index == i
             e = Journal(
                 variations=self.names[i],
@@ -687,7 +684,6 @@ def generate_default(domain: str) -> dict[Journal]:
     domain = domain.lower()
 
     if domain == "physics":
-
         # basic list from JabRef
 
         db = download_from_jabref("geology_physics", "geology_physics_variations")
@@ -1088,7 +1084,6 @@ def generate_default(domain: str) -> dict[Journal]:
         )
 
     elif domain == "mechanics":
-
         db = download_from_jabref("mechanical")
 
         _database_merge(
@@ -1228,7 +1223,6 @@ def generate_default(domain: str) -> dict[Journal]:
         )
 
     elif domain == "pnas":
-
         db = generate_default("physics")
         name = "Proceedings of the National Academy of Sciences"
         alias = "Proceedings of the National Academy of Sciences of the United States of America"
@@ -1244,7 +1238,6 @@ def generate_default(domain: str) -> dict[Journal]:
         db[name].unique()
 
     elif domain == "pnas-usa":
-
         db = generate_default("physics")
         name = "Proceedings of the National Academy of Sciences of the United States of America"
         alias = "Proceedings of the National Academy of Sciences"
@@ -1260,7 +1253,6 @@ def generate_default(domain: str) -> dict[Journal]:
         db[name].unique()
 
     elif domain == "arxiv":
-
         db = dict(arXiv=Journal(name="arXiv preprint", abbreviation="arXiv"))
 
         r = generate_default("physics")
@@ -1361,7 +1353,6 @@ def load(*args: str) -> JournalList:
     db = []
 
     for arg in args:
-
         found = False
         name = arg.lower()
 
@@ -1383,5 +1374,4 @@ def load(*args: str) -> JournalList:
 
 
 if __name__ == "__main__":
-
     update_default()
