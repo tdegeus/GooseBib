@@ -11,6 +11,7 @@ import inspect
 import io
 import os
 import re
+import sys
 import textwrap
 import warnings
 from collections import defaultdict
@@ -1181,13 +1182,20 @@ def _GbibClean_parser():
     return parser
 
 
-def GbibClean():
+def _parse(parser: argparse.ArgumentParser, cli_args: list[str]) -> argparse.ArgumentParser:
+    if cli_args is None:
+        return parser.parse_args(sys.argv[1:])
+
+    return parser.parse_args([str(arg) for arg in cli_args])
+
+
+def GbibClean(cli_args: list[str] = None):
     """
     Command-line tool to clean a BibTeX database, see ``--help``.
     """
 
     parser = _GbibClean_parser()
-    args = parser.parse_args()
+    args = _parse(parser, cli_args)
     renamed = {}
     merged = {}
     is_unique = False
