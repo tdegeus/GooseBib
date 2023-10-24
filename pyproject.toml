@@ -4,7 +4,17 @@ requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 [project]
 authors = [{name = "Tom de Geus", email = "tom@geus.me"}]
 classifiers = ["License :: OSI Approved :: MIT License"]
-dependencies = ["arxiv", "bibtexparser", "click", "docopt", "GitPython", "numpy", "PyYAML", "requests", "tqdm"]
+dependencies = [
+  "arxiv",
+  "bibtexparser",
+  "click",
+  "docopt",
+  "GitPython",
+  "numpy",
+  "PyYAML",
+  "requests",
+  "tqdm"
+]
 description = "Reformat BibTeX files"
 dynamic = ["version"]
 name = "GooseBib"
