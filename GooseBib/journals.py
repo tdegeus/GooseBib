@@ -281,14 +281,16 @@ class JournalList:
         :return: Input list with mapped items replaced where a positive match was found.
         """
 
-        ret = [i for i in journals]
+        _, iforward, ibackward = np.unique(journals, return_index=True, return_inverse=True)
 
         if case_sensitive:
             variations = self.names
-            search = journals
+            search = [journals[i] for i in iforward]
+            ret = [i for i in journals]
         else:
             variations = [str(i).lower() for i in self.names]
-            search = [i.lower() for i in journals]
+            search = [journals[i].lower() for i in iforward]
+            ret = [journals[i] for i in iforward]
 
         _, v_index, s_index = np.intersect1d(variations, search, return_indices=True)
 
@@ -299,7 +301,7 @@ class JournalList:
             for i in np.argwhere(np.array(ret) == ret[s]).ravel():
                 ret[i] = r
 
-        return ret
+        return [ret[i] for i in ibackward]
 
     def map2name(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
