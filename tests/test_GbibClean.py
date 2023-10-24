@@ -87,6 +87,32 @@ class Test_GooseBib(unittest.TestCase):
 
         os.remove(output)
 
+    def test_rename_field(self):
+        source = os.path.join(dirname, "library_hidden_doi_arxiv.bib")
+        output = os.path.join(dirname, "output.bib")
+        data = os.path.join(dirname, "library.yaml")
+        gbib.bibtex.GbibClean(["-f", "-o", output, source, "--rename-field", "arxivid", "eprint"])
+
+        with open(output) as file:
+            bib = bibtexparser.load(file, parser=bibtexparser.bparser.BibTexParser())
+
+        with open(data) as file:
+            data = yaml.load(file.read(), Loader=yaml.FullLoader)
+
+        for key in data:
+            data[key]["eprint"] = data[key].pop("arxivid")
+
+        for entry in bib.entries:
+            d = data[entry["ID"]]
+
+            for key in d:
+                if entry[key][0] == "{":
+                    self.assertEqual("{" + str(d[key]) + "}", entry[key])
+                else:
+                    self.assertEqual(str(d[key]), entry[key])
+
+        os.remove(output)
+
     def test_missing_doi_arxiv(self):
         source = os.path.join(dirname, "library_missing_doi_arxiv.bib")
         output = os.path.join(dirname, "output.yaml")
