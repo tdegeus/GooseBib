@@ -273,7 +273,7 @@ class JournalList:
 
     def _map(self, journals: list[str], case_sensitive: bool, field: ArrayLike) -> list[str]:
         """
-        Map List of names.
+        Map list of names.
 
         :param journals: List to map.
         :param case_sensitive: Keep case during look-up.
@@ -303,7 +303,7 @@ class JournalList:
 
     def map2name(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
-        Map List of names.
+        Map list of names.
 
         :param journals: List to map.
         :param case_sensitive: Keep case during look-up.
@@ -313,7 +313,7 @@ class JournalList:
 
     def map2abbreviation(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
-        Map List of names.
+        Map list of names.
 
         :param journals: List to map.
         :param case_sensitive: Keep case during look-up.
@@ -323,7 +323,7 @@ class JournalList:
 
     def map2acronym(self, journals: list[str], case_sensitive: bool = False) -> list[str]:
         """
-        Map List of names.
+        Map list of names.
 
         :param journals: List to map.
         :param case_sensitive: Keep case during look-up.
