@@ -1036,6 +1036,14 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
+        "--rename-field",
+        type=str,
+        nargs=2,
+        action="append",
+        help='Rename field (e.g. "arxivid" to "eprint").',
+    )
+
+    parser.add_argument(
         "--no-title",
         action="store_true",
         help="Remove title from BibTeX file.",
@@ -1316,6 +1324,14 @@ def GbibClean(cli_args: list[str] = None):
         if args.unique:
             data, m = clever_merge(data)
             merged = {**merged, **m}
+
+        # rename fields
+
+        if args.rename_field:
+            for oldfield, newfield in args.rename_field:
+                for entry in data:
+                    if oldfield in entry:
+                        entry[newfield] = entry.pop(oldfield)
 
         # rename keys
 
