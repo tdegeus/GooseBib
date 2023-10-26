@@ -680,6 +680,7 @@ def clean(
     protect_math: bool = True,
     rm_unicode: bool = True,
     no_abbreviate: list[str] = [],
+    select_fields: bool = True,
 ) -> list[dict]:
     r"""
     Clean a BibTeX database.
@@ -698,6 +699,7 @@ def clean(
     :param protect_math: Apply fix in :py:func:`GooseBib.reformat.protect_math`.
     :param rm_unicode: Apply fix in :py:func:`GooseBib.reformat.rm_unicode`.
     :param no_abbreviate: List of entries for which to skip author abbreviation.
+    :param select_fields: Apply :py:func:`selection` to the output.
     """
 
     ignored_authors = []
@@ -768,7 +770,14 @@ def clean(
         warnings.warn(f"Protected authors found, please check:\n{ignored_authors}", Warning)
 
     # return selection of fields
-    return select(data, fields=selection(use_bibtexparser=True))
+    if select_fields:
+        warnings.warn(
+            "``select_fields`` will be deprecated in next major release. "
+            "Please call ``selection`` directly."
+        )
+        return select(data, fields=selection(use_bibtexparser=True))
+    else:
+        return data
 
 
 @clean.register(bibtexparser.bibdatabase.BibDatabase)
@@ -1044,6 +1053,13 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
+        "--add-field",
+        type=str,
+        action="append",
+        help='Add field. For all types ``"field"``, only for one type ``typename:field``.',
+    )
+
+    parser.add_argument(
         "--no-title",
         action="store_true",
         help="Remove title from BibTeX file.",
@@ -1294,6 +1310,7 @@ def GbibClean(cli_args: list[str] = None):
             protect_math=not args.ignore_math,
             rm_unicode=not args.ignore_unicode,
             no_abbreviate=args.raw_author if args.raw_author else [],
+            select_fields=False,
         )
 
         # reformat arXiv entries
@@ -1325,13 +1342,28 @@ def GbibClean(cli_args: list[str] = None):
             data, m = clever_merge(data)
             merged = {**merged, **m}
 
-        # rename fields
+        # select and rename fields
+
+        fields = selection(use_bibtexparser=True)
+
+        if args.add_field:
+            for field in args.add_field:
+                if ":" in field:
+                    typename, field = field.split(":")
+                    fields[typename].append(field)
+                else:
+                    for typename in fields:
+                        fields[typename].append(field)
 
         if args.rename_field:
             for oldfield, newfield in args.rename_field:
+                for typename in fields:
+                    fields[typename].append(newfield)
                 for entry in data:
                     if oldfield in entry:
                         entry[newfield] = entry.pop(oldfield)
+
+        data = select(data, fields=fields)
 
         # rename keys
 
