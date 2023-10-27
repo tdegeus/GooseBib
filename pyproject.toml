@@ -43,7 +43,12 @@ include-package-data = true
 GooseBib = ["*.yaml"]
 
 [tool.setuptools.packages.find]
-exclude = ["docs*", "tests*"]
+exclude = [
+  "tests",
+  "docs",
+  ".github",
+  "."
+]
 
 [tool.setuptools_scm]
 write_to = "GooseBib/_version.py"
