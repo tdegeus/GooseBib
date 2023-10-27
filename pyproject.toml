@@ -36,8 +36,14 @@ GbibShowAuthorRename = "GooseBib.bibtex:GbibShowAuthorRename"
 [project.urls]
 Source = "https://github.com/tdegeus/GooseBib"
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.package-data]
-myModule = ["*.yaml"]
+GooseBib = ["*.yaml"]
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*"]
 
 [tool.setuptools_scm]
 write_to = "GooseBib/_version.py"
