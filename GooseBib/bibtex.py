@@ -921,10 +921,12 @@ def format_journal_arxiv(
 
         if "journal" not in entry:
             entry["journal"] = fmt.format(arxivid)
+            entry["ENTRYTYPE"] = "article"
         else:
             for i in pattern:
                 if i in entry["journal"].lower():
                     entry["journal"] = fmt.format(arxivid)
+                    entry["ENTRYTYPE"] = "article"
                     break
 
     if len(journal_database) > 0:
@@ -943,6 +945,7 @@ def format_journal_arxiv(
                     if not re.match(search, entry["doi"]):
                         continue
                 entry["journal"] = fmt.format(arxivid)
+                entry["ENTRYTYPE"] = "article"
 
     return data
 
