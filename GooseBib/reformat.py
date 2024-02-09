@@ -1,6 +1,7 @@
 """
 Automatic formatting.
 """
+
 import re
 
 import bibtexparser

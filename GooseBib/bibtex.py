@@ -5,6 +5,7 @@ For BibTeX files:
 *   Check if up-to-date.
 *   Compare.
 """
+
 import argparse
 import difflib
 import inspect
@@ -14,8 +15,8 @@ import re
 import sys
 import textwrap
 import warnings
-from collections import defaultdict
 from collections import OrderedDict
+from collections import defaultdict
 from functools import singledispatch
 from typing import Tuple
 from typing import Union
