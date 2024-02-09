@@ -140,6 +140,9 @@ def _get_arxivid(entry: dict) -> str:
     if "arxivid" in entry:
         return entry["arxivid"]
 
+    if "eprint" in entry and entry.get("archiveprefix", "").lower() == "arxiv":
+        return entry["eprint"]
+
     return recognise.arxivid(
         *[val for key, val in entry.items() if key not in ["doi", "DISPLAY_ORDER", "INDENT"]]
     )
@@ -294,7 +297,7 @@ def selection(use_bibtexparser: bool = False) -> dict:
     if use_bibtexparser:
         base += ["ID", "ENTRYTYPE", "DISPLAY_ORDER", "INDENT"]
 
-    base += ["author", "title", "year", "doi", "arxivid"]
+    base += ["author", "title", "year", "doi", "arxivid", "eprint", "archiveprefix"]
     book = ["booktitle", "editor", "publisher", "volume", "pages"]
 
     return dict(
@@ -328,10 +331,10 @@ def select(
         If a list is specified all entry types are treated the same.
 
     :param ensure_link:
-        Add URL to ``fields`` if no ``doi`` or ``arxivid`` is present.
+        Add URL to ``fields`` if no ``doi``, ``arxivid``, or , ``eprint`` is present.
 
     :param remove_url:
-        Remove URL when either a ``doi`` or an ``arxivid`` is present.
+        Remove URL when either a ```doi``, ``arxivid``, or , ``eprint`` is present.
     """
 
     if fields is None:
@@ -349,7 +352,7 @@ def select(
 
         if ensure_link:
             if "url" not in select:
-                if "doi" not in entry and "arxivid" not in entry:
+                if "doi" not in entry and "arxivid" not in entry and "eprint" not in entry:
                     select.append("url")
 
         rm = [key for key in entry if key not in select]
@@ -357,7 +360,7 @@ def select(
             del entry[key]
 
         if remove_url:
-            if "url" in entry and ("doi" in entry or "arxivid" in entry):
+            if "url" in entry and ("doi" in entry or "arxivid" in entry or "eprint" in entry):
                 del entry["url"]
 
     return data
@@ -718,6 +721,14 @@ def clean(
             elif entry["doi"] == "10.48550/arXiv." + entry["arxivid"]:
                 del entry["arxivid"]
 
+        if "eprint" in entry and entry.get("archiveprefix", "").lower() == "arxiv":
+            if "doi" not in entry:
+                entry["doi"] = "10.48550/arXiv." + entry.pop("eprint")
+                del entry["archiveprefix"]
+            elif entry["doi"] == "10.48550/arXiv." + entry["eprint"]:
+                del entry["eprint"]
+                del entry["archiveprefix"]
+
         # fix author abbreviations
         if entry["ID"] not in no_abbreviate:
             for key in ["author", "editor"]:
@@ -911,7 +922,9 @@ def format_journal_arxiv(
 
         if "arxivid" in entry:
             arxivid = entry["arxivid"]
-        elif "doi" in entry:
+        elif "eprint" in entry and entry.get("archiveprefix", "").lower() == "arxiv":
+            arxivid = entry["eprint"]
+        elif re.match(search, entry.get("doi", "None")):
             arxivid = re.split(search, entry["doi"])
             if len(arxivid) != 4:
                 continue
@@ -1553,6 +1566,8 @@ def dbsearch_arxiv(
     for entry in tqdm.tqdm(data, disable=silent):
         iden = get_identifiers(entry)
         if "arxivid" in iden:
+            continue
+        if "eprint" in iden and iden.get("archiveprefix", "").lower() == "arxiv":
             continue
         if "doi" not in iden:
             continue
