@@ -1076,6 +1076,13 @@ def _GbibClean_parser():
     )
 
     parser.add_argument(
+        "--remove-field",
+        type=str,
+        action="append",
+        help='Remove field. For all types ``"field"``, only for one type ``typename:field``.',
+    )
+
+    parser.add_argument(
         "--no-title",
         action="store_true",
         help="Remove title from BibTeX file.",
@@ -1370,6 +1377,17 @@ def GbibClean(cli_args: list[str] = None):
                 else:
                     for typename in fields:
                         fields[typename].append(field)
+
+        if args.remove_field:
+            for field in args.remove_field:
+                if ":" in field:
+                    typename, field = field.split(":")
+                    if field in fields[typename]:
+                        fields[typename].remove(field)
+                else:
+                    for typename in fields:
+                        if field in fields[typename]:
+                            fields[typename].remove(field)
 
         if args.rename_field:
             for oldfield, newfield in args.rename_field:
