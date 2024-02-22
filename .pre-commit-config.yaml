@@ -8,7 +8,7 @@ repos:
   - id: check-toml
   - id: debug-statements
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.11.0
+  rev: v2.12.0
   hooks:
   - id: pretty-format-yaml
     args: [--preserve-quotes, --autofix, --indent, '2']
@@ -25,7 +25,7 @@ repos:
   - id: rst-directive-colons
   - id: rst-inline-touching-normal
 - repo: https://github.com/psf/black
-  rev: 23.10.0
+  rev: 24.1.1
   hooks:
   - id: black
     args: [--safe, --quiet, --line-length=100]
@@ -34,17 +34,19 @@ repos:
   hooks:
   - id: autoflake
     args: [--in-place, --remove-unused-variable]
-- repo: https://github.com/asottile/reorder_python_imports
-  rev: v3.12.0
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
   hooks:
-  - id: reorder-python-imports
+  - id: isort
+    name: isort
+    args: ["--force-single-line", "--line-length=100", "--profile=black"]
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.15.0
   hooks:
   - id: pyupgrade
     args: [--py36-plus]
 - repo: https://github.com/PyCQA/flake8
-  rev: 6.1.0
+  rev: 7.0.0
   hooks:
   - id: flake8
     args: ['--ignore=E722,W503', --max-line-length=100, '--per-file-ignores=*/__init__.py:F401']

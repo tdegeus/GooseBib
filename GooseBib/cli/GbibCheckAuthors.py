@@ -15,6 +15,7 @@ Options:
 
 (c - MIT) T.W.J. de Geus | tom@geus.me | www.geus.me | github.com/tdegeus/GooseBib
 """
+
 # ==================================================================================================
 import os
 import re
