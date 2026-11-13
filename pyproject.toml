@@ -6,7 +6,7 @@ authors = [{name = "Tom de Geus", email = "tom@geus.me"}]
 classifiers = ["License :: OSI Approved :: MIT License"]
 dependencies = [
   "arxiv",
-  "bibtexparser",
+  "bibtexparser<2",
   "click",
   "docopt",
   "GitPython",
