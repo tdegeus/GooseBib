@@ -2,7 +2,7 @@ channels:
 - conda-forge
 dependencies:
 - arxiv
-- bibtexparser
+- "bibtexparser<2"
 - click
 - docopt
 - gitpython
